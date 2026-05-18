@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class Card {
     private final String m_name;
     private final int m_damage;

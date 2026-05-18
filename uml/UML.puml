@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram'
+scale 2
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+
+Board "1"*-->"4 \n m_slots" Slot : est composé de
+Slot "1"*--> "0-1 \n m_card"Card
+
+class Round(){
+-m_players : Player[2]
+-m_roundNumber : Integer
++<<create>> Round(playerName : String, number : Integer)
+}
+
+class PLayer(){
+-m_nom : String
+-m_score : Integer
+-m_board : Board
+-m_nextBoard: Optional<Board>
+-m_cemetery : ArrayList<Card>
+-m_deck : ArrayList<Card>
+-m_hand : ArrayList<Card>
++<<create>> Player(String : name, ArrayList<Card> deck, )
+
++ setName(String)
+}
+
+class Card {
+-m_name : String
+-m_damage : Integer
+-m_health : Integer
+-m_blood : Integer
+-m_bones : Integer
+-m_flying : Boolean
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
++ getHealth(): Integer
++ getAttack(): Integer
+}
+
+class Slot {
+- m_content <Optional>card
++ <<create>> Slot()
++ addCard(card : Card) : Boolean
++ removeCard() : Boolean
++ attack(other : Slot)
+}
+
+class Board {
+-m_Slots: Slot[4]
++<<create>> Board()
++ addToSlot(card : Card, index : Integer) : Boolean
++ removeOfSlot(index : Integer) : Boolean
++ attack (other : Board)
+}
+
+class PlayerScale {
+-m_scale : Integer
++ playerHit(Integer : damage)
++ opponentHit(Integer : damage)
++ getScale() : Integer
+}
+
+@enduml
