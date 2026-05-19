@@ -24,20 +24,35 @@ public class BoardTest {
     public void test_attack2(){
         board1.addToSlot(0,Card.createCorbeau());
         board2.addToSlot(0,Card.createCoyote());
-        assertEquals(0,board2.attack(board1));
+        board1.addToSlot(1,Card.createEcureuil());
+        board2.addToSlot(2,Card.createHermine());
+        board1.addToSlot(3,Card.createCoyote());
+        board2.addToSlot(3,Card.createGrizzly());
+        assertEquals(2,board1.attack(board2));
     }
     @Test
     public void test_attack3(){
         board1.addToSlot(0,Card.createCorbeau());
         board2.addToSlot(0,Card.createCoyote());
-        assertEquals(0,board2.attack(board1));
+        board1.addToSlot(1,Card.createEcureuil());
+        board2.addToSlot(2,Card.createHermine());
+        board1.addToSlot(3,Card.createCoyote());
+        board2.addToSlot(3,Card.createGrizzly());
+        assertEquals(1,board2.attack(board1));
     }
     @Test
-    public void test_attack4(){
-        board1.addToSlot(0,Card.createCorbeau());
-        board2.addToSlot(0,Card.createCoyote());
-        assertEquals(0,board2.attack(board1));
+    public void test_sacrifice(){
+        assertFalse(board1.sacrifice(1));
     }
     @Test
-    public void test_sacrifice(){}
+    public void test_sacrifice2(){
+        board1.addToSlot(1,Card.createLoup());
+        assertTrue(board1.sacrifice(1));
+    }
+    @Test
+    public void test_sacrifice3(){
+        board1.addToSlot(1,Card.createCorbeau());
+        board1.sacrifice(1);
+        assertTrue(board1.addToSlot(1,Card.createCorbeau()));
+    }
 }
