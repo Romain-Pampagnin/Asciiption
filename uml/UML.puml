@@ -28,9 +28,10 @@ class Player{
 -m_hand : ArrayList<Card>
 +<<create>> Player(String : name, ArrayList<Card> deck, )
 +<<create>> Player(ArrayList<Card> deck)
-+draw(nbCard : Integer) : Integer
-+playCard(nbSlot : Integer) : Boolean
++ draw(nbCard : Integer) : Integer
++ playCard(nbSlot : Integer) : Boolean
 + getBonesFromGrave() : Integer
++ getHand() : ArrayList<Card>
 }
 
 class Card {
@@ -41,9 +42,11 @@ class Card {
 -m_bones : Integer
 -m_flying : Boolean
 + <<create>> Card(String: n, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
++ getName() : String
 + getHealth(): Integer
 + getAttack(): Integer
 + getBones(): Integer
++ getBlood() : Integer
 + isFlying() : Boolean
 + takeDamage()
 }
@@ -62,6 +65,7 @@ class Board {
 + addToSlot(nbSlot : Integer, card Card) : Boolean
 + sacrifice(index : Integer) : Boolean
 + attack (other : Board) : Integer
++ getTotalBlood() : Integer
 /'+ isSlotFree(nbSlot : Integer) : Boolean '/
 }
 

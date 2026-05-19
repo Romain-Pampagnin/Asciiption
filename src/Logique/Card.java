@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+package Logique;
 
 public class Card {
     private final String m_name;
@@ -72,4 +72,6 @@ public class Card {
         return m_flying;
     }
     public int getBones(){return m_bones; }
+    public int getBlood(){return m_blood;}
+    public String getName(){ return m_name;}
 }

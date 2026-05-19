@@ -1,3 +1,5 @@
+package Logique;
+
 import java.util.Optional;
 
 public class Slot {

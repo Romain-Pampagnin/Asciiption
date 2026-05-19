@@ -1,3 +1,5 @@
+package Logique;
+
 import java.util.ArrayList;
 
 public class Round {
@@ -18,7 +20,7 @@ public class Round {
         while(this.m_players[0].getScore() - this.m_players[1].getScore() < 5 && this.m_players[0].getScore() - this.m_players[1].getScore() > -5)
         {
             m_players[1].draw(1);
-            m_players[1].
+            //m_players[1].
         }
 
     }

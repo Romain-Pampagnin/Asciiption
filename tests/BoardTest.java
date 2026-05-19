@@ -1,3 +1,5 @@
+import Logique.Board;
+import Logique.Card;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,7 +9,7 @@ public class BoardTest {
     Board board2 = new Board();
     @Test
     public void test_addToSlot(){
-        assertTrue(board1.addToSlot(0,Card.createCorbeau()));
+        assertTrue(board1.addToSlot(0, Card.createCorbeau()));
     }
     @Test
     public void test_addToSlot2(){

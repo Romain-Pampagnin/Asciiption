@@ -1,3 +1,5 @@
+import Logique.Card;
+import Logique.Slot;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

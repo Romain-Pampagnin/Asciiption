@@ -1,3 +1,5 @@
+package Logique;
+
 public class Board {
     private Slot[] m_slots;
     public Board(){
@@ -24,5 +26,15 @@ public class Board {
 //    }
     public boolean addToSlot(int nbSlot, Card card){
         return m_slots[nbSlot].addCard(card);
+    }
+
+    public int getTotalBlood(){
+        int totalBlood = 0;
+        for(Slot slot : m_slots){
+            if(slot.getCard().isPresent()) {
+                totalBlood += slot.getCard().get().getBlood();
+            }
+        }
+        return totalBlood;
     }
 }

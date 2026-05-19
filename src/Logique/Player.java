@@ -1,3 +1,5 @@
+package Logique;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -22,9 +24,10 @@ public class Player {
     public Player(ArrayList<Card> deck){
         this("adversaire", deck);
     }
+
     public int draw(int nbCard){
         int drawnCards=0;
-        for(int n=0;n<nbCard;n++){
+        for(int n = 0; n < nbCard; n ++){
             if (!this.m_deck.isEmpty()){
                 this.m_hand.add(this.m_deck.getFirst());
                 this.m_deck.removeFirst();
@@ -33,15 +36,25 @@ public class Player {
         }
         return drawnCards;
     }
-    public boolean playCard(int nbSlot,int nbHand){
-        if (nbSlot<=3 && nbSlot>=0){
-            if(m_board.addToSlot(nbSlot,m_hand.get(nbHand))){
-                m_hand.remove(nbHand);
-                return true;
-            }
-        }
-        return false;
-    }
+//    public EnumErrorCodes.drawCode isPlayable(int nbSlot, int nbHand){
+//        if(m_hand.get(nbHand).getBlood() >= 1){
+//            if(m_board.getTotalBlood() >= m_hand.get(nbHand).getBlood()){
+//                if(m_hand.get(nbHand).getBones() <= getBonesFromGrave()) {
+//                    return EnumErrorCodes.drawCode.CAN_PLAY;
+//                }
+//                else{
+//                    return EnumErrorCodes.drawCode.NOT_ENOUGH_BONES;
+//                }
+//            }
+//            else{
+//                return EnumErrorCodes.drawCode.NOT_ENOUGH_BLOOD;
+//            }
+//        }
+//        else{
+//
+//        }
+//        return
+//    }
 
     public int getScore(){
         return m_score;
@@ -53,5 +66,9 @@ public class Player {
             totalBones += card.getBones();
         }
         return totalBones;
+    }
+
+    public ArrayList<Card> getHand(){
+        return m_hand;
     }
 }

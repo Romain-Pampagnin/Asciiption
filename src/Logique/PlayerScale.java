@@ -1,3 +1,5 @@
+package Logique;
+
 public class PlayerScale {
     static int m_scale=0;
 
