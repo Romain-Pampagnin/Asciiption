@@ -8,6 +8,7 @@ public class SlotTest {
     Slot slot2 = new Slot();
     Card coyote = new Card("Coyote",2,1,0,4,false);
     Card ecureuil = new Card("Ecureuil",0,1,0,0,false);
+    Card corbeau = new Card("Corbeau",2,3,2,0,true);
     @Test
     public void test_getCard(){
         assertEquals(Optional.empty(),slot1.getCard());
@@ -53,5 +54,11 @@ public class SlotTest {
         slot2.addCard(ecureuil);
         slot1.attack(slot2);
         assertEquals(Optional.empty(),slot2.getCard());
+    }
+    @Test
+    public void test_attack4(){
+        slot1.addCard(coyote);
+        slot2.addCard(corbeau);
+        assertEquals(2,slot2.attack(slot1));
     }
 }
