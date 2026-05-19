@@ -8,6 +8,7 @@ public class Round {
         //a changer
         ArrayList<Card> deckPlayer = new ArrayList<Card>();
         ArrayList<Card> deckEnemy = new ArrayList<Card>();
+        //fin à changer
         m_players = new Player[2];
         m_players[0] = new Player(playerName,deckPlayer);
         m_players[1] = new Player(deckEnemy);

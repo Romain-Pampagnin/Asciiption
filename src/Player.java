@@ -20,11 +20,26 @@ public class Player {
 
     }
     public Player(ArrayList<Card> deck){
-        m_score = 0;
-        m_cemetery = new ArrayList<Card>();
-        m_hand = new ArrayList<Card>();
-        m_board = new Board();
-        m_deck = deck;
-        m_name= "adversaire";
+        this("adversaire", deck);
+    }
+    public int draw(int nbCard){
+        int drawnCards=0;
+        for(int n=0;n<nbCard;n++){
+            if (!this.m_deck.isEmpty()){
+                this.m_hand.add(this.m_deck.getFirst());
+                this.m_deck.removeFirst();
+                drawnCards++;
+            }
+        }
+        return drawnCards;
+    }
+    public boolean playCard(int nbSlot,int nbHand){
+        if (nbSlot<=3 && nbSlot>=0){
+            if(m_board.addCard(nbSlot,m_hand.get(nbHand))){
+                m_hand.remove(nbHand);
+                return true;
+            }
+        }
+        return false;
     }
 }

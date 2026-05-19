@@ -20,4 +20,10 @@ public class Board {
             //à voir :)
         }
     }
+//    public boolean isSlotFree(int nbSlot){
+//        return this.m_slots[nbSlot].getCard().isEmpty();
+//    }
+    public boolean addCard(int nbSlot,Card card){
+        return m_slots[nbSlot].addCard(card);
+    }
 }
