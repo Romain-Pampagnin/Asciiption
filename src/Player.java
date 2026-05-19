@@ -34,12 +34,22 @@ public class Player {
         return drawnCards;
     }
     public boolean playCard(int nbSlot,int nbHand){
-        if (nbSlot<=3 && nbSlot>=0){
-            if(m_board.addCard(nbSlot,m_hand.get(nbHand))){
-                m_hand.remove(nbHand);
-                return true;
-            }
+        if((nbHand > 0 && nbHand < m_hand.size()) && (m_board.addCard(nbSlot,m_hand.get(nbHand)))) {
+            m_hand.remove(nbHand);
+            return true;
         }
         return false;
+    }
+
+    public int getScore(){
+        return m_score;
+    }
+
+    public int getBonesFromGrave(){
+        int totalBones = 0;
+        for(Card card : m_cemetery){
+            totalBones += card.getBones();
+        }
+        return totalBones;
     }
 }

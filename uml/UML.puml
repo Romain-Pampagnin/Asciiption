@@ -7,19 +7,21 @@ skinparam style strictuml
 hide empty members
 
 
-Board "1"*-->"4 \n m_slots" Slot : est composé de
-Slot "1"*--> "0,1 \n m_card"Card
+Board "1  "*-->"4 \n m_slots" Slot : "   est composé de"
+Slot "1  "*---> "0,1 \n m_card"Card : "   accueille"
+Game ..> Round : "   Instanciate"
+Round "1  " *--> "2  " Player : "   se joue entre"
+Player "1  " *--> "1,2\nm_board, m_nextBoard" Board : "   possède"
 
-class Round(){
+class Round{
 -m_players : Player[2]
 -m_roundNumber : Integer
 +<<create>> Round(playerName : String, number : Integer)
 }
 
-class PLayer(){
+class Player{
 -m_nom : String
 -m_score : Integer
--m_board : Board
 -m_nextBoard: Optional<Board>
 -m_cemetery : ArrayList<Card>
 -m_deck : ArrayList<Card>
@@ -28,6 +30,7 @@ class PLayer(){
 +<<create>> Player(ArrayList<Card> deck)
 +draw(nbCard : Integer) : Integer
 +playCard(nbSlot : Integer) : Boolean
++ getBonesFromGrave() : Integer
 }
 
 class Card {
@@ -40,6 +43,7 @@ class Card {
 + <<create>> Card(String: n, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
 + getHealth(): Integer
 + getAttack(): Integer
++ getBones(): Integer
 + isFlying() : Boolean
 + takeDamage()
 }
@@ -55,19 +59,10 @@ class Slot {
 class Board {
 -m_Slots: Slot[4]
 +<<create>> Board()
-+ addToSlot(card : Card, index : Integer) : Boolean
-+ removeOfSlot(index : Integer) : Boolean
-+ attack (other : Board)
++ addToSlot(nbSlot : Integer, card Card) : Boolean
++ sacrifice(index : Integer) : Boolean
++ attack (other : Board) : Integer
 /'+ isSlotFree(nbSlot : Integer) : Boolean '/
-+ addCard(nbSlot : Integer, card Card) : Boolean
-}
-
-class PlayerScale {
--m_scale : Integer
-+ playerHit(Integer : damage)
-+ opponentHit(Integer : damage)
-+ getScale() : Integer
-+ playCard(nbSlot : Integer, nbHand : Integer) : Boolean
 }
 
 class Game{

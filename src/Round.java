@@ -13,4 +13,13 @@ public class Round {
         m_players[0] = new Player(playerName,deckPlayer);
         m_players[1] = new Player(deckEnemy);
     }
+
+    public void run(){
+        while(this.m_players[0].getScore() - this.m_players[1].getScore() < 5 && this.m_players[0].getScore() - this.m_players[1].getScore() > -5)
+        {
+            m_players[1].draw(1);
+            m_players[1].
+        }
+
+    }
 }
