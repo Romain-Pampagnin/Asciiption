@@ -71,4 +71,5 @@ public class Card {
     public boolean isFlying(){
         return m_flying;
     }
+    public int getBones(){return m_bones; }
 }

@@ -42,4 +42,16 @@ public class Player {
         }
         return false;
     }
+
+    public int getScore(){
+        return m_score;
+    }
+
+    public int getBonesFromGrave(){
+        int totalBones = 0;
+        for(Card card : m_cemetery){
+            totalBones += card.getBones();
+        }
+        return totalBones;
+    }
 }
