@@ -51,6 +51,7 @@ public class SlotTest {
     public void test_attack3(){
         slot1.addCard(coyote);
         slot2.addCard(ecureuil);
+        slot1.attack(slot2);
         assertEquals(Optional.empty(),slot2.getCard());
     }
 }
