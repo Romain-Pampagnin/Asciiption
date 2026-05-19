@@ -16,6 +16,9 @@ public class Card {
         m_bones = bo;
         m_flying = fly;
     }
+    public void takeDamage(int nbDamage){
+        this.m_health -= nbDamage;
+    }
     public int getHealth(){
         return m_health;
     }
