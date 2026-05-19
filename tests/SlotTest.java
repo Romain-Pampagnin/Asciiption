@@ -6,12 +6,13 @@ import java.util.Optional;
 public class SlotTest {
     Slot slot1 = new Slot();
     Slot slot2 = new Slot();
-    Card coyote = new Card("Coyote",2,1,0,4,false);
-    Card ecureuil = new Card("Ecureuil",0,1,0,0,false);
+    Card coyote = Card.createCoyote();
+    Card ecureuil = Card.createEcureuil();
     @Test
     public void test_getCard(){
         assertEquals(Optional.empty(),slot1.getCard());
     }
+
     @Test
     public void test_getCard2(){
         slot1.addCard(coyote);
@@ -21,20 +22,24 @@ public class SlotTest {
     public void test_addCard(){
         assertTrue(slot1.addCard(coyote));
     }
+
     @Test
     public void test_addCard2(){
         slot1.addCard(coyote);
         assertFalse(slot1.addCard(ecureuil));
     }
+
     @Test
     public void test_removeCard(){
         assertFalse(slot1.removeCard());
     }
+
     @Test
     public void test_removeCard2(){
         slot1.addCard(coyote);
         assertTrue(slot1.removeCard());
     }
+
     @Test
     public void test_attack(){
         slot1.addCard(ecureuil);
@@ -54,4 +59,5 @@ public class SlotTest {
         slot1.attack(slot2);
         assertEquals(Optional.empty(),slot2.getCard());
     }
+
 }

@@ -5,6 +5,7 @@ public class Slot {
     public Slot(){
         m_card=Optional.empty();
     }
+
     public boolean addCard(Card card){
         if (m_card.isEmpty()){
             m_card=Optional.of(card);
@@ -12,6 +13,7 @@ public class Slot {
         }
         return false;
     }
+
     public boolean removeCard(){
         if(this.m_card.isPresent()){
             this.m_card = Optional.empty();
