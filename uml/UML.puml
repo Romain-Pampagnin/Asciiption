@@ -8,7 +8,7 @@ hide empty members
 
 
 Board "1"*-->"4 \n m_slots" Slot : est composé de
-Slot "1"*--> "0-1 \n m_card"Card
+Slot "1"*--> "0,1 \n m_card"Card
 
 class Round(){
 -m_players : Player[2]
@@ -25,8 +25,9 @@ class PLayer(){
 -m_deck : ArrayList<Card>
 -m_hand : ArrayList<Card>
 +<<create>> Player(String : name, ArrayList<Card> deck, )
-
-+ setName(String)
++<<create>> Player(ArrayList<Card> deck)
++draw(nbCard : Integer) : Integer
++playCard(nbSlot : Integer) : Boolean
 }
 
 class Card {
@@ -36,17 +37,19 @@ class Card {
 -m_blood : Integer
 -m_bones : Integer
 -m_flying : Boolean
-+ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
++ <<create>> Card(String: n, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
 + getHealth(): Integer
 + getAttack(): Integer
++ isFlying() : Boolean
++ takeDamage()
 }
 
 class Slot {
-- m_content <Optional>card
 + <<create>> Slot()
 + addCard(card : Card) : Boolean
 + removeCard() : Boolean
-+ attack(other : Slot)
++ getCard(): Card (optional)
++ attack(other : Slot) : Integer
 }
 
 class Board {
@@ -55,6 +58,8 @@ class Board {
 + addToSlot(card : Card, index : Integer) : Boolean
 + removeOfSlot(index : Integer) : Boolean
 + attack (other : Board)
+/'+ isSlotFree(nbSlot : Integer) : Boolean '/
++ addCard(nbSlot : Integer, card Card) : Boolean
 }
 
 class PlayerScale {
@@ -62,6 +67,10 @@ class PlayerScale {
 + playerHit(Integer : damage)
 + opponentHit(Integer : damage)
 + getScale() : Integer
++ playCard(nbSlot : Integer, nbHand : Integer) : Boolean
+}
+
+class Game{
 }
 
 @enduml
