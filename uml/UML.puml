@@ -6,6 +6,12 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+class Main{}
+
+
+package Logique{
+
+Main ..> Game : "   Instanciate"
 
 Board "1  "*-->"4 \n m_slots" Slot : "   est composé de"
 Slot "1  "*---> "0,1 \n m_card"Card : "   accueille"
@@ -70,6 +76,14 @@ class Board {
 }
 
 class Game{
+}
+
+}
+
+Package Affichage{
+class Display{
++{static}Hand() : String
+}
 }
 
 @enduml
