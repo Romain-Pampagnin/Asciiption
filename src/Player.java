@@ -35,7 +35,7 @@ public class Player {
     }
     public boolean playCard(int nbSlot,int nbHand){
         if (nbSlot<=3 && nbSlot>=0){
-            if(m_board.addCard(nbSlot,m_hand.get(nbHand))){
+            if(m_board.addToSlot(nbSlot,m_hand.get(nbHand))){
                 m_hand.remove(nbHand);
                 return true;
             }
