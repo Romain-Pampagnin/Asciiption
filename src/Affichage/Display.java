@@ -14,4 +14,8 @@ public class Display {
         }
         return sortie;
     }
+
+    public static String Intro(){
+        return "Vous vous retrouvez dans une cabane, perdu.e en pleine forêt. Dans l'obscurité, attablé face à vous se dresse un adversaire aux yeux inquiétants qui vous défie à un étrange jeu de cartes...";
+    }
 }
