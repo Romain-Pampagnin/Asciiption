@@ -2,6 +2,9 @@ public class Board {
     private final Slot[] m_slots;
     public Board(){
         m_slots = new Slot[4];
+        for (int i=0; i< m_slots.length; i++){
+            m_slots[i] = new Slot();
+        }
     }
     public boolean addToSlot(Card card,int index){
         if(index<4 && index>=0){
