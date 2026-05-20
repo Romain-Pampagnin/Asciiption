@@ -33,7 +33,7 @@ public class Slot {
             if(this.m_card.get().isFlying() || other.getCard().isEmpty()) {
                 return this.m_card.get().getDamage();
             }
-            if(this.m_card.get().getDamage() >= other.getCard().get().getHealth()){
+            if(this.m_card.get().getDamage() >= other.m_card.get().getHealth()){
                 other.removeCard();
             }else{
                 other.getCard().get().takeDamage(this.m_card.get().getDamage());

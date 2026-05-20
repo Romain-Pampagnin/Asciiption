@@ -72,6 +72,7 @@ class Board {
 + sacrifice(index : Integer) : Boolean
 + attack (other : Board) : Integer
 + getTotalBlood() : Integer
++ getSlot(index : Integer) : Slot
 /'+ isSlotFree(nbSlot : Integer) : Boolean '/
 }
 
