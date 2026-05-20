@@ -37,4 +37,8 @@ public class Board {
         }
         return totalBlood;
     }
+
+    public Slot getSlots(int index) {
+        return m_slots[index];
+    }
 }
