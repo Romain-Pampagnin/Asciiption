@@ -32,7 +32,7 @@ public class Board {
         int totalBlood = 0;
         for(Slot slot : m_slots){
             if(slot.getCard().isPresent()) {
-                totalBlood += slot.getCard().get().getBlood();
+                totalBlood ++;
             }
         }
         return totalBlood;
