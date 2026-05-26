@@ -16,7 +16,7 @@ public class Slot {
         return false;
     }
 
-    public boolean removeCard(){
+    public boolean removeCard(){ //retourner la carte pour pouvoir la mettre dans le cimetière
         if(this.m_card.isPresent()){
             this.m_card = Optional.empty();
             return true;

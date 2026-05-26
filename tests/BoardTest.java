@@ -1,5 +1,6 @@
 import Logique.Board;
 import Logique.Card;
+import Logique.CardFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,37 +10,37 @@ public class BoardTest {
     Board board2 = new Board();
     @Test
     public void test_addToSlot(){
-        assertTrue(board1.addToSlot(0, Card.createCorbeau()));
+        assertTrue(board1.addToSlot(0, CardFactory.createCorbeau()));
     }
     @Test
     public void test_addToSlot2(){
-        assertTrue(board1.addToSlot(0,Card.createCorbeau()));
-        assertFalse(board1.addToSlot(0,Card.createCorbeau()));
+        assertTrue(board1.addToSlot(0,CardFactory.createCorbeau()));
+        assertFalse(board1.addToSlot(0,CardFactory.createCorbeau()));
     }
     @Test
     public void test_attack(){
-        board1.addToSlot(0,Card.createCorbeau());
-        board2.addToSlot(0,Card.createCoyote());
+        board1.addToSlot(0,CardFactory.createCorbeau());
+        board2.addToSlot(0,CardFactory.createCoyote());
         assertEquals(2,board1.attack(board2));
     }
     @Test
     public void test_attack2(){
-        board1.addToSlot(0,Card.createCorbeau());
-        board2.addToSlot(0,Card.createCoyote());
-        board1.addToSlot(1,Card.createEcureuil());
-        board2.addToSlot(2,Card.createHermine());
-        board1.addToSlot(3,Card.createCoyote());
-        board2.addToSlot(3,Card.createGrizzly());
+        board1.addToSlot(0,CardFactory.createCorbeau());
+        board2.addToSlot(0,CardFactory.createCoyote());
+        board1.addToSlot(1,CardFactory.createEcureuil());
+        board2.addToSlot(2,CardFactory.createHermine());
+        board1.addToSlot(3,CardFactory.createCoyote());
+        board2.addToSlot(3,CardFactory.createGrizzly());
         assertEquals(2,board1.attack(board2));
     }
     @Test
     public void test_attack3(){
-        board1.addToSlot(0,Card.createCorbeau());
-        board2.addToSlot(0,Card.createCoyote());
-        board1.addToSlot(1,Card.createEcureuil());
-        board2.addToSlot(2,Card.createHermine());
-        board1.addToSlot(3,Card.createCoyote());
-        board2.addToSlot(3,Card.createGrizzly());
+        board1.addToSlot(0,CardFactory.createCorbeau());
+        board2.addToSlot(0,CardFactory.createCoyote());
+        board1.addToSlot(1,CardFactory.createEcureuil());
+        board2.addToSlot(2,CardFactory.createHermine());
+        board1.addToSlot(3,CardFactory.createCoyote());
+        board2.addToSlot(3,CardFactory.createGrizzly());
         assertEquals(1,board2.attack(board1));
     }
     @Test
@@ -48,13 +49,13 @@ public class BoardTest {
     }
     @Test
     public void test_sacrifice2(){
-        board1.addToSlot(1,Card.createLoup());
+        board1.addToSlot(1,CardFactory.createLoup());
         assertTrue(board1.sacrifice(1));
     }
     @Test
     public void test_sacrifice3(){
-        board1.addToSlot(1,Card.createCorbeau());
+        board1.addToSlot(1,CardFactory.createCorbeau());
         board1.sacrifice(1);
-        assertTrue(board1.addToSlot(1,Card.createCorbeau()));
+        assertTrue(board1.addToSlot(1,CardFactory.createCorbeau()));
     }
 }

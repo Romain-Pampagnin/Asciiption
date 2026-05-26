@@ -1,4 +1,5 @@
 import Logique.Card;
+import Logique.CardFactory;
 import Logique.Slot;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -8,9 +9,9 @@ import java.util.Optional;
 public class SlotTest {
     Slot slot1 = new Slot();
     Slot slot2 = new Slot();
-    Card coyote = Card.createCoyote();
-    Card ecureuil = Card.createEcureuil();
-    Card corbeau = Card.createCorbeau();
+    Card coyote = CardFactory.createCoyote();
+    Card ecureuil = CardFactory.createEcureuil();
+    Card corbeau = CardFactory.createCorbeau();
     @Test
     public void test_getCard(){
         assertEquals(Optional.empty(),slot1.getCard());

@@ -17,8 +17,44 @@ public class Display {
         return sortie;
     }
 
-    public static String Deck(Player deck){
+    public static String HandLine(Player player, int cardIndex){
+        return (cardIndex + 1) + ". " + padRight(player.getHand().get(cardIndex).getName(),9) + " PV: " + padRight(String.valueOf(player.getHand().get(cardIndex).getHealth()),2) + " Att: " + padRight(String.valueOf(player.getHand().get(cardIndex).getDamage()),2) + " Gouttes de sang: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBlood()),2) + " Os: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBones()),2);
+    }
+    public static String Player(Player player){
         String sortie = "";
+        String vide = "\n";
+        String ligneCarteG = "|           |";
+        String ligneCarteD = "|           |";
+        String labels =    "\n  Cimetière                           Votre main                              Pioche";
+        String hautBoxes = "\n*-----------*   *------------------------------------------------------*   *-----------*";
+        sortie += vide;
+        sortie += labels;
+        sortie += hautBoxes;
+        for(int i = 0; i < 5; i ++){
+            if(i == 1){
+                ligneCarteG = "|    " + padRight(String.valueOf(player.getBonesFromGrave()),3) + "    |";
+                ligneCarteD = "|    " + padRight(String.valueOf(player.getDeck().size()),3) + "    |";
+            }
+            else if(i == 2){
+                ligneCarteG = "|    Os     |";
+                ligneCarteD = "|  cartes   |";
+            }
+            else{
+                ligneCarteG = "|           |";
+                ligneCarteD = "|           |";
+            }
+
+            if(player.getHand().size() > i){
+                sortie += "\n" + ligneCarteG + "   |" + HandLine(player, i) + "|   " + ligneCarteD;
+            }
+            else{
+                sortie += "\n" + ligneCarteG + "   |                                                      |   " + ligneCarteD;
+            }
+
+        }
+        sortie += hautBoxes;
+
+        return sortie;
     }
 
     public static String Board(Board board){
@@ -99,5 +135,12 @@ public class Display {
 
     public static String padLeft(String s, int n) {
         return String.format("%" + n + "s", s);
+    }
+
+    public static String Global(Round round){
+        String result ="";
+        result += Display.Board(round.getPlayers()[1].getNexBoard().get());
+        //result += Display.Board(round.getPlayers()[1].getBoard())
+        return result;
     }
 }

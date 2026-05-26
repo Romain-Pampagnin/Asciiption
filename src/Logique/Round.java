@@ -24,4 +24,8 @@ public class Round {
         }
 
     }
+
+    public Player[] getPlayers(){
+        return m_players;
+    }
 }
