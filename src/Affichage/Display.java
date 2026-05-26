@@ -17,6 +17,10 @@ public class Display {
         return sortie;
     }
 
+    public static String Deck(Player deck){
+        String sortie = "";
+    }
+
     public static String Board(Board board){
         String sortie = "";
         String bordDeSlot = "*************";
