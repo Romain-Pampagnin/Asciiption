@@ -7,6 +7,7 @@ public class Card {
     private final int m_blood;
     private final int m_bones;
     private final boolean m_flying;
+    private final boolean m_sacrifiable;
 
     private Card(String n, int d, int h, int bl, int bo, boolean fly){
         m_name = n;
@@ -15,8 +16,19 @@ public class Card {
         m_blood = bl;
         m_bones = bo;
         m_flying = fly;
+        m_sacrifiable = true;
+    }
+    private Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
+        m_name = n;
+        m_damage = d;
+        m_health = h;
+        m_blood = bl;
+        m_bones = bo;
+        m_flying = fly;
+        m_sacrifiable = sacrifiable;
     }
 
+    // Méthodes création Animaux
     static public Card createChat(){
         return new Card("Chat",0,1,1,0,false);
     }
@@ -55,6 +67,15 @@ public class Card {
 
     static public Card createPunaise(){
         return new Card("Punaise",1,2,0,2,false);
+    }
+
+    // Méthodes création Obstacles
+    static public Card createRocher(){
+        return new Card("Rocher",0,5,0,0,false,false);
+    }
+
+    static public Card createSapin(){
+        return new Card("Sapin",0,3,0,0,false,false);
     }
 
 
