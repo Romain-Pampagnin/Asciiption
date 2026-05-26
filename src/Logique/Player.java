@@ -7,7 +7,6 @@ public class Player {
     private String m_name;
     private int m_score;
     private Board m_board;
-    private Optional<Board> m_nextBoard;
     private ArrayList<Card> m_cemetery;
     private ArrayList<Card> m_deck;
     private ArrayList<Card> m_hand;
@@ -19,13 +18,7 @@ public class Player {
         m_board = new Board();
         m_deck = deck;
         m_name= name;
-        m_nextBoard = Optional.empty(); //??
     }
-    public Player(ArrayList<Card> deck){
-        this("adversaire", deck);
-        this.m_nextBoard = Optional.of(new Board());
-    }
-
     public int draw(int nbCard){
         int drawnCards=0;
         for(int n = 0; n < nbCard; n ++){
@@ -79,9 +72,5 @@ public class Player {
 
     public Board getBoard(){
         return m_board;
-    }
-
-    public Optional<Board> getNexBoard(){
-        return this.m_nextBoard;
     }
 }
