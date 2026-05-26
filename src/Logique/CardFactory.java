@@ -42,4 +42,12 @@ public class CardFactory {
     static public Card createPunaise(){
         return new Card("Punaise",1,2,0,2,false);
     }
+
+    static public Card createRocher(){
+        return new Card("Rocher",0,5,0,0,false, false);
+    }
+
+    static public Card createSapin(){
+        return new Card("Sapin",0,3,0,0,false, false);
+    }
 }

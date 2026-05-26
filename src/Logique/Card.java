@@ -9,7 +9,7 @@ public class Card {
     private final boolean m_flying;
     private final boolean m_sacrifiable;
 
-    private Card(String n, int d, int h, int bl, int bo, boolean fly){
+    public Card(String n, int d, int h, int bl, int bo, boolean fly){
         m_name = n;
         m_damage = d;
         m_health = h;
@@ -18,7 +18,7 @@ public class Card {
         m_flying = fly;
         m_sacrifiable = true;
     }
-    private Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
+    public Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
         m_name = n;
         m_damage = d;
         m_health = h;
