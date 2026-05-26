@@ -10,7 +10,7 @@ public class PlayerBot extends Player{
         super("adversaire",deck);
         m_nextBoard = new Board();
     }
-    public Board getNexBoard(){
+    public Board getNextBoard(){
         return this.m_nextBoard;
     }
 }

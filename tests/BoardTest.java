@@ -3,11 +3,15 @@ import Logique.Card;
 import Logique.CardFactory;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 public class BoardTest {
     Board board1 = new Board();
     Board board2 = new Board();
+    Card corbac = CardFactory.createCorbeau();
+
     @Test
     public void test_addToSlot(){
         assertTrue(board1.addToSlot(0, CardFactory.createCorbeau()));
@@ -43,17 +47,15 @@ public class BoardTest {
         board2.addToSlot(3,CardFactory.createGrizzly());
         assertEquals(1,board2.attack(board1));
     }
+
     @Test
     public void test_sacrifice(){
-        assertFalse(board1.sacrifice(1));
+        board1.addToSlot(1, corbac);
+        assertEquals(corbac,board1.sacrifice(1));
     }
+
     @Test
     public void test_sacrifice2(){
-        board1.addToSlot(1,CardFactory.createLoup());
-        assertTrue(board1.sacrifice(1));
-    }
-    @Test
-    public void test_sacrifice3(){
         board1.addToSlot(1,CardFactory.createCorbeau());
         board1.sacrifice(1);
         assertTrue(board1.addToSlot(1,CardFactory.createCorbeau()));

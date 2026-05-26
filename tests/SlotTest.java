@@ -32,12 +32,12 @@ public class SlotTest {
     }
     @Test
     public void test_removeCard(){
-        assertFalse(slot1.removeCard());
+        assertEquals(Optional.empty(), slot1.removeCard());
     }
     @Test
     public void test_removeCard2(){
         slot1.addCard(coyote);
-        assertTrue(slot1.removeCard());
+        assertEquals(coyote, slot1.removeCard());
     }
     @Test
     public void test_attack(){

@@ -73,4 +73,10 @@ public class Player {
     public Board getBoard(){
         return m_board;
     }
+
+    public Card sacrifice(int index){
+        Card toBury = this.m_board.sacrifice(index);
+        m_cemetery.add(toBury);
+        return toBury;
+    }
 }

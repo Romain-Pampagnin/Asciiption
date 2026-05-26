@@ -27,7 +27,6 @@ public class Main
 
         Round round1 = new Round("yolo", 1);
         System.out.println(Display.Global(round1));
-        System.out.printf(Display.Board(board1));
-        System.out.println(Display.Player(player1));
+
     }
 }

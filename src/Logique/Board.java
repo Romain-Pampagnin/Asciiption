@@ -8,11 +8,8 @@ public class Board {
             m_slots[i] = new Slot();
         }
     }
-    public boolean sacrifice(int index){
-        if(index<4 && index>=0){
-            return m_slots[index].removeCard();
-        }
-        return false;
+    public Card sacrifice(int index){
+        return m_slots[index].removeCard();
     }
     public int attack(Board other){
         int totalDamage = 0;

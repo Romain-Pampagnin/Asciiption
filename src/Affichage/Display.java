@@ -127,20 +127,20 @@ public class Display {
         return sortie;
     }
 
-    public static String NextBoard(Optional<Board> board){
+    public static String NextBoard(Board board){
         String sortie = "";
         String bordDeSlot = "*************";
         String bordDeCarte = "*-----------*";
         String ligneSlot = "*           *";
         String ligneCarte = "|           |";
         String separateurCarte =  "|-----------|";
-        String flecheDoubleSlot = "     | |     ";
-        String flecheDoubleSlotTete = "     \\ /     ";
+        String flecheDoubleSlot = "     ||      ";
+        String flecheDoubleSlotTete = "     \\/      ";
 
         String[] boardTab = {"","","","","","","",""};
 
         for(int i = 0; i < 4; i ++) {
-            if (board.get().getSlots(i).getCard().isEmpty()){
+            if (board.getSlots(i).getCard().isEmpty()){
                 boardTab[0] += bordDeSlot + "   ";
                 boardTab[1] += ligneSlot + "   ";
                 boardTab[2] += ligneSlot + "   ";
@@ -153,32 +153,32 @@ public class Display {
             }
             else{
                 boardTab[0] += bordDeCarte + "   ";
-                String cardName = "|" + padRight(board.get().getSlots(i).getCard().get().getName(), 11) + "|";
+                String cardName = "|" + padRight(board.getSlots(i).getCard().get().getName(), 11) + "|";
                 boardTab[1] += cardName + "   ";
                 boardTab[2] += separateurCarte + "   ";
-                String cardHP = "| Hp:" + padRight(valueOf(board.get().getSlots(i).getCard().get().getHealth()),7) + "|";
+                String cardHP = "| Hp:" + padRight(valueOf(board.getSlots(i).getCard().get().getHealth()),7) + "|";
                 boardTab[3] += cardHP + "   ";
                 //attaque
                 String cardDamage;
-                if(board.get().getSlots(i).getCard().get().getDamage() == 0){
+                if(board.getSlots(i).getCard().get().getDamage() == 0){
                     cardDamage = ligneCarte;
                 }
                 else{
-                    cardDamage = "| Dmg:" + padRight(valueOf(board.get().getSlots(i).getCard().get().getDamage()),6) + "|";
+                    cardDamage = "| Dmg:" + padRight(valueOf(board.getSlots(i).getCard().get().getDamage()),6) + "|";
                 }
                 boardTab[4] += cardDamage + "   ";
                 //os
                 String cardBones;
-                if(board.get().getSlots(i).getCard().get().getBones() == 0){
+                if(board.getSlots(i).getCard().get().getBones() == 0){
                     cardBones = ligneCarte;
                 }
                 else{
-                    cardBones = "| Os:" + padRight(valueOf(board.get().getSlots(i).getCard().get().getBones()),7) + "|";
+                    cardBones = "| Os:" + padRight(valueOf(board.getSlots(i).getCard().get().getBones()),7) + "|";
                 }
                 boardTab[5] += cardBones + "   ";
                 //volant
                 String cardFlying;
-                if(board.get().getSlots(i).getCard().get().isFlying()){
+                if(board.getSlots(i).getCard().get().isFlying()){
                     cardFlying = "| Volant    |";
                 }
                 else{
@@ -195,11 +195,11 @@ public class Display {
             sortie += boardTab[i]+"\n";
         }
         for(int i = 0; i < 4; i++){
-            sortie += flecheDoubleSlot;
+            sortie += flecheDoubleSlot + "   ";
         }
         sortie += "\n";
         for(int i = 0; i < 4; i++){
-            sortie += flecheDoubleSlotTete;
+            sortie += flecheDoubleSlotTete + "   ";
         }
         sortie += "\n";
 
@@ -220,10 +220,10 @@ public class Display {
 
     public static String Global(Round round){
         String result ="";
-        result += Display.NextBoard(round.getPlayers()[0].getNexBoard());
-        result += Display.Board(round.getPlayers()[0].getBoard());
-        result += Display.Board(round.getPlayers()[1].getBoard());
-        result += Display.Player(round.getPlayers()[1]);
+        result += Display.NextBoard(round.getBot().getNextBoard());
+        result += Display.Board(round.getBot().getBoard());
+        result += Display.Board(round.getPlayer().getBoard());
+        result += Display.Player(round.getPlayer());
         return result;
     }
 }

@@ -1,5 +1,8 @@
 package Affichage;
 
+import Logique.Card;
+import Logique.CardFactory;
+
 public class TurnDialog {
     public static void ActionChoices(){
         System.out.println("C'est à vous de jouer :");
@@ -15,5 +18,13 @@ public class TurnDialog {
 
     public static void AskConfirm(){
         System.out.println("Confirmez ?");
+    }
+
+    public static void SacrificeError(){
+        System.out.println("Erreur : l'emplacement sélectionné ne contient pas une carte sacrifiable.");
+    }
+
+    public static void SacrificeOk(Card card){
+        System.out.println("Vous sacrifiez : " + card.getName() + ", qui vous rapporte une goutte de sang.");
     }
 }

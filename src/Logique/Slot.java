@@ -16,12 +16,10 @@ public class Slot {
         return false;
     }
 
-    public boolean removeCard(){ //retourner la carte pour pouvoir la mettre dans le cimetière
-        if(this.m_card.isPresent()){
-            this.m_card = Optional.empty();
-            return true;
-        }
-        return false;
+    public Card removeCard(){
+        Card toBury = this.m_card.get();
+        this.m_card = Optional.empty();
+        return toBury;
     }
 
     public Optional<Card> getCard(){
