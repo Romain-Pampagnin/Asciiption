@@ -73,7 +73,7 @@ public class Display {
                     cardFlying = ligneCarte;
                 }
                 boardTab[6] += cardFlying + "   ";
-                boardTab[7] += bordDeCarte;
+                boardTab[7] += bordDeCarte+ "   ";
 
 
             }
