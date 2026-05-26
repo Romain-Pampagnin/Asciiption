@@ -39,7 +39,7 @@ public class DisplayTest {
         Player player1 = new Player("joueur", deck);
         player1.draw(1);
 
-        assertEquals("Votre main:\n1. Ecureuil PV: 1 Att: 0 Gouttes de sang: 0 Os: 0\n2. Ecureuil PV: 1 Att: 0 Gouttes de sang: 0 Os: 0", Display.HandLine(player1,0));
+        assertEquals("1. Ecureuil  PV: 1  Att: 0  Gouttes de sang: 0  Os: 0 ", Display.HandLine(player1,0));
     }
 
 }

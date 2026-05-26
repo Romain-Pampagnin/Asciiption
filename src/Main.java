@@ -24,5 +24,8 @@ public class Main
         board1.addToSlot(2,CardFactory.createRocher());
 
         System.out.println(Display.Board(board1));
+
+        Round round1 = new Round("yolo", 1);
+        System.out.println(Display.Global(round1));
     }
 }
