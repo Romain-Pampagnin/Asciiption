@@ -7,14 +7,25 @@ public class Card {
     private final int m_blood;
     private final int m_bones;
     private final boolean m_flying;
+    private final boolean m_sacrifiable;
 
-    public Card(String n, int d, int h, int bl, int bo, boolean fly){//on peut le mettre en package aussi, à voir
+    private Card(String n, int d, int h, int bl, int bo, boolean fly){
         m_name = n;
         m_damage = d;
         m_health = h;
         m_blood = bl;
         m_bones = bo;
         m_flying = fly;
+        m_sacrifiable = true;
+    }
+    private Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
+        m_name = n;
+        m_damage = d;
+        m_health = h;
+        m_blood = bl;
+        m_bones = bo;
+        m_flying = fly;
+        m_sacrifiable = sacrifiable;
     }
 
     public void takeDamage(int nbDamage){

@@ -136,11 +136,4 @@ public class Display {
     public static String padLeft(String s, int n) {
         return String.format("%" + n + "s", s);
     }
-
-    public static String Global(Round round){
-        String result ="";
-        result += Display.Board(round.getPlayers()[1].getNexBoard().get());
-        //result += Display.Board(round.getPlayers()[1].getBoard())
-        return result;
-    }
 }

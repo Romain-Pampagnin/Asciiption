@@ -21,8 +21,8 @@ public class Main
 
         Board board1 = new Board();
         board1.addToSlot(0, CardFactory.createEcureuil());
+        board1.addToSlot(2,CardFactory.createRocher());
 
         System.out.println(Display.Board(board1));
-        System.out.println(Display.Player(player1));
     }
 }
