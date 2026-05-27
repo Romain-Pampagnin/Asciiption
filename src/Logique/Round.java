@@ -58,21 +58,21 @@ public class Round {
 
     public int actions(Player player) throws Exception {
         TurnDialog.ActionChoices();
-        Scanner action = new Scanner(System.in);
-        String choix = action.nextLine();
+        String choix =  TurnDialog.ActionChoices();
         while(choix != "attack") {
             switch (choix) {
                 case "sacrifice":
                     m_playerBlood += sacrifice(player);
                     return 1;
                 case "play":
-                    //play(player);
-
+                    play(player);
+                    return 1;
                 default:
-                    return 0;
+                    choix = TurnDialog.ActionChoices();
+                    break;
             }
         }
-        return 0;
+        return 1;
     }
 
     public int sacrifice(Player player) throws Exception {
@@ -80,7 +80,7 @@ public class Round {
         int choix = 0;
         Scanner sacrifice = new Scanner(System.in);
         while (choix < 1 || choix > 5){
-            choix = sacrifice.nextInt();
+            choix = TurnDialog.Sacrifice();
         }
 
         if(player.getBoard().getSlots(choix).getCard().isEmpty()){
@@ -95,33 +95,35 @@ public class Round {
 
     }
 
-//    public void play(Player player){
-//        if(player.getHand().isEmpty()){
-//            TurnDialog.emptyHand();
-//        }
-//        else{
-//            TurnDialog.Play();
-//            int choix = -1;
-//            Scanner play = new Scanner(System.in);
-//            while (choix < 0 || choix > player.getHand().size()){
-//                choix = play.nextInt();
-//            }
-//
-//            if(player.getHand().get(choix).getBlood() == 0 && player.getBoard().hasEmptySlot() && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
-//                int slotchoice = -1;
-//                Scanner slot = new Scanner(System.in);
-//                while (slot < 0 || slot > player.getHand().size()){
-//                    slot = play.nextInt();
-//                }
-//                player.playCard(choix, slot);
-//            }
-//            else if(player.getHand().get(choix).getBlood() > 0 && player.getHand().get(choix).getBlood() <= m_playerBlood && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
-//                player.playCard(choix);
-//            }
-//            else{
-//                TurnDialog.cantPlayCard();
-//            }
-//        }
-//
-//    }
+    public void play(Player player){
+        if(player.getHand().isEmpty()){
+            TurnDialog.emptyHand();
+        }
+        else{
+            int choix = -1;
+            while (choix < 0 || choix > player.getHand().size()){
+                //potentiellement flush et affichier global (? mettre ca dans chaque action dans TurnDialog ?)
+                choix = TurnDialog.PlayCard();
+            }
+
+            if(player.getCardBloodFromHand(choix) == 0 && player.getBoard().hasEmptySlot() && player.getBonesFromGrave() >= player.getCardBoneFromHand(choix)){
+                int slot = -1;
+                while (slot < 0 || slot > player.getHand().size()){
+                    slot = TurnDialog.PlaySlot();
+                }
+                player.playCard(choix, slot);
+            }
+            else if(player.getCardBloodFromHand(choix) > 0 && player.getCardBloodFromHand(choix) <= m_playerBlood && player.getBonesFromGrave() >= player.getCardBoneFromHand(choix)){
+                int slot = -1;
+                while (slot < 0 || slot > player.getHand().size()){
+                    slot = TurnDialog.PlaySlot();
+                }
+                player.playCard(choix, slot);
+            }
+            else{
+                TurnDialog.cantPlayCard();
+            }
+        }
+
+    }
 }
