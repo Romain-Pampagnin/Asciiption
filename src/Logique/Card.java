@@ -43,4 +43,5 @@ public class Card {
     public int getBones(){return m_bones; }
     public int getBlood(){return m_blood;}
     public String getName(){ return m_name;}
+    public boolean getExpendable(){return m_sacrifiable;}
 }

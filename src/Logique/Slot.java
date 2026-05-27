@@ -16,17 +16,22 @@ public class Slot {
         return false;
     }
 
-    public Card removeCard(){
-        Card toBury = this.m_card.get();
-        this.m_card = Optional.empty();
-        return toBury;
+    public Card removeCard()throws Exception {
+        if(this.m_card.isEmpty() || !this.m_card.get().getExpendable()){
+            throw new Exception("Le slot ne contient pas de carte, ou une carte non sacrifiable");
+        }
+        else{
+            Card toBury = this.m_card.get();
+            this.m_card = Optional.empty();
+            return toBury;
+        }
     }
 
     public Optional<Card> getCard(){
         return m_card;
     }
 
-    public int attack(Slot other){
+    public int attack(Slot other) throws Exception {
         if(this.m_card.isPresent() && this.m_card.get().getDamage()>0){
             if(this.m_card.get().isFlying() || other.getCard().isEmpty()) {
                 return this.m_card.get().getDamage();

@@ -8,19 +8,22 @@ public class Board {
             m_slots[i] = new Slot();
         }
     }
-    public Card sacrifice(int index){
-        return m_slots[index].removeCard();
+    public Card sacrifice(int index) throws Exception{
+            return m_slots[index].removeCard();
     }
-    public int attack(Board other){
+
+    public int attack(Board other) throws Exception {
         int totalDamage = 0;
         for(int i=0;i<4;i++){
             totalDamage += this.m_slots[i].attack(other.m_slots[i]);
         }
         return totalDamage;
     }
+
 //    public boolean isSlotFree(int nbSlot){
 //        return this.m_slots[nbSlot].getCard().isEmpty();
 //    }
+
     public boolean addToSlot(int nbSlot, Card card){
         return m_slots[nbSlot].addCard(card);
     }

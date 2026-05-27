@@ -74,7 +74,7 @@ public class Player {
         return m_board;
     }
 
-    public Card sacrifice(int index){
+    public Card sacrifice(int index) throws Exception {
         Card toBury = this.m_board.sacrifice(index);
         m_cemetery.add(toBury);
         return toBury;

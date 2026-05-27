@@ -2,6 +2,8 @@ import Logique.Card;
 import Logique.CardFactory;
 import Logique.Slot;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
+
 import static org.junit.Assert.*;
 
 import java.util.Optional;
@@ -31,37 +33,43 @@ public class SlotTest {
         assertFalse(slot1.addCard(ecureuil));
     }
     @Test
-    public void test_removeCard(){
+    public void test_removeCard() throws Exception {
         assertEquals(Optional.empty(), slot1.removeCard());
     }
     @Test
-    public void test_removeCard2(){
+    public void test_removeCard2() throws Exception {
         slot1.addCard(coyote);
         assertEquals(coyote, slot1.removeCard());
     }
     @Test
-    public void test_attack(){
+    public void test_attack() throws Exception {
         slot1.addCard(ecureuil);
         slot2.addCard(coyote);
         assertEquals(0,slot1.attack(slot2));
     }
     @Test
-    public void test_attack2(){
+    public void test_attack2() throws Exception {
         slot1.addCard(coyote);
         slot2.addCard(ecureuil);
         assertEquals(0,slot1.attack(slot2));
     }
     @Test
-    public void test_attack3(){
+    public void test_attack3() throws Exception {
         slot1.addCard(coyote);
         slot2.addCard(ecureuil);
         slot1.attack(slot2);
         assertEquals(Optional.empty(),slot2.getCard());
     }
     @Test
-    public void test_attack4(){
+    public void test_attack4() throws Exception {
         slot1.addCard(coyote);
         slot2.addCard(corbeau);
         assertEquals(2,slot2.attack(slot1));
     }
+
+//    @Test
+//    public void test_removeCard3() throws Exception {
+//        Exception error = new Exception("Le slot ne contient pas de carte, ou une carte non sacrifiable");
+//        assertThrows("", error, slot1.removeCard());
+//    }
 }

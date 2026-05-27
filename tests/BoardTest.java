@@ -1,8 +1,10 @@
 import Logique.Board;
 import Logique.Card;
 import Logique.CardFactory;
+import Logique.Slot;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -16,19 +18,20 @@ public class BoardTest {
     public void test_addToSlot(){
         assertTrue(board1.addToSlot(0, CardFactory.createCorbeau()));
     }
+
     @Test
     public void test_addToSlot2(){
         assertTrue(board1.addToSlot(0,CardFactory.createCorbeau()));
         assertFalse(board1.addToSlot(0,CardFactory.createCorbeau()));
     }
     @Test
-    public void test_attack(){
+    public void test_attack() throws Exception {
         board1.addToSlot(0,CardFactory.createCorbeau());
         board2.addToSlot(0,CardFactory.createCoyote());
         assertEquals(2,board1.attack(board2));
     }
     @Test
-    public void test_attack2(){
+    public void test_attack2() throws Exception {
         board1.addToSlot(0,CardFactory.createCorbeau());
         board2.addToSlot(0,CardFactory.createCoyote());
         board1.addToSlot(1,CardFactory.createEcureuil());
@@ -38,7 +41,7 @@ public class BoardTest {
         assertEquals(2,board1.attack(board2));
     }
     @Test
-    public void test_attack3(){
+    public void test_attack3() throws Exception {
         board1.addToSlot(0,CardFactory.createCorbeau());
         board2.addToSlot(0,CardFactory.createCoyote());
         board1.addToSlot(1,CardFactory.createEcureuil());
@@ -49,15 +52,44 @@ public class BoardTest {
     }
 
     @Test
-    public void test_sacrifice(){
+    public void test_sacrifice() throws Exception {
         board1.addToSlot(1, corbac);
         assertEquals(corbac,board1.sacrifice(1));
     }
 
     @Test
-    public void test_sacrifice2(){
+    public void test_sacrifice2() throws Exception {
         board1.addToSlot(1,CardFactory.createCorbeau());
         board1.sacrifice(1);
         assertTrue(board1.addToSlot(1,CardFactory.createCorbeau()));
+    }
+
+    @Test
+    public void test_hasEmptySlot(){
+        assertTrue(board1.hasEmptySlot());
+    }
+
+    @Test
+    public void test_hasEmptySlot2(){
+        board1.addToSlot(0, CardFactory.createCorbeau());
+        assertTrue(board1.hasEmptySlot());
+    }
+
+    @Test
+    public void test_hasEmptySlot3(){
+        board1.addToSlot(0, CardFactory.createCorbeau());
+        board1.addToSlot(1, CardFactory.createCorbeau());
+        board1.addToSlot(2, CardFactory.createCorbeau());
+        board1.addToSlot(3, CardFactory.createCorbeau());
+        assertFalse(board1.hasEmptySlot());
+    }
+
+    @Test
+    public void test_hasEmptySlot4(){
+        board1.addToSlot(0, CardFactory.createCorbeau());
+        board1.addToSlot(1, CardFactory.createCorbeau());
+        board1.addToSlot(2, CardFactory.createCorbeau());
+        board1.addToSlot(2, CardFactory.createCorbeau());
+        assertTrue(board1.hasEmptySlot());
     }
 }

@@ -27,7 +27,7 @@ public class Round {
 
     }
 
-    public void run(){
+    public void run() throws Exception {
         this.m_player.draw(4);
         this.m_bot.draw(4);
 
@@ -43,7 +43,7 @@ public class Round {
             //actions du joueur
             m_player.draw(1);
             Display.Global(this);
-            Actions(m_player);
+            actions(m_player);
 
         }
 
@@ -56,7 +56,7 @@ public class Round {
         return m_bot;
     }
 
-    public int Actions(Player player){
+    public int actions(Player player) throws Exception {
         TurnDialog.ActionChoices();
         Scanner action = new Scanner(System.in);
         String choix = action.nextLine();
@@ -66,15 +66,16 @@ public class Round {
                     m_playerBlood += sacrifice(player);
                     return 1;
                 case "play":
-                    play(player);
+                    //play(player);
 
                 default:
                     return 0;
             }
         }
+        return 0;
     }
 
-    public int sacrifice(Player player){
+    public int sacrifice(Player player) throws Exception {
         TurnDialog.Sacrifice();
         int choix = 0;
         Scanner sacrifice = new Scanner(System.in);
@@ -94,33 +95,33 @@ public class Round {
 
     }
 
-    public void play(Player player){
-        if(player.getHand().isEmpty()){
-            TurnDialog.emptyHand();
-        }
-        else{
-            TurnDialog.Play();
-            int choix = -1;
-            Scanner play = new Scanner(System.in);
-            while (choix < 0 || choix > player.getHand().size()){
-                choix = play.nextInt();
-            }
-
-            if(player.getHand().get(choix).getBlood() == 0 && player.getBoard().hasEmptySlot() && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
-                int slotchoice = -1;
-                Scanner slot = new Scanner(System.in);
-                while (slot < 0 || slot > player.getHand().size()){
-                    slot = play.nextInt();
-                }
-                player.playCard(choix, slot);
-            }
-            else if(player.getHand().get(choix).getBlood() > 0 && player.getHand().get(choix).getBlood() <= m_playerBlood && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
-                player.playCard(choix);
-            }
-            else{
-                TurnDialog.cantPlayCard();
-            }
-        }
-
-    }
+//    public void play(Player player){
+//        if(player.getHand().isEmpty()){
+//            TurnDialog.emptyHand();
+//        }
+//        else{
+//            TurnDialog.Play();
+//            int choix = -1;
+//            Scanner play = new Scanner(System.in);
+//            while (choix < 0 || choix > player.getHand().size()){
+//                choix = play.nextInt();
+//            }
+//
+//            if(player.getHand().get(choix).getBlood() == 0 && player.getBoard().hasEmptySlot() && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
+//                int slotchoice = -1;
+//                Scanner slot = new Scanner(System.in);
+//                while (slot < 0 || slot > player.getHand().size()){
+//                    slot = play.nextInt();
+//                }
+//                player.playCard(choix, slot);
+//            }
+//            else if(player.getHand().get(choix).getBlood() > 0 && player.getHand().get(choix).getBlood() <= m_playerBlood && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
+//                player.playCard(choix);
+//            }
+//            else{
+//                TurnDialog.cantPlayCard();
+//            }
+//        }
+//
+//    }
 }
