@@ -2,7 +2,6 @@ package Logique;
 
 import Affichage.Display;
 import Affichage.TurnDialog;
-import Turn.PlayerTurn;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +11,8 @@ public class Round {
     private PlayerBot m_bot;
     private int m_roundNumber;
     private int m_tourNumber;
+    private int m_playerBlood;
+    private int m_botBLood;
 
     public Round(String playerName,int number){
         m_roundNumber=number;
@@ -21,15 +22,23 @@ public class Round {
         //fin à changer
         m_player = new Player(playerName,deckPlayer);
         m_bot= new PlayerBot(deckEnemy);
+        m_playerBlood = 0;
+        m_botBLood = 0;
+
     }
 
     public void run(){
         this.m_player.draw(4);
         this.m_bot.draw(4);
+
         while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5)
         {
-            m_bot.draw(1);
+            //début du tour
+            m_playerBlood = 0;
+            m_botBLood = 0;
             //actions du bot
+            m_bot.draw(1);
+
 
             //actions du joueur
             m_player.draw(1);
@@ -48,21 +57,24 @@ public class Round {
     }
 
     public int Actions(Player player){
-        int totalGouttes = 0;
         TurnDialog.ActionChoices();
         Scanner action = new Scanner(System.in);
         String choix = action.nextLine();
-        switch (choix){
-            case "sacrifice" :
-                totalGouttes += Sacrifice(player);
-                return 1;
+        while(choix != "attack") {
+            switch (choix) {
+                case "sacrifice":
+                    m_playerBlood += sacrifice(player);
+                    return 1;
+                case "play":
+                    play(player);
 
-            default :
-                return 0;
+                default:
+                    return 0;
+            }
         }
     }
 
-    public int Sacrifice(Player player){
+    public int sacrifice(Player player){
         TurnDialog.Sacrifice();
         int choix = 0;
         Scanner sacrifice = new Scanner(System.in);
@@ -76,7 +88,38 @@ public class Round {
         }
         else{
             TurnDialog.SacrificeOk(player.getBoard().getSlots(choix).getCard().get());
+            player.sacrifice(choix);
             return 1;
+        }
+
+    }
+
+    public void play(Player player){
+        if(player.getHand().isEmpty()){
+            TurnDialog.emptyHand();
+        }
+        else{
+            TurnDialog.Play();
+            int choix = -1;
+            Scanner play = new Scanner(System.in);
+            while (choix < 0 || choix > player.getHand().size()){
+                choix = play.nextInt();
+            }
+
+            if(player.getHand().get(choix).getBlood() == 0 && player.getBoard().hasEmptySlot() && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
+                int slotchoice = -1;
+                Scanner slot = new Scanner(System.in);
+                while (slot < 0 || slot > player.getHand().size()){
+                    slot = play.nextInt();
+                }
+                player.playCard(choix, slot);
+            }
+            else if(player.getHand().get(choix).getBlood() > 0 && player.getHand().get(choix).getBlood() <= m_playerBlood && player.getBonesFromGrave() >= player.getHand().get(choix).getBones()){
+                player.playCard(choix);
+            }
+            else{
+                TurnDialog.cantPlayCard();
+            }
         }
 
     }

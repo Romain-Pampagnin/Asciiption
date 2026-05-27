@@ -79,4 +79,8 @@ public class Player {
         m_cemetery.add(toBury);
         return toBury;
     }
+
+    public void playCard(int handIndex, int slotIndex){
+
+    }
 }

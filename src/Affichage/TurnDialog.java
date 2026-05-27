@@ -2,6 +2,7 @@ package Affichage;
 
 import Logique.Card;
 import Logique.CardFactory;
+import Logique.Player;
 
 public class TurnDialog {
     public static void ActionChoices(){
@@ -26,5 +27,17 @@ public class TurnDialog {
 
     public static void SacrificeOk(Card card){
         System.out.println("Vous sacrifiez : " + card.getName() + ", qui vous rapporte une goutte de sang.");
+    }
+
+    public static void Play(){
+        System.out.println("Entrez le numéro de la carte que vous voulez jouer depuis votre main : ");
+    }
+
+    public static void emptyHand(){
+        System.out.println("Votre main est vide, vous ne pouvez pas jouer de carte.");
+    }
+
+    public static void cantPlayCard(){
+        System.out.println("Vous n'avez pas assez de ressources (os ou gouttes de sang ou emplacement libre) pour jouer cette carte. Essayez une autre action.");
     }
 }

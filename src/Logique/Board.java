@@ -38,4 +38,11 @@ public class Board {
     public Slot getSlots(int index) {
         return m_slots[index];
     }
+
+    public boolean hasEmptySlot(){
+        for (int i = 0; i < this.m_slots.length; i++){
+            if(m_slots[i].getCard().isEmpty()){ return true;}
+        }
+        return false;
+    }
 }
