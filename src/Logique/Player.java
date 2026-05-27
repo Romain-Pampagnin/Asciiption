@@ -83,4 +83,17 @@ public class Player {
     public void playCard(int handIndex, int slotIndex){
 
     }
+
+    public int getCardBloodFromHand(int index){
+        return m_hand.get(index).getBlood();
+    }
+
+    public int getCardBoneFromHand(int index){
+        return m_hand.get(index).getBones();
+    }
+
+    public boolean isCardPlayable(Card card){
+        //là gros truc à faire
+        return true;
+    }
 }
