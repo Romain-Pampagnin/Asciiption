@@ -1,7 +1,6 @@
 package Logique;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class Player {
     private String m_name;
@@ -10,6 +9,7 @@ public class Player {
     private ArrayList<Card> m_cemetery;
     private ArrayList<Card> m_deck;
     private ArrayList<Card> m_hand;
+    private int m_totalBlood;
 
     public Player(String name,ArrayList<Card> deck){
         m_score = 0;
@@ -18,6 +18,7 @@ public class Player {
         m_board = new Board();
         m_deck = deck;
         m_name= name;
+        m_totalBlood = 0;
     }
     public int draw(int nbCard){
         int drawnCards=0;
@@ -55,11 +56,7 @@ public class Player {
     }
 
     public int getBonesFromGrave(){
-        int totalBones = 0;
-        for(Card card : m_cemetery){
-            totalBones += card.getBones();
-        }
-        return totalBones;
+        return this.m_cemetery.size();
     }
 
     public ArrayList<Card> getHand(){
@@ -81,7 +78,8 @@ public class Player {
     }
 
     public void playCard(int handIndex, int slotIndex){
-
+        this.m_board.addToSlot(slotIndex, this.m_hand.get(handIndex));
+        this.m_hand.remove(handIndex);
     }
 
     public int getCardBloodFromHand(int index){
@@ -92,8 +90,29 @@ public class Player {
         return m_hand.get(index).getBones();
     }
 
+    public boolean isCardSacrifiable(int index) {
+        return m_board.getSlots(index).getCard().get().getExpendable();
+    }
+
+    public void incrementTotalBlood(int i){
+        this.m_totalBlood += i;
+    }
+
+    public void resetTotalBlood(){
+        this.m_totalBlood = 0;
+    }
+
     public boolean isCardPlayable(Card card){
-        //là gros truc à faire
-        return true;
+        if(card.getBlood() > 0 && card.getBlood() <= this.m_totalBlood){
+            if(card.getBones() <= this.getBonesFromGrave()){
+                return true;
+            }
+        }
+        else{
+            if(this.m_board.hasEmptySlot() && card.getBones() <= this.getBonesFromGrave()){
+                return true;
+            }
+        }
+        return false;
     }
 }

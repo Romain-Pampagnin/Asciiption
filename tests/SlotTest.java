@@ -7,6 +7,7 @@ import org.junit.function.ThrowingRunnable;
 import static org.junit.Assert.*;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public class SlotTest {
     Slot slot1 = new Slot();
@@ -34,7 +35,7 @@ public class SlotTest {
     }
     @Test
     public void test_removeCard() throws Exception {
-        assertEquals(Optional.empty(), slot1.removeCard());
+        assertThrows(Exception.class, ()->{slot1.removeCard();});
     }
     @Test
     public void test_removeCard2() throws Exception {
