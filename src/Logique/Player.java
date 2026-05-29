@@ -1,11 +1,13 @@
 package Logique;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Player {
     private String m_name;
     private int m_score;
-    private Board m_board;
+    private Optional<Card>[] m_board;
     private ArrayList<Card> m_cemetery;
     private ArrayList<Card> m_deck;
     private ArrayList<Card> m_hand;
@@ -15,10 +17,13 @@ public class Player {
         m_score = 0;
         m_cemetery = new ArrayList<Card>();
         m_hand = new ArrayList<Card>();
-        m_board = new Board();
+        m_board = new Optional[4];
         m_deck = deck;
         m_name= name;
         m_totalBlood = 0;
+        for(int i = 0; i < m_board.length; i++){
+            m_board[i] = Optional.empty();
+        }
     }
     public int draw(int nbCard){
         int drawnCards=0;
@@ -67,31 +72,31 @@ public class Player {
         return this.m_deck;
     }
 
-    public Board getBoard(){
+    public Optional<Card>[] getBoard(){
         return m_board;
     }
 
-    public Card sacrifice(int index) throws Exception {
-        Card toBury = this.m_board.sacrifice(index);
-        m_cemetery.add(toBury);
-        return toBury;
+    public void sacrifice(int index) throws Exception {
+        if(this.m_board[index].isPresent()){
+            m_cemetery.add(this.m_board[index].get());
+            this.m_board[index] = Optional.empty();
+        }
+        else {
+            throw new Exception("Il n'y a pas de carte à cet emplacement, impossible de sacrifier la carte.");
+        }
     }
 
-    public void playCard(int handIndex, int slotIndex){
-        this.m_board.addToSlot(slotIndex, this.m_hand.get(handIndex));
-        this.m_hand.remove(handIndex);
-    }
-
-    public int getCardBloodFromHand(int index){
-        return m_hand.get(index).getBlood();
-    }
-
-    public int getCardBoneFromHand(int index){
-        return m_hand.get(index).getBones();
-    }
-
-    public boolean isCardSacrifiable(int index) {
-        return m_board.getSlots(index).getCard().get().getExpendable();
+    public void play (int handIndex, int slotIndex) throws Exception {
+        if(slotIndex < m_board.length && handIndex < m_hand.size()){
+            this.m_board[slotIndex] = Optional.of(this.m_hand.get(slotIndex));
+            this.m_hand.remove(handIndex);
+        }
+        else if(slotIndex <= m_board.length){
+            throw new Exception("Vous essayez de poser une carte sur un emplacement hors des valeurs prévues.");
+        }
+        else if(handIndex >= m_hand.size()){
+            throw new Exception("Votre main ne contient pas de carte à cet indice.");
+        }
     }
 
     public void incrementTotalBlood(int i){
@@ -102,6 +107,15 @@ public class Player {
         this.m_totalBlood = 0;
     }
 
+    public boolean boardHasEmptySlot(){
+        for (int i = 0; i < m_board .length; i++){
+            if(m_board[i].isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isCardPlayable(Card card){
         if(card.getBlood() > 0 && card.getBlood() <= this.m_totalBlood){
             if(card.getBones() <= this.getBonesFromGrave()){
@@ -109,7 +123,7 @@ public class Player {
             }
         }
         else{
-            if(this.m_board.hasEmptySlot() && card.getBones() <= this.getBonesFromGrave()){
+            if(boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave()){
                 return true;
             }
         }

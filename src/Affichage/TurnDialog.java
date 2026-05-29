@@ -1,8 +1,6 @@
 package Affichage;
 
 import Logique.Card;
-import Logique.CardFactory;
-import Logique.Player;
 import Logique.Round;
 
 import java.util.Scanner;
@@ -23,8 +21,8 @@ public class TurnDialog {
         }
     }
 
-    public static String ActionChoices(){
-        Display.Global(m_round);
+    public static String actionChoices(){
+        Display.global(m_round);
         System.out.println("C'est à vous de jouer :");
         System.out.println("    - attack : vos cartes attaquent et votre tour prend fin");
         System.out.println("    - sacrifice : vous sacrifiez une ou plusieurs cartes");
@@ -33,54 +31,54 @@ public class TurnDialog {
         return m_choix.nextLine();
     }
 
-    public static int Sacrifice(){
-        Display.Global(m_round);
+    public static int sacrifice(){
+        Display.global(m_round);
         System.out.print("Entrez le numéro de la carte que vous voulez sacrifier depuis votre jeu : ");
         return m_choix.nextInt();
     }
 
-    public static void AskConfirm(){
-        Display.Global(m_round);
+    public static void askConfirm(){
+        Display.global(m_round);
         System.out.println("Confirmez ?");
     }
 
-    public static void SacrificeError(){
-        Display.Global(m_round);
+    public static void sacrificeError(){
+        Display.global(m_round);
         System.out.println("Erreur : l'emplacement sélectionné ne contient pas une carte sacrifiable.");
         sleep(3000);
     }
 
-    public static void SacrificeOk(Card card){
-        Display.Global(m_round);
+    public static void sacrificeOk(Card card){
+        Display.global(m_round);
         System.out.println("Vous sacrifiez : " + card.getName() + ", qui vous rapporte une goutte de sang.");
     }
 
-    public static int PlayCard(){
-        Display.Global(m_round);
+    public static int playCard(){
+        Display.global(m_round);
         System.out.println("Entrez le numéro de la carte que vous voulez jouer depuis votre main : ");
         return m_choix.nextInt();
     }
 
-    public static int PlaySlot(){
-        Display.Global(m_round);
+    public static int playSlot(){
+        Display.global(m_round);
         System.out.println("Entrez le numéro de l'emplacement dans lequel vous voulez jouer votre carte : ");
         return m_choix.nextInt();
     }
 
     public static void emptyHand(){
-        Display.Global(m_round);
+        Display.global(m_round);
         System.out.println("Votre main est vide, vous ne pouvez pas jouer de carte.");
         sleep(3000);
     }
 
     public static void occupiedSlot(){
-        Display.Global(m_round);
+        Display.global(m_round);
         System.out.println("L'emplacement sélectionné est déjà occupé.");
         sleep(3000);
     }
 
     public static void nonPlayableCard(){
-        Display.Global(m_round);
+        Display.global(m_round);
         System.out.println("Vous n'avez pas les ressources nécessaire (os, gouttes de sang ou emplacement libre) pour jouer cette carte. Essayez une autre action.");
         sleep(3000);
     }

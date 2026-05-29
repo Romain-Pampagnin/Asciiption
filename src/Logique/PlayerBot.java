@@ -1,16 +1,21 @@
 package Logique;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
-public class PlayerBot extends Player{
+public class PlayerBot extends Player {
 
-    private Board m_nextBoard;
+    private Optional<Card>[] m_nextBoard;
 
     public PlayerBot(ArrayList<Card> deck) {
-        super("adversaire",deck);
-        m_nextBoard = new Board();
+        super("adversaire", deck);
+        m_nextBoard = new Optional[4];
+        for (int i = 0; i < m_nextBoard.length; i++) {
+            m_nextBoard[i] = Optional.empty();
+        }
     }
-    public Board getNextBoard(){
-        return this.m_nextBoard;
+
+    public Optional<Card>[] getNextBoard() {
+        return m_nextBoard;
     }
 }
