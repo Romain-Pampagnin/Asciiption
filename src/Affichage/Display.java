@@ -219,7 +219,7 @@ public class Display {
     }
 
     public static String Global(Round round){
-        String result ="";
+        String result ="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
         result += Display.NextBoard(round.getBot().getNextBoard());
         result += Display.Board(round.getBot().getBoard());
         result += Display.Board(round.getPlayer().getBoard());

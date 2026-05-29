@@ -1,7 +1,10 @@
 import Affichage.*;
 import Logique.*;
 
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main
 {
@@ -27,6 +30,5 @@ public class Main
 
         Round round1 = new Round("yolo", 1);
         System.out.println(Display.Global(round1));
-
     }
 }
