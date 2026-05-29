@@ -17,8 +17,8 @@ public class Slot {
     }
 
     public Card removeCard()throws Exception {
-        if(this.m_card.isEmpty() || !this.m_card.get().getExpendable()){
-            throw new Exception("Le slot ne contient pas de carte, ou une carte non sacrifiable");
+        if(this.m_card.isEmpty()){
+            throw new Exception("Le slot ne contient pas de carte, ou une carte non sacrifiable.");
         }
         else{
             Card toBury = this.m_card.get();
