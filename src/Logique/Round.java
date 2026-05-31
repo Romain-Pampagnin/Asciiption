@@ -64,7 +64,6 @@ public class Round {
 
             //actions du joueur
             m_player.draw(1);
-            Display.global(this);
             actions(m_player);
 
         }
@@ -79,7 +78,7 @@ public class Round {
     }
 
     public int actions(Player player) throws Exception {
-        TurnDialog.actionChoices();
+        //TurnDialog.actionChoices();
         String choix =  TurnDialog.actionChoices();
         while(choix != "attack") {
             switch (choix) {
@@ -99,12 +98,11 @@ public class Round {
 
     public int sacrifice(Player player) throws Exception {
         TurnDialog.sacrifice();
-        int choix = 0;
-        Scanner sacrifice = new Scanner(System.in);
-        while (choix < 1 || choix > 5){
+        int choix = -1;
+        while (choix < 1 || choix > 4){
             choix = TurnDialog.sacrifice();
         }
-
+        choix --; //pour adapter le choix saisi aux indices des listes, tableaux
         if(player.getBoard()[choix].isEmpty()){
             TurnDialog.sacrificeError();
             return 0;
@@ -120,7 +118,6 @@ public class Round {
                 return 0;
             }
         }
-
     }
 
     public void play(Player player) throws Exception {
@@ -132,13 +129,15 @@ public class Round {
             while (choix < 0 || choix > player.getHand().size()){
                 choix = TurnDialog.playCard();
             }
+            choix --; //pour adapter le choix saisi aux indices des listes, tableaux
 
             if(player.isCardPlayable(m_player.getHand().get(choix))){
                 int slot = -1;
-                while ((slot < 0 || slot > 3 )){
-                    slot = TurnDialog.playSlot();
+                while ((slot < 1 || slot > 4 )){
+                    slot = TurnDialog.playSlot(m_player.getHand().get(choix));
                 }
-                if(player.getBoard()[choix].isEmpty()){
+                slot --; //pour adapter le choix saisi aux indices des listes, tableaux
+                if(player.getBoard()[slot].isEmpty()){
                     player.play(choix, slot);
                 }
                 else{

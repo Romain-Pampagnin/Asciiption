@@ -88,7 +88,11 @@ public class Player {
 
     public void play (int handIndex, int slotIndex) throws Exception {
         if(slotIndex < m_board.length && handIndex < m_hand.size()){
-            this.m_board[slotIndex] = Optional.of(this.m_hand.get(slotIndex));
+            //si la carte coute du sang, il faut diminuer la réserve de sang du joueur
+            if(this.m_hand.get(handIndex).getBlood() > 0){
+                this.decreaseTotalBlood(this.m_hand.get(handIndex).getBlood());
+            }
+            this.m_board[slotIndex] = Optional.of(this.m_hand.get(handIndex));
             this.m_hand.remove(handIndex);
         }
         else if(slotIndex <= m_board.length){
@@ -99,12 +103,20 @@ public class Player {
         }
     }
 
+    public int getTotalBlood(){
+        return this.m_totalBlood;
+    }
+
     public void incrementTotalBlood(int i){
         this.m_totalBlood += i;
     }
 
     public void resetTotalBlood(){
         this.m_totalBlood = 0;
+    }
+
+    public void decreaseTotalBlood(int i){
+        this.m_totalBlood -= i;
     }
 
     public boolean boardHasEmptySlot(){

@@ -29,7 +29,19 @@ public class Display {
         String ligneCarteD = "|           |";
         String labels =    "\n  Cimetière                           Votre main                              Pioche";
         String hautBoxes = "\n*-----------*   *------------------------------------------------------*   *-----------*";
-        sortie += vide;
+
+        if(player.getTotalBlood() > 0){
+            if(player.getTotalBlood() == 1) {
+                sortie += "Vous possédez " + player.getTotalBlood() + " goutte de sang";
+            }
+            else{
+                sortie += "Vous possédez " + player.getTotalBlood() + " gouttes de sang";
+            }
+        }
+        else{
+            sortie += vide;
+        }
+
         sortie += labels;
         sortie += hautBoxes;
         for(int i = 0; i < 5; i ++){
