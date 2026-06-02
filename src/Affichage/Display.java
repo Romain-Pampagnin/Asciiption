@@ -44,7 +44,13 @@ public class Display {
 
         sortie += labels;
         sortie += hautBoxes;
-        for(int i = 0; i < 5; i ++){
+
+        int taillePlayer = 5;
+        if(player.getHand().size() > 5){
+            taillePlayer = player.getHand().size();
+        }
+
+        for(int i = 0; i <= taillePlayer; i ++){
             if(i == 1){
                 ligneCarteG = "|    " + padRight(String.valueOf(player.getBonesFromGrave()),3) + "    |";
                 ligneCarteD = "|    " + padRight(String.valueOf(player.getDeck().size()),3) + "    |";
@@ -53,26 +59,39 @@ public class Display {
                 ligneCarteG = "|    Os     |";
                 ligneCarteD = "|  cartes   |";
             }
-            else{
+            else if(i > 2 && i <5){
                 ligneCarteG = "|           |";
                 ligneCarteD = "|           |";
+            }
+            else if (i == 5){
+                ligneCarteG = "*-----------*";
+                ligneCarteD = "*-----------*";
+            }
+            else if(i >5){
+                ligneCarteG = "             ";
+                ligneCarteD = "             ";
             }
 
             if(player.getHand().size() > i){
                 sortie += "\n" + ligneCarteG + "   |" + handLine(player, i) + "|   " + ligneCarteD;
             }
-            else{
-                sortie += "\n" + ligneCarteG + "   |                                                      |   " + ligneCarteD;
+            else if(player.getHand().size() == i) {
+                sortie += "\n" + ligneCarteG + "   *------------------------------------------------------*   " + ligneCarteD;
             }
+            else{
+                sortie += "\n" + ligneCarteG + "                                                              " + ligneCarteD;
+            }
+                //sortie += "\n" + ligneCarteG + "   |                                                      |   " + ligneCarteD;
+                //sortie += "\n" + ligneCarteG + "   *------------------------------------------------------*   " + ligneCarteD;
+
 
         }
-        sortie += hautBoxes;
-
         return sortie;
     }
 
     public static String board(Optional<Card>[] board){
         String sortie = "";
+        String espaceGauche = "              ";
         String bordDeSlot = "*************";
         String bordDeCarte = "*-----------*";
         String ligneSlot = "*           *";
@@ -80,7 +99,9 @@ public class Display {
         String separateurCarte = "|-----------|";
 
         String[] boardTab = {"","","","","","","",""};
-
+        for(int i = 0; i < boardTab.length; i++){
+            boardTab[i] += espaceGauche;
+        }
         for(int i = 0; i < board.length; i ++) {
             if (board[i].isEmpty()){
                 boardTab[0] += bordDeSlot + "   ";
@@ -141,6 +162,7 @@ public class Display {
 
     public static String nextBoard(Optional<Card>[] board){
         String sortie = "";
+        String espaceGauche = "              ";
         String bordDeSlot = "*************";
         String bordDeCarte = "*-----------*";
         String ligneSlot = "*           *";
@@ -150,6 +172,9 @@ public class Display {
         String flecheDoubleSlotTete = "     \\/      ";
 
         String[] boardTab = {"","","","","","","",""};
+        for(int i = 0; i < boardTab.length; i++){
+            boardTab[i] += espaceGauche;
+        }
 
         for(int i = 0; i < board.length; i ++) {
             if (board[i].isEmpty()){
@@ -206,10 +231,12 @@ public class Display {
         for(int i =0; i < 8; i++){
             sortie += boardTab[i]+"\n";
         }
+        sortie += espaceGauche;
         for(int i = 0; i < 4; i++){
             sortie += flecheDoubleSlot + "   ";
         }
         sortie += "\n";
+        sortie += espaceGauche;
         for(int i = 0; i < 4; i++){
             sortie += flecheDoubleSlotTete + "   ";
         }

@@ -134,7 +134,7 @@ public class Player {
                 return true;
             }
         }
-        else{
+        else if(card.getBlood() == 0){
             if(boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave()){
                 return true;
             }
