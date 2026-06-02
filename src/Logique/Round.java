@@ -67,7 +67,7 @@ public class Round {
             actions(m_player);
 
         }
-
+        System.out.println("debug fin du premier tour");
     }
 
     public Player getPlayer(){
@@ -77,23 +77,25 @@ public class Round {
         return m_bot;
     }
 
-    public int actions(Player player) throws Exception {
+    public void actions(Player player) throws Exception {
         //TurnDialog.actionChoices();
-        String choix =  TurnDialog.actionChoices();
+        String choix = "";
         while(choix != "attack") {
+            choix =  TurnDialog.actionChoices();
             switch (choix) {
                 case "sacrifice":
                     m_player.incrementTotalBlood(sacrifice(player));
-                    return 1;
+                    break;
                 case "play":
                     play(player);
-                    return 1;
+                    break;
+                case "attack":
+                    break;
                 default:
                     choix = TurnDialog.actionChoices();
                     break;
             }
         }
-        return 1;
     }
 
     public int sacrifice(Player player) throws Exception {
