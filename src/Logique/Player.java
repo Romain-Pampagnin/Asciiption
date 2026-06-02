@@ -129,8 +129,8 @@ public class Player {
     }
 
     public boolean isCardPlayable(Card card){
-        if(card.getBlood() > 0 && card.getBlood() <= this.m_totalBlood){
-            if(card.getBones() <= this.getBonesFromGrave()){
+        if(card.getBlood() > 0){
+            if(card.getBones() <= this.getBonesFromGrave() && card.getBlood() <= this.m_totalBlood){
                 return true;
             }
         }

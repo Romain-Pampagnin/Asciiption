@@ -94,7 +94,6 @@ public class Round {
                     break;
                 default:
                     System.out.println("Saisie incorecte : "+choix);
-                    choix = TurnDialog.actionChoices();
                     break;
             }
         }
