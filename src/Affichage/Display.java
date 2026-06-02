@@ -20,7 +20,7 @@ public class Display {
     }
 
     public static String handLine(Player player, int cardIndex){
-        return (cardIndex + 1) + ". " + padRight(player.getHand().get(cardIndex).getName(),9) + " PV: " + padRight(String.valueOf(player.getHand().get(cardIndex).getHealth()),2) + " Att: " + padRight(String.valueOf(player.getHand().get(cardIndex).getDamage()),2) + " Gouttes de sang: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBlood()),2) + " Os: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBones()),2);
+        return (padLeft(valueOf(cardIndex + 1),2)) + ". " + padRight(player.getHand().get(cardIndex).getName(),9) + " PV: " + padRight(String.valueOf(player.getHand().get(cardIndex).getHealth()),2) + " Att: " + padRight(String.valueOf(player.getHand().get(cardIndex).getDamage()),2) + " Gouttes de sang: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBlood()),2) + " Os: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBones()),2);
     }
     public static String player(Player player){
         String sortie = "";
@@ -28,7 +28,7 @@ public class Display {
         String ligneCarteG = "|           |";
         String ligneCarteD = "|           |";
         String labels =    "\n  Cimetière                           Votre main                              Pioche";
-        String hautBoxes = "\n*-----------*   *------------------------------------------------------*   *-----------*";
+        String hautBoxes = "\n*-----------*   *-------------------------------------------------------*   *-----------*";
 
         if(player.getTotalBlood() > 0){
             if(player.getTotalBlood() == 1) {
@@ -76,10 +76,10 @@ public class Display {
                 sortie += "\n" + ligneCarteG + "   |" + handLine(player, i) + "|   " + ligneCarteD;
             }
             else if(player.getHand().size() == i) {
-                sortie += "\n" + ligneCarteG + "   *------------------------------------------------------*   " + ligneCarteD;
+                sortie += "\n" + ligneCarteG + "   *-------------------------------------------------------*   " + ligneCarteD;
             }
             else{
-                sortie += "\n" + ligneCarteG + "                                                              " + ligneCarteD;
+                sortie += "\n" + ligneCarteG + "                                                               " + ligneCarteD;
             }
                 //sortie += "\n" + ligneCarteG + "   |                                                      |   " + ligneCarteD;
                 //sortie += "\n" + ligneCarteG + "   *------------------------------------------------------*   " + ligneCarteD;
