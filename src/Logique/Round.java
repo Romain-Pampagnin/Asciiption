@@ -66,8 +66,9 @@ public class Round {
             m_player.draw(1);
             actions(m_player);
 
+
         }
-        System.out.println("debug fin du premier tour");
+        System.out.println("debug fin du premier round");
     }
 
     public Player getPlayer(){
@@ -80,7 +81,7 @@ public class Round {
     public void actions(Player player) throws Exception {
         //TurnDialog.actionChoices();
         String choix = "";
-        while(choix != "attack") {
+        while(!choix.equals("attack")) {
             choix =  TurnDialog.actionChoices();
             switch (choix) {
                 case "sacrifice":
@@ -92,6 +93,7 @@ public class Round {
                 case "attack":
                     break;
                 default:
+                    System.out.println("Saisie incorecte : "+choix);
                     choix = TurnDialog.actionChoices();
                     break;
             }
