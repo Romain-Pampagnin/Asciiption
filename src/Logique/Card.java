@@ -1,5 +1,7 @@
 package Logique;
 
+import java.util.Optional;
+
 public class Card {
     private final String m_name;
     private final int m_damage;
@@ -30,6 +32,10 @@ public class Card {
 
     public void takeDamage(int nbDamage){
         this.m_health -= nbDamage;
+    }
+
+    public void attack(Optional<Card> other) {
+        other.get().takeDamage(this.m_damage);
     }
     public int getHealth(){
         return m_health;

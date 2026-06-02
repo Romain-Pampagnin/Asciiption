@@ -15,10 +15,10 @@ public class Round {
     private int m_tourNumber;
 
     public Round(String playerName,int number){
-        m_roundNumber=number;
+        m_roundNumber = number;
         //a changer
-        ArrayList<Card> deckPlayer = new ArrayList<Card>();
-        ArrayList<Card> deckEnemy = new ArrayList<Card>();
+        ArrayList<Card> deckPlayer = buildDeck(number);
+        ArrayList<Card> deckEnemy = buildDeck(number);
         //fin à changer
         m_player = new Player(playerName,deckPlayer);
         m_bot= new PlayerBot(deckEnemy);
@@ -44,13 +44,14 @@ public class Round {
                 deck.add(CardFactory.createHermine());
                 deck.add(CardFactory.createGrizzly());
                 shuffle(deck);
-                return deck;
         }
+        return deck;
     }
 
     public void run() throws Exception {
         this.m_player.draw(4);
         this.m_bot.draw(4);
+        TurnDialog.setRound(this);
 
         while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5)
         {
@@ -63,7 +64,6 @@ public class Round {
 
             //actions du joueur
             m_player.draw(1);
-            Display.Global(this);
             actions(m_player);
 
         }
@@ -78,8 +78,8 @@ public class Round {
     }
 
     public int actions(Player player) throws Exception {
-        TurnDialog.ActionChoices();
-        String choix =  TurnDialog.ActionChoices();
+        //TurnDialog.actionChoices();
+        String choix =  TurnDialog.actionChoices();
         while(choix != "attack") {
             switch (choix) {
                 case "sacrifice":
@@ -89,7 +89,7 @@ public class Round {
                     play(player);
                     return 1;
                 default:
-                    choix = TurnDialog.ActionChoices();
+                    choix = TurnDialog.actionChoices();
                     break;
             }
         }
@@ -97,48 +97,48 @@ public class Round {
     }
 
     public int sacrifice(Player player) throws Exception {
-        TurnDialog.Sacrifice();
-        int choix = 0;
-        Scanner sacrifice = new Scanner(System.in);
-        while (choix < 1 || choix > 5){
-            choix = TurnDialog.Sacrifice();
+        TurnDialog.sacrifice();
+        int choix = -1;
+        while (choix < 1 || choix > 4){
+            choix = TurnDialog.sacrifice();
         }
-
-        if(player.getBoard().getSlots(choix).getCard().isEmpty()){
-            TurnDialog.SacrificeError();
+        choix --; //pour adapter le choix saisi aux indices des listes, tableaux
+        if(player.getBoard()[choix].isEmpty()){
+            TurnDialog.sacrificeError();
             return 0;
         }
         else{
-            if(player.isCardSacrifiable(choix)){
-                TurnDialog.SacrificeOk(player.getBoard().getSlots(choix).getCard().get());
+            if(player.getBoard()[choix].get().getExpendable()){
+                TurnDialog.sacrificeOk(player.getBoard()[choix].get());
                 player.sacrifice(choix);
                 return 1;
             }
             else{
-                TurnDialog.SacrificeError();
+                TurnDialog.sacrificeError();
                 return 0;
             }
         }
-
     }
 
-    public void play(Player player){
+    public void play(Player player) throws Exception {
         if(player.getHand().isEmpty()){
             TurnDialog.emptyHand();
         }
         else{
             int choix = -1;
             while (choix < 0 || choix > player.getHand().size()){
-                choix = TurnDialog.PlayCard();
+                choix = TurnDialog.playCard();
             }
+            choix --; //pour adapter le choix saisi aux indices des listes, tableaux
 
             if(player.isCardPlayable(m_player.getHand().get(choix))){
                 int slot = -1;
-                while ((slot < 0 || slot > 3 )){
-                    slot = TurnDialog.PlaySlot();
+                while ((slot < 1 || slot > 4 )){
+                    slot = TurnDialog.playSlot(m_player.getHand().get(choix));
                 }
-                if(player.getBoard().getSlots(slot).getCard().isEmpty()){
-                    player.playCard(choix, slot);
+                slot --; //pour adapter le choix saisi aux indices des listes, tableaux
+                if(player.getBoard()[slot].isEmpty()){
+                    player.play(choix, slot);
                 }
                 else{
                     TurnDialog.occupiedSlot();
