@@ -134,11 +134,28 @@ public class Player {
                 return true;
             }
         }
-        else if(card.getBlood() == 0){
+        else {
             if(boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave()){
                 return true;
             }
         }
         return false;
+    }
+
+    public void attack(Player other){
+        for(int i=0; i<this.m_board.length;i++){
+            if(this.m_board[i].isPresent()){
+                if(other.m_board[i].isPresent() && !(this.m_board[i].get().isFlying())){
+                    if(this.m_board[i].get().getDamage() >= other.m_board[i].get().getHealth()){
+                        other.m_cemetery.add(other.m_board[i].get());
+                        other.m_board[i] = Optional.empty();
+                    }else{
+                        this.m_board[i].get().attack(other.m_board[i]);
+                    }
+                }else{
+                    m_score += this.m_board[i].get().getDamage();
+                }
+            }
+        }
     }
 }

@@ -64,7 +64,7 @@ public class Round {
 
             //actions du joueur
             m_player.draw(1);
-            actions(m_player);
+            actions(m_player,m_bot);
 
 
         }
@@ -78,7 +78,7 @@ public class Round {
         return m_bot;
     }
 
-    public void actions(Player player) throws Exception {
+    public void actions(Player player,Player other) throws Exception {
         //TurnDialog.actionChoices();
         String choix = "";
         while(!choix.equals("attack")) {
@@ -91,6 +91,7 @@ public class Round {
                     play(player);
                     break;
                 case "attack":
+                    player.attack(other);
                     break;
                 default:
                     System.out.println("Saisie incorecte : "+choix);
@@ -100,7 +101,6 @@ public class Round {
     }
 
     public int sacrifice(Player player) throws Exception {
-        TurnDialog.sacrifice();
         int choix = -1;
         while (choix < 1 || choix > 4){
             choix = TurnDialog.sacrifice();
