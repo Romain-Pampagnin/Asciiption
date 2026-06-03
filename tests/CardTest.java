@@ -1,6 +1,6 @@
 import Logique.Card;
 import Logique.CardFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -29,12 +29,12 @@ public class CardTest {
         assertEquals(0,carte.getDamage());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void test_isFlying(){
         Card coyote = CardFactory.createCoyote();
         assertFalse(coyote.isFlying());
     }
-    @Test
+    @org.junit.jupiter.api.Test
     public void test_takeDamage(){
         Card hermine = CardFactory.createHermine();
         hermine.takeDamage(2);
@@ -78,7 +78,7 @@ public class CardTest {
         assertEquals(0, carte.getBones());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void test_getBlood(){
         Card carte = CardFactory.createChat();
         assertEquals(1, carte.getBlood());

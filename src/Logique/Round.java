@@ -52,6 +52,7 @@ public class Round {
         this.m_player.draw(4);
         this.m_bot.draw(4);
         TurnDialog.setRound(this);
+        //A ajouter ici Bot mettre certaines carte dans le préslot :)
 
         while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5)
         {
