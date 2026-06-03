@@ -1,6 +1,5 @@
 package Logique;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -86,7 +85,7 @@ public class Player {
         }
     }
 
-    public void play (int handIndex, int slotIndex) throws Exception {
+    public void playCard(int handIndex, int slotIndex) throws Exception {
         if(slotIndex < m_board.length && handIndex < m_hand.size()){
             //si la carte coute du sang, il faut diminuer la réserve de sang du joueur
             if(this.m_hand.get(handIndex).getBlood() > 0){

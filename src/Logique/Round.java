@@ -1,10 +1,8 @@
 package Logique;
 
-import Affichage.Display;
 import Affichage.TurnDialog;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static java.util.Collections.shuffle;
 
@@ -143,7 +141,7 @@ public class Round {
                 }
                 slot --; //pour adapter le choix saisi aux indices des listes, tableaux
                 if(player.getBoard()[slot].isEmpty()){
-                    player.play(choix, slot);
+                    player.playCard(choix, slot);
                 }
                 else{
                     TurnDialog.occupiedSlot();

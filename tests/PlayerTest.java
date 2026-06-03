@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 public class PlayerTest {
     private ArrayList<Card> deck = new ArrayList<Card>();
     private Player joueur = new Player("",deck);
+    private Player bot = new Player("adversaire",deck);
     @Test
     public void test_draw(){
         joueur.getDeck().add(CardFactory.createCoyote());
@@ -21,11 +22,11 @@ public class PlayerTest {
     public void test_draw1(){
         assertEquals(0,joueur.draw(1));
     }
-    @org.junit.jupiter.api.Test
+    @Test
     public void test_getScore(){
         assertEquals(0,joueur.getScore());
     }
-    @org.junit.jupiter.api.Test
+    @Test
     public void test_getBonesFromGrave(){
         assertEquals(0,joueur.getBonesFromGrave());
     }
@@ -33,7 +34,7 @@ public class PlayerTest {
     public void test_getHand(){
         assertEquals(new ArrayList<Card>(),joueur.getHand());
     }
-    @org.junit.jupiter.api.Test
+    @Test
     public void test_getDeck(){
         assertEquals(new ArrayList<Card>(),joueur.getDeck());
     }
@@ -45,6 +46,50 @@ public class PlayerTest {
         }
         assertEquals(board,joueur.getBoard());
     }
+    @Test
+    public void test_boardHasEmptySlot(){
+        assertTrue(joueur.boardHasEmptySlot());
+    }
+    @Test
+    public void test_boardHasEmptySlot1(){
+        for(int i = 0; i < 4; i++){
+            joueur.getBoard()[i] = Optional.of(CardFactory.createChat());
+        }
+        assertFalse(joueur.boardHasEmptySlot());
+    }
+    @Test
+    public void test_getTotalBlood(){assertEquals(0,joueur.getTotalBlood());}
+    @Test
+    public void test_incrementTotalBlood(){joueur.incrementTotalBlood(1);assertEquals(1,joueur.getTotalBlood());}
+    @Test
+    public void test_incrementTotalBlood2(){joueur.incrementTotalBlood(100);assertEquals(100,joueur.getTotalBlood());}
+    @Test
+    public void test_resetTotalBlood(){joueur.incrementTotalBlood(100);joueur.resetTotalBlood();assertEquals(0,joueur.getTotalBlood());}
+    @Test
+    public void test_decreaseTotalBlood(){joueur.incrementTotalBlood(100);joueur.decreaseTotalBlood(50);assertEquals(50,joueur.getTotalBlood());}
+    @Test
+    public void test_isCardPlayable(){assertTrue(joueur.isCardPlayable(CardFactory.createEcureuil()));}
+    @Test
+    public void test_isCardPlayable2(){assertFalse(joueur.isCardPlayable(CardFactory.createChat()));}
+    @org.junit.jupiter.api.Test
+    public void test_playCard(){ assertThrows(Exception.class,()->{joueur.playCard(0,0);});}
+    @org.junit.jupiter.api.Test
+    public void test_playCard1(){
+        joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.draw(1);
+        assertDoesNotThrow(()->{joueur.playCard(0,0);});
+    }
+    @org.junit.jupiter.api.Test
+    public void test_playCard2(){
+        joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.draw(1);
+        try {
+            joueur.playCard(0,0);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(Exception.class,()->{joueur.playCard(0,0);});
+    }
     @org.junit.jupiter.api.Test
     public void test_sacrifice() {
         assertThrows(Exception.class,()->{joueur.sacrifice(1);});
@@ -52,11 +97,47 @@ public class PlayerTest {
     @org.junit.jupiter.api.Test
     public void test_sacrifice1() {
         joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.draw(1);
         try {
-            joueur.play(0,0);
+            joueur.playCard(0,0);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertDoesNotThrow(()->{joueur.sacrifice(1);});
+        assertDoesNotThrow(()->{joueur.sacrifice(0);});
+    }
+    @Test
+    public void test_attack(){
+        joueur.getBoard()[0] = Optional.of(CardFactory.createPunaise());
+        joueur.attack(bot);
+        assertEquals(1,joueur.getScore());
+    }
+    @Test
+    public void test_attack1(){
+        joueur.getBoard()[0] = Optional.of(CardFactory.createPunaise());
+        bot.getBoard()[0] = Optional.of(CardFactory.createEcureuil());
+        joueur.attack(bot);
+        assertEquals(0,joueur.getScore());
+    }
+    @Test
+    public void test_attack2(){
+        joueur.getBoard()[0] = Optional.of(CardFactory.createPunaise());
+        bot.getBoard()[0] = Optional.of(CardFactory.createEcureuil());
+        joueur.attack(bot);
+        assertEquals(Optional.empty(),bot.getBoard()[0]);
+    }
+    @Test
+    public void test_attack3(){
+        joueur.getBoard()[0] = Optional.of(CardFactory.createMoineau());
+        bot.getBoard()[0] = Optional.of(CardFactory.createEcureuil());
+        joueur.attack(bot);
+        assertEquals(1,joueur.getScore());
+    }
+    @Test
+    public void test_attack4(){
+        Optional<Card> eccureuil = Optional.of(CardFactory.createEcureuil());
+        joueur.getBoard()[0] = Optional.of(CardFactory.createMoineau());
+        bot.getBoard()[0] = eccureuil;
+        joueur.attack(bot);
+        assertEquals(eccureuil,bot.getBoard()[0]);
     }
 }
