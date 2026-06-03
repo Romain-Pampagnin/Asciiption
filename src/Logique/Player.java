@@ -128,24 +128,30 @@ public class Player {
     }
 
     public boolean isCardPlayable(Card card){
-        return card.getBlood() > 0 &&
-                (card.getBones() <= this.getBonesFromGrave() && card.getBlood() <= this.m_totalBlood)
-                || boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave();
+        return (card.getBlood() > 0 &&
+                (card.getBones() <= this.getBonesFromGrave() && card.getBlood() <= this.m_totalBlood))
+                || (card.getBlood() == 0 && (boardHasEmptySlot() && card.getBones() <= this.getBonesFromGrave()));
     }
 
     public void attack(Player other){
-        for(int i=0; i<this.m_board.length;i++){
+        for(int i = 0; i < this.m_board.length; i ++){
             if(this.m_board[i].isPresent()){
-                if(other.m_board[i].isPresent() && !(this.m_board[i].get().isFlying())){
-                    if(this.m_board[i].get().getDamage() >= other.m_board[i].get().getHealth()){
-                        other.m_cemetery.add(other.m_board[i].get());
-                        other.m_board[i] = Optional.empty();
-                    }else{
-                        this.m_board[i].get().attack(other.m_board[i]);
-                    }
-                }else{
+                if(other.m_board[i].isPresent()) {
+                    m_score += m_board[i].get().attack(other.m_board[i].get());
+                }
+                else{
                     m_score += this.m_board[i].get().getDamage();
                 }
+            }
+        }
+        other.bury();
+    }
+
+    private void bury(){
+        for(int i=0; i<this.m_board.length;i++) {
+            if(m_board[i].isPresent() && m_board[i].get().isDead()){
+                m_cemetery.add(m_board[i].get());
+                m_board[i] = Optional.empty();
             }
         }
     }

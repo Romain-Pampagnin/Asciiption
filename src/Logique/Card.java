@@ -50,4 +50,18 @@ public class Card {
     public int getBlood(){return m_blood;}
     public String getName(){ return m_name;}
     public boolean getExpendable(){return m_sacrifiable;}
+
+    public int attack(Card other){
+        if(this.isFlying()) {
+            return this.getDamage();
+        }
+        else{
+            other.takeDamage(this.getDamage());
+            return 0;
+        }
+    }
+
+    public boolean isDead(){
+        return this.getHealth() <= 0;
+    }
 }
