@@ -40,6 +40,15 @@ public class PlayerBot extends Player {
 //
 //    }
 
+    public void pushCards(){
+        for(int i = 0; i < this.m_nextBoard.length; i++){
+            if(this.m_nextBoard[i].isPresent() && this.getBoard()[i].isEmpty()){
+                this.getBoard()[i] = Optional.of(m_nextBoard[i].get());
+                m_nextBoard[i] = Optional.empty();
+            }
+        }
+    }
+
     public int getBestCard(ArrayList<Card> cardList){
         int bestCard = -1;
         int bestStats = -1;

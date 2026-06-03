@@ -22,13 +22,13 @@ public class Display {
     public static String handLine(Player player, int cardIndex){
         return (padLeft(valueOf(cardIndex + 1),2)) + ". " + padRight(player.getHand().get(cardIndex).getName(),9) + " PV: " + padRight(String.valueOf(player.getHand().get(cardIndex).getHealth()),2) + " Att: " + padRight(String.valueOf(player.getHand().get(cardIndex).getDamage()),2) + " Gouttes de sang: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBlood()),2) + " Os: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBones()),2);
     }
-    public static String player(Player player){
+    public static String player(Player player, Player player2){
         String sortie = "";
         String vide = "\n";
         String ligneCarteG = "|           |";
         String ligneCarteD = "|           |";
-        String labels =    "\n  Cimetière                           Votre main                              Pioche";
-        String hautBoxes = "\n*-----------*   *-------------------------------------------------------*   *-----------*";
+        String labels =    "\n  Cimetière                           Votre main                               Pioche               Score";
+        String hautBoxes = "\n*-----------*   *-------------------------------------------------------*   *-----------*        *-----------*";
 
         if(player.getTotalBlood() > 0){
             if(player.getTotalBlood() == 1) {
@@ -51,7 +51,11 @@ public class Display {
         }
 
         for(int i = 0; i <= taillePlayer; i ++){
-            if(i == 1){
+            if(i == 0){
+                ligneCarteD = "|           |        ";
+                //switch (player.getScore())
+            }
+            else if(i == 1){
                 ligneCarteG = "|    " + padRight(String.valueOf(player.getBonesFromGrave()),3) + "    |";
                 ligneCarteD = "|    " + padRight(String.valueOf(player.getDeck().size()),3) + "    |";
             }
@@ -262,7 +266,20 @@ public class Display {
         result += Display.nextBoard(round.getBot().getNextBoard());
         result += Display.board(round.getBot().getBoard());
         result += Display.board(round.getPlayer().getBoard());
-        result += Display.player(round.getPlayer());
+        result += Display.player(round.getPlayer(), round.getBot());
         return result;
     }
+
+    public static String globalDebug(Round round){
+        String result ="";
+        result += Display.player(round.getBot(), round.getPlayer());
+        result += "\n";
+        result += Display.nextBoard(round.getBot().getNextBoard());
+        result += Display.board(round.getBot().getBoard());
+        result += Display.board(round.getPlayer().getBoard());
+        result += Display.player(round.getPlayer(), round.getBot());
+        return result;
+    }
+
+
 }

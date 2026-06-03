@@ -4,6 +4,8 @@ import Affichage.Display;
 import Affichage.TurnDialog;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.util.Collections.shuffle;
@@ -49,20 +51,20 @@ public class Round {
     }
 
     public void run() throws Exception {
-        this.m_player.draw(4);
-        this.m_bot.draw(4);
-        TurnDialog.setRound(this);
-        //A ajouter ici Bot mettre certaines carte dans le préslot :)
-
+        initialize(this.m_roundNumber);
         while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5)
         {
             //début du tour
             m_player.resetTotalBlood();
             m_bot.resetTotalBlood();
+            //avancer les cartes prévisionnelles du bot
+            m_bot.pushCards();
             //actions du bot
             m_bot.draw(1);
+            //bot pose des cartes sur son board prévisionnel
 
-
+            //bot attaque le joueur
+            m_bot.attack(m_player);
             //actions du joueur
             m_player.draw(1);
             actions(m_player,m_bot);
@@ -152,6 +154,38 @@ public class Round {
             else {
                 TurnDialog.nonPlayableCard();
             }
+        }
+    }
+
+    public void initialize(int roundNumber){
+        //faire piocher + affichage message de début
+        this.m_player.draw(4);
+        this.m_bot.draw(4);
+        TurnDialog.setRound(this);
+
+        //ajouter les terrains
+        addObstacles();
+    }
+
+    public void addObstacles(){
+        //sélectionner l'obstacle
+        Random randomNumbers = new Random();
+        int indexP1 = randomNumbers.nextInt(4);
+        int indexP2 = randomNumbers.nextInt(4);
+        int typeP1 = randomNumbers.nextInt(2);
+        int typeP2 = randomNumbers.nextInt(2);
+
+        if(typeP1 == 0){
+            m_player.getBoard()[indexP1] = Optional.of(CardFactory.createSapin());
+        }
+        else{
+            m_player.getBoard()[indexP1] = Optional.of(CardFactory.createRocher());
+        }
+        if(typeP2 == 0){
+            m_bot.getBoard()[indexP2] = Optional.of(CardFactory.createSapin());
+        }
+        else{
+            m_bot.getBoard()[indexP2] = Optional.of(CardFactory.createRocher());
         }
     }
 

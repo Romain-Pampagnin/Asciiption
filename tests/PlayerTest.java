@@ -52,11 +52,12 @@ public class PlayerTest {
     @org.junit.jupiter.api.Test
     public void test_sacrifice1() {
         joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.draw(1);
         try {
             joueur.play(0,0);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertDoesNotThrow(()->{joueur.sacrifice(1);});
+        assertDoesNotThrow(()->{joueur.sacrifice(0);});
     }
 }

@@ -129,17 +129,9 @@ public class Player {
     }
 
     public boolean isCardPlayable(Card card){
-        if(card.getBlood() > 0){
-            if(card.getBones() <= this.getBonesFromGrave() && card.getBlood() <= this.m_totalBlood){
-                return true;
-            }
-        }
-        else {
-            if(boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave()){
-                return true;
-            }
-        }
-        return false;
+        return card.getBlood() > 0 &&
+                (card.getBones() <= this.getBonesFromGrave() && card.getBlood() <= this.m_totalBlood)
+                || boardHasEmptySlot() & card.getBones() <= this.getBonesFromGrave();
     }
 
     public void attack(Player other){
