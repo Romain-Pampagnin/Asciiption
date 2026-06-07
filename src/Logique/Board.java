@@ -15,12 +15,22 @@ public class Board {
         return this.m_slots;
     }
 
-    public void addToBoard (int index, Card card){
-        this.m_slots[index] = Optional.of(card);
+    public void addToBoard (int index, Card card) throws Exception {
+        if(this.m_slots[index].isEmpty()) {
+            this.m_slots[index] = Optional.of(card);
+        }
+        else{
+            throw new Exception ("L'emplacement auquel vous voulez ajouter une carte est déjà occupé.");
+        }
     }
 
-    public void removeFromBoard(int index){
-        this.m_slots[index] = Optional.empty();
+    public void removeFromBoard(int index) throws Exception{
+        if(this.m_slots[index].isPresent()) {
+            this.m_slots[index] = Optional.empty();
+        }
+        else{
+            throw new Exception ("L'emplacement dont vous voulez retirer la carte est déjà vide.");
+        }
     }
 
     public int attack(Board other){
@@ -50,12 +60,13 @@ public class Board {
         String board = "";
         for (int i =0; i < this.m_slots.length; i++){
             if(this.m_slots[i].isEmpty()){
-                board += "slot " + i + ": vide\n";
+                board += "\nslot " + i + ": vide";
             }
             else{
-                board += "slot " + i + ": " +this.m_slots[i].get().toString() +"\n";
+                board += "\nslot " + i + ": " +this.m_slots[i].get().toString();
             }
         }
+        board += "\n";
         return board;
     }
 }

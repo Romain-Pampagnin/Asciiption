@@ -53,11 +53,48 @@ public class Display {
         for(int i = 0; i <= taillePlayer; i ++){
             if(i == 0){
                 ligneCarteD = "|           |        ";
-                //switch (player.getScore())
+                if(player.getScore() - player2.getScore() <= -5)
+                {
+                    ligneCarteD += "|O---------x| Perdu !";
+                }
+                else if (player.getScore() - player2.getScore() > -5 && player.getScore() - player2.getScore() < 5) {
+                    switch (player.getScore() - player2.getScore()) {
+                        case -4:
+                            ligneCarteD += "|xO--------x|";
+                            break;
+                        case -3:
+                            ligneCarteD += "|x-O-------x|";
+                            break;
+                        case -2:
+                            ligneCarteD += "|x--O------x|";
+                            break;
+                        case -1:
+                            ligneCarteD += "|x---O-----x|";
+                            break;
+                        case 0:
+                            ligneCarteD += "|x----O----x|";
+                            break;
+                        case 1:
+                            ligneCarteD += "|x-----O---x|";
+                            break;
+                        case 2:
+                            ligneCarteD += "|x------O--x|";
+                            break;
+                        case 3:
+                            ligneCarteD += "|x-------O-x|";
+                            break;
+                        case 4:
+                            ligneCarteD += "|x--------Ox|";
+                            break;
+                    }
+                }
+                else if (player.getScore() - player2.getScore() >= 5){
+                    ligneCarteD += "|x---------O| Gagné !";
+                }
             }
             else if(i == 1){
                 ligneCarteG = "|    " + padRight(String.valueOf(player.getBonesFromGrave()),3) + "    |";
-                ligneCarteD = "|    " + padRight(String.valueOf(player.getDeck().size()),3) + "    |";
+                ligneCarteD = "|    " + padRight(String.valueOf(player.getDeck().getDeckSize()),3) + "    |        *-----------*";
             }
             else if(i == 2){
                 ligneCarteG = "|    Os     |";

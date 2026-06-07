@@ -13,8 +13,8 @@ package Logique{
 
 Main ..> Game : "   Instanciate"
 
-Board "1  "*-->"4 \n m_slots" Slot : "   est composé de"
-Slot "1  "*---> "0,1 \n m_card"Card : "   accueille"
+Board "1  "*-->"4 \n m_slots" Card : "   contient"
+
 Game ..> Round : "   Instanciate"
 Round "1  " *--> "2  " Player : "   se joue entre"
 Player "1  " *--> "1,2\nm_board, m_nextBoard" Board : "   possède"
@@ -26,19 +26,53 @@ class Round{
 }
 
 class Player{
--m_nom : String
+-m_name : String
 -m_score : Integer
--m_nextBoard: Optional<Board>
+-m_totalBlood : Integer
 -m_cemetery : ArrayList<Card>
 -m_deck : ArrayList<Card>
 -m_hand : ArrayList<Card>
-+<<create>> Player(String : name, ArrayList<Card> deck, )
-+<<create>> Player(ArrayList<Card> deck)
++<<create>> Player(name: String, deck: ArrayList<Card>) : Player
 + draw(nbCard : Integer) : Integer
-+ playCard(nbSlot : Integer) : Boolean
-+ getBonesFromGrave() : Integer
-+ getHand() : ArrayList<Card>
++getScore() : Integer
++getBonesFromGrave() : Integer
++getHand(): ArrayList<Card>
++getDeck() : ArrayList<Card>
++getBoard() : Board
++sacrifice(index: Integer)
++playCard(handIndex: Integer, slotIndex: Integer)
++getTotalBlood() : Integer
++incrementTotalBlood(i: Integer)
++resetTotalBlood()
++decreaseTotalBlood(i: Integer)
++boardHasEmptySlot() : Boolean
++isCardPlayable(card: Card) : Boolean
++attack(other: Player)
++bury()
 }
+
+Player "1  " ..> "  m_cemetery   \n0..15" Card :"possède"
+Player "1  " ..> "    m_deck   \n0..15" Card : "  possède"
+Player "1  " ..> "      m_hand   \n0..15" Card : "  possède"
+
+class CardFactory{
+-<<create>> CardFactory() : CardFactory
++createChat() : Card
++createGrizzly() : Card
++createCoyote() : Card
++createMoineau() : Card
++createCorbeau() : Card
++createEcureuil() : Card
++createHermine() : Card
++createLouveteau() : Card
++createLoup() : Card
++createPunaise() : Card
++createRocher() : Card
++createSapin() : Card
+}
+
+CardFactory ..> Card : "   Instanciate"
+
 
 class Card {
 -m_name : String
@@ -47,33 +81,30 @@ class Card {
 -m_blood : Integer
 -m_bones : Integer
 -m_flying : Boolean
-+ <<create>> Card(String: n, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean)
+- m_sacrifiable : Boolean
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean) : Card
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean, sacrifiable: Boolean) : Card
 + getName() : String
 + getHealth(): Integer
 + getAttack(): Integer
 + getBones(): Integer
 + getBlood() : Integer
 + isFlying() : Boolean
-+ takeDamage()
-}
-
-class Slot {
-+ <<create>> Slot()
-+ addCard(card : Card) : Boolean
-+ removeCard() : Boolean
-+ getCard(): Card (optional)
-+ attack(other : Slot) : Integer
++ getExpandable() : Boolean
++ takeDamage(nbDamage: Integer)
++ attack(other: Card) : Integer
++ isDead() : Boolean
++ toString() : String
 }
 
 class Board {
--m_Slots: Slot[4]
-+<<create>> Board()
-+ addToSlot(nbSlot : Integer, card Card) : Boolean
-+ sacrifice(index : Integer) : Boolean
-+ attack (other : Board) : Integer
-+ getTotalBlood() : Integer
-+ getSlot(index : Integer) : Slot
-/'+ isSlotFree(nbSlot : Integer) : Boolean '/
++<<create>> Board(size: Integer) : Board
++getCards() : Optional<Card>[]
++addToBoard (index: Integer, card : Card)
++removeFromBoard(index: Integer)
++attack(other: Board) : Integer
++hasEmptySlot() : Boolean
++toString() : String
 }
 
 class Game{

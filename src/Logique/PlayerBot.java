@@ -7,7 +7,7 @@ public class PlayerBot extends Player {
 
     private Board m_nextBoard;
 
-    public PlayerBot(ArrayList<Card> deck) {
+    public PlayerBot(Deck deck) {
         super("adversaire", deck);
         m_nextBoard = new Board(4);
         for (int i = 0; i < m_nextBoard.getCards().length; i++) {

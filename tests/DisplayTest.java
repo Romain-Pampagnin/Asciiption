@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class DisplayTest {
-    ArrayList<Card> deck = new ArrayList<Card>();
+    Deck deck = new Deck();
 
     @org.junit.jupiter.api.Test
     public void test_hand(){
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
 
         Player player1 = new Player("joueur", deck);
 
@@ -23,10 +23,10 @@ public class DisplayTest {
 
     @Test
     public void test_hand2(){
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
-        deck.add(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
 
         Player player1 = new Player("joueur", deck);
 
@@ -36,7 +36,7 @@ public class DisplayTest {
 
     @org.junit.jupiter.api.Test
     public void test_handLine(){
-        deck.add(CardFactory.createEcureuil());
+        deck.addCard(CardFactory.createEcureuil());
         Player player1 = new Player("joueur", deck);
         player1.draw(2);
 

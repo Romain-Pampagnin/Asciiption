@@ -1,7 +1,4 @@
-import Logique.Board;
-import Logique.Card;
-import Logique.CardFactory;
-import Logique.Player;
+import Logique.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,12 +8,12 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class PlayerTest {
-    private ArrayList<Card> deck = new ArrayList<Card>();
+    private Deck deck = new Deck();
     private Player joueur = new Player("",deck);
     private Player bot = new Player("adversaire",deck);
     @Test
     public void test_draw(){
-        joueur.getDeck().add(CardFactory.createCoyote());
+        joueur.getDeck().addCard(CardFactory.createCoyote());
         assertEquals(1,joueur.draw(1));
     }
     @Test
@@ -37,14 +34,14 @@ public class PlayerTest {
     }
     @Test
     public void test_getDeck(){
-        assertEquals(new ArrayList<Card>(),joueur.getDeck());
+        assertEquals(new Deck(),joueur.getDeck());
     }
     //pour le test ci-dessous il va falloir recoder la méthode equals pour la classe Board (et donc faire une méthode toString surchargée)
 //    @Test
 //    public void test_getBoard(){
 //        Board testBoard = new Board(4);
 //        assertEquals(testBoard,joueur.getBoard());
-    }
+//    }
     @Test
     public void test_boardHasEmptySlot(){
         assertTrue(joueur.boardHasEmptySlot());
@@ -74,13 +71,13 @@ public class PlayerTest {
     public void test_playCard(){ assertThrows(Exception.class,()->{joueur.playCard(0,0);});}
     @org.junit.jupiter.api.Test
     public void test_playCard1(){
-        joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.getDeck().addCard(CardFactory.createEcureuil());
         joueur.draw(1);
         assertDoesNotThrow(()->{joueur.playCard(0,0);});
     }
     @org.junit.jupiter.api.Test
     public void test_playCard2(){
-        joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.getDeck().addCard(CardFactory.createEcureuil());
         joueur.draw(1);
         try {
             joueur.playCard(0,0);
@@ -95,7 +92,7 @@ public class PlayerTest {
     }
     @org.junit.jupiter.api.Test
     public void test_sacrifice1() {
-        joueur.getDeck().add(CardFactory.createEcureuil());
+        joueur.getDeck().addCard(CardFactory.createEcureuil());
         joueur.draw(1);
         try {
             joueur.playCard(0,0);
@@ -105,34 +102,34 @@ public class PlayerTest {
         assertDoesNotThrow(()->{joueur.sacrifice(0);});
     }
     @Test
-    public void test_attack(){
+    public void test_attack() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createPunaise());
         joueur.attack(bot);
         assertEquals(1,joueur.getScore());
     }
     @Test
-    public void test_attack1(){
+    public void test_attack1() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createPunaise());
         bot.getBoard().getCards()[0] = Optional.of(CardFactory.createEcureuil());
         joueur.attack(bot);
         assertEquals(0,joueur.getScore());
     }
     @Test
-    public void test_attack2(){
+    public void test_attack2() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createPunaise());
         bot.getBoard().getCards()[0] = Optional.of(CardFactory.createEcureuil());
         joueur.attack(bot);
         assertEquals(Optional.empty(),bot.getBoard().getCards()[0]);
     }
     @Test
-    public void test_attack3(){
+    public void test_attack3() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createMoineau());
         bot.getBoard().getCards()[0] = Optional.of(CardFactory.createEcureuil());
         joueur.attack(bot);
         assertEquals(1,joueur.getScore());
     }
     @Test
-    public void test_attack4(){
+    public void test_attack4() throws Exception {
         Optional<Card> ecureuil = Optional.of(CardFactory.createEcureuil());
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createMoineau());
         bot.getBoard().getCards()[0] = ecureuil;

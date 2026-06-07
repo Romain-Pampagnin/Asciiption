@@ -8,11 +8,11 @@ public class Player {
     private int m_score;
     private Board m_board;
     private ArrayList<Card> m_cemetery;
-    private ArrayList<Card> m_deck;
+    private Deck m_deck;
     private ArrayList<Card> m_hand;
     private int m_totalBlood;
 
-    public Player(String name,ArrayList<Card> deck){
+    public Player(String name,Deck deck){
         m_score = 0;
         m_cemetery = new ArrayList<Card>();
         m_hand = new ArrayList<Card>();
@@ -24,9 +24,8 @@ public class Player {
     public int draw(int nbCard){
         int drawnCards=0;
         for(int n = 0; n < nbCard; n ++){
-            if (!this.m_deck.isEmpty()){
-                this.m_hand.add(this.m_deck.getFirst());
-                this.m_deck.removeFirst();
+            if (this.m_deck.getDeckSize() > 0){
+                this.m_hand.add(this.m_deck.draw());
                 drawnCards++;
             }
         }
@@ -45,7 +44,7 @@ public class Player {
         return this.m_hand;
     }
 
-    public ArrayList<Card> getDeck(){
+    public Deck getDeck(){
         return this.m_deck;
     }
 
@@ -106,12 +105,12 @@ public class Player {
                 || (card.getBlood() == 0 && (boardHasEmptySlot() && card.getBones() <= this.getBonesFromGrave()));
     }
 
-    public void attack(Player other){
+    public void attack(Player other) throws Exception {
         this.m_score += this.m_board.attack(other.getBoard());
         other.bury();
     }
 
-    private void bury(){
+    private void bury() throws Exception {
         for(int i = 0; i<this.m_board.getCards().length; i++) {
             if(m_board.getCards()[i].isPresent() && m_board.getCards()[i].get().isDead()){
                 m_cemetery.add(this.m_board.getCards()[i].get());
