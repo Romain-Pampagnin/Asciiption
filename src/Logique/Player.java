@@ -6,7 +6,7 @@ import java.util.Optional;
 public class Player {
     private String m_name;
     private int m_score;
-    private Optional<Card>[] m_board;
+    private Board m_board;
     private ArrayList<Card> m_cemetery;
     private ArrayList<Card> m_deck;
     private ArrayList<Card> m_hand;
@@ -16,13 +16,10 @@ public class Player {
         m_score = 0;
         m_cemetery = new ArrayList<Card>();
         m_hand = new ArrayList<Card>();
-        m_board = new Optional[4];
+        m_board = new Board(4);
         m_deck = deck;
         m_name= name;
         m_totalBlood = 0;
-        for(int i = 0; i < m_board.length; i++){
-            m_board[i] = Optional.empty();
-        }
     }
     public int draw(int nbCard){
         int drawnCards=0;
@@ -35,25 +32,6 @@ public class Player {
         }
         return drawnCards;
     }
-//    public EnumErrorCodes.drawCode isPlayable(int nbSlot, int nbHand){
-//        if(m_hand.get(nbHand).getBlood() >= 1){
-//            if(m_board.getTotalBlood() >= m_hand.get(nbHand).getBlood()){
-//                if(m_hand.get(nbHand).getBones() <= getBonesFromGrave()) {
-//                    return EnumErrorCodes.drawCode.CAN_PLAY;
-//                }
-//                else{
-//                    return EnumErrorCodes.drawCode.NOT_ENOUGH_BONES;
-//                }
-//            }
-//            else{
-//                return EnumErrorCodes.drawCode.NOT_ENOUGH_BLOOD;
-//            }
-//        }
-//        else{
-//
-//        }
-//        return
-//    }
 
     public int getScore(){
         return m_score;
@@ -71,14 +49,14 @@ public class Player {
         return this.m_deck;
     }
 
-    public Optional<Card>[] getBoard(){
+    public Board getBoard(){
         return m_board;
     }
 
     public void sacrifice(int index) throws Exception {
-        if(this.m_board[index].isPresent()){
-            m_cemetery.add(this.m_board[index].get());
-            this.m_board[index] = Optional.empty();
+        if(this.m_board.getCards()[index].isPresent()){
+            m_cemetery.add(this.m_board.getCards()[index].get());
+            this.m_board.removeFromBoard(index);
         }
         else {
             throw new Exception("Il n'y a pas de carte à cet emplacement, impossible de sacrifier la carte.");
@@ -86,15 +64,15 @@ public class Player {
     }
 
     public void playCard(int handIndex, int slotIndex) throws Exception {
-        if(slotIndex < m_board.length && handIndex < m_hand.size()){
+        if(slotIndex < m_board.getCards().length && handIndex < m_hand.size()){
             //si la carte coute du sang, il faut diminuer la réserve de sang du joueur
             if(this.m_hand.get(handIndex).getBlood() > 0){
                 this.decreaseTotalBlood(this.m_hand.get(handIndex).getBlood());
             }
-            this.m_board[slotIndex] = Optional.of(this.m_hand.get(handIndex));
+            this.m_board.getCards()[slotIndex] = Optional.of(this.m_hand.get(handIndex));
             this.m_hand.remove(handIndex);
         }
-        else if(slotIndex <= m_board.length){
+        else if(slotIndex <= m_board.getCards().length){
             throw new Exception("Vous essayez de poser une carte sur un emplacement hors des valeurs prévues.");
         }
         else if(handIndex >= m_hand.size()){
@@ -119,12 +97,7 @@ public class Player {
     }
 
     public boolean boardHasEmptySlot(){
-        for (int i = 0; i < m_board .length; i++){
-            if(m_board[i].isEmpty()){
-                return true;
-            }
-        }
-        return false;
+        return m_board.hasEmptySlot();
     }
 
     public boolean isCardPlayable(Card card){
@@ -134,24 +107,15 @@ public class Player {
     }
 
     public void attack(Player other){
-        for(int i = 0; i < this.m_board.length; i ++){
-            if(this.m_board[i].isPresent()){
-                if(other.m_board[i].isPresent()) {
-                    m_score += m_board[i].get().attack(other.m_board[i].get());
-                }
-                else{
-                    m_score += this.m_board[i].get().getDamage();
-                }
-            }
-        }
+        this.m_score += this.m_board.attack(other.getBoard());
         other.bury();
     }
 
     private void bury(){
-        for(int i=0; i<this.m_board.length;i++) {
-            if(m_board[i].isPresent() && m_board[i].get().isDead()){
-                m_cemetery.add(m_board[i].get());
-                m_board[i] = Optional.empty();
+        for(int i = 0; i<this.m_board.getCards().length; i++) {
+            if(m_board.getCards()[i].isPresent() && m_board.getCards()[i].get().isDead()){
+                m_cemetery.add(this.m_board.getCards()[i].get());
+                this.m_board.removeFromBoard(i);
             }
         }
     }

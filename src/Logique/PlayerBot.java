@@ -5,17 +5,17 @@ import java.util.Optional;
 
 public class PlayerBot extends Player {
 
-    private Optional<Card>[] m_nextBoard;
+    private Board m_nextBoard;
 
     public PlayerBot(ArrayList<Card> deck) {
         super("adversaire", deck);
-        m_nextBoard = new Optional[4];
-        for (int i = 0; i < m_nextBoard.length; i++) {
-            m_nextBoard[i] = Optional.empty();
+        m_nextBoard = new Board(4);
+        for (int i = 0; i < m_nextBoard.getCards().length; i++) {
+            m_nextBoard.getCards()[i] = Optional.empty();
         }
     }
 
-    public Optional<Card>[] getNextBoard() {
+    public Board getNextBoard() {
         return m_nextBoard;
     }
 
@@ -41,10 +41,10 @@ public class PlayerBot extends Player {
 //    }
 
     public void pushCards(){
-        for(int i = 0; i < this.m_nextBoard.length; i++){
-            if(this.m_nextBoard[i].isPresent() && this.getBoard()[i].isEmpty()){
-                this.getBoard()[i] = Optional.of(m_nextBoard[i].get());
-                m_nextBoard[i] = Optional.empty();
+        for(int i = 0; i < this.m_nextBoard.getCards().length; i++){
+            if(this.m_nextBoard.getCards()[i].isPresent() && this.getBoard().getCards()[i].isEmpty()){
+                this.getBoard().getCards()[i] = Optional.of(m_nextBoard.getCards()[i].get());
+                m_nextBoard.getCards()[i] = Optional.empty();
             }
         }
     }

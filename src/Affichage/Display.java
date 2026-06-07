@@ -93,7 +93,7 @@ public class Display {
         return sortie;
     }
 
-    public static String board(Optional<Card>[] board){
+    public static String board(Board board){
         String sortie = "";
         String espaceGauche = "              ";
         String bordDeSlot = "*************";
@@ -106,8 +106,8 @@ public class Display {
         for(int i = 0; i < boardTab.length; i++){
             boardTab[i] += espaceGauche;
         }
-        for(int i = 0; i < board.length; i ++) {
-            if (board[i].isEmpty()){
+        for(int i = 0; i < board.getCards().length; i ++) {
+            if (board.getCards()[i].isEmpty()){
                 boardTab[0] += bordDeSlot + "   ";
                 boardTab[1] += ligneSlot + "   ";
                 boardTab[2] += ligneSlot + "   ";
@@ -120,32 +120,32 @@ public class Display {
             }
             else{
                 boardTab[0] += bordDeCarte + "   ";
-                String cardName = "|" + padRight(board[i].get().getName(), 11) + "|";
+                String cardName = "|" + padRight(board.getCards()[i].get().getName(), 11) + "|";
                 boardTab[1] += cardName + "   ";
                 boardTab[2] += separateurCarte + "   ";
-                String cardHP = "| Hp:" + padRight(valueOf(board[i].get().getHealth()),7) + "|";
+                String cardHP = "| Hp:" + padRight(valueOf(board.getCards()[i].get().getHealth()),7) + "|";
                 boardTab[3] += cardHP + "   ";
                 //attaque
                 String cardDamage;
-                if(board[i].get().getDamage() == 0){
+                if(board.getCards()[i].get().getDamage() == 0){
                    cardDamage = ligneCarte;
                 }
                 else{
-                    cardDamage = "| Dmg:" + padRight(valueOf(board[i].get().getDamage()),6) + "|";
+                    cardDamage = "| Dmg:" + padRight(valueOf(board.getCards()[i].get().getDamage()),6) + "|";
                 }
                 boardTab[4] += cardDamage + "   ";
                 //os
                 String cardBones;
-                if(board[i].get().getBones() == 0){
+                if(board.getCards()[i].get().getBones() == 0){
                     cardBones = ligneCarte;
                 }
                 else{
-                    cardBones = "| Os:" + padRight(valueOf(board[i].get().getBones()),7) + "|";
+                    cardBones = "| Os:" + padRight(valueOf(board.getCards()[i].get().getBones()),7) + "|";
                 }
                 boardTab[5] += cardBones + "   ";
                 //volant
                 String cardFlying;
-                if(board[i].get().isFlying()){
+                if(board.getCards()[i].get().isFlying()){
                     cardFlying = "| Volant    |";
                 }
                 else{
@@ -164,7 +164,7 @@ public class Display {
         return sortie;
     }
 
-    public static String nextBoard(Optional<Card>[] board){
+    public static String nextBoard(Board board){
         String sortie = "";
         String espaceGauche = "              ";
         String bordDeSlot = "*************";
@@ -180,8 +180,8 @@ public class Display {
             boardTab[i] += espaceGauche;
         }
 
-        for(int i = 0; i < board.length; i ++) {
-            if (board[i].isEmpty()){
+        for(int i = 0; i < board.getCards().length; i ++) {
+            if (board.getCards()[i].isEmpty()){
                 boardTab[0] += bordDeSlot + "   ";
                 boardTab[1] += ligneSlot + "   ";
                 boardTab[2] += ligneSlot + "   ";
@@ -194,32 +194,32 @@ public class Display {
             }
             else{
                 boardTab[0] += bordDeCarte + "   ";
-                String cardName = "|" + padRight(board[i].get().getName(), 11) + "|";
+                String cardName = "|" + padRight(board.getCards()[i].get().getName(), 11) + "|";
                 boardTab[1] += cardName + "   ";
                 boardTab[2] += separateurCarte + "   ";
-                String cardHP = "| Hp:" + padRight(valueOf(board[i].get().getHealth()),7) + "|";
+                String cardHP = "| Hp:" + padRight(valueOf(board.getCards()[i].get().getHealth()),7) + "|";
                 boardTab[3] += cardHP + "   ";
                 //attaque
                 String cardDamage;
-                if(board[i].get().getDamage() == 0){
+                if(board.getCards()[i].get().getDamage() == 0){
                     cardDamage = ligneCarte;
                 }
                 else{
-                    cardDamage = "| Dmg:" + padRight(valueOf(board[i].get().getDamage()),6) + "|";
+                    cardDamage = "| Dmg:" + padRight(valueOf(board.getCards()[i].get().getDamage()),6) + "|";
                 }
                 boardTab[4] += cardDamage + "   ";
                 //os
                 String cardBones;
-                if(board[i].get().getBones() == 0){
+                if(board.getCards()[i].get().getBones() == 0){
                     cardBones = ligneCarte;
                 }
                 else{
-                    cardBones = "| Os:" + padRight(valueOf(board[i].get().getBones()),7) + "|";
+                    cardBones = "| Os:" + padRight(valueOf(board.getCards()[i].get().getBones()),7) + "|";
                 }
                 boardTab[5] += cardBones + "   ";
                 //volant
                 String cardFlying;
-                if(board[i].get().isFlying()){
+                if(board.getCards()[i].get().isFlying()){
                     cardFlying = "| Volant    |";
                 }
                 else{

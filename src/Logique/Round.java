@@ -110,13 +110,13 @@ public class Round {
             choix = TurnDialog.sacrifice();
         }
         choix --; //pour adapter le choix saisi aux indices des listes, tableaux
-        if(player.getBoard()[choix].isEmpty()){
+        if(player.getBoard().getCards()[choix].isEmpty()){
             TurnDialog.sacrificeError();
             return 0;
         }
         else{
-            if(player.getBoard()[choix].get().getExpendable()){
-                TurnDialog.sacrificeOk(player.getBoard()[choix].get());
+            if(player.getBoard().getCards()[choix].get().getExpendable()){
+                TurnDialog.sacrificeOk(player.getBoard().getCards()[choix].get());
                 player.sacrifice(choix);
                 return 1;
             }
@@ -144,7 +144,7 @@ public class Round {
                     slot = TurnDialog.playSlot(m_player.getHand().get(choix));
                 }
                 slot --; //pour adapter le choix saisi aux indices des listes, tableaux
-                if(player.getBoard()[slot].isEmpty()){
+                if(player.getBoard().getCards()[slot].isEmpty()){
                     player.playCard(choix, slot);
                 }
                 else{
@@ -176,16 +176,16 @@ public class Round {
         int typeP2 = randomNumbers.nextInt(2);
 
         if(typeP1 == 0){
-            m_player.getBoard()[indexP1] = Optional.of(CardFactory.createSapin());
+            m_player.getBoard().getCards()[indexP1] = Optional.of(CardFactory.createSapin());
         }
         else{
-            m_player.getBoard()[indexP1] = Optional.of(CardFactory.createRocher());
+            m_player.getBoard().getCards()[indexP1] = Optional.of(CardFactory.createRocher());
         }
         if(typeP2 == 0){
-            m_bot.getBoard()[indexP2] = Optional.of(CardFactory.createSapin());
+            m_bot.getBoard().getCards()[indexP2] = Optional.of(CardFactory.createSapin());
         }
         else{
-            m_bot.getBoard()[indexP2] = Optional.of(CardFactory.createRocher());
+            m_bot.getBoard().getCards()[indexP2] = Optional.of(CardFactory.createRocher());
         }
     }
 

@@ -64,4 +64,10 @@ public class Card {
     public boolean isDead(){
         return this.getHealth() <= 0;
     }
+
+    @Override
+    public String toString(){
+        return this.m_name + "(dmg=" + this.m_damage + ", hp=" + this.getHealth() + ", blood="
+                + this.getBlood() + ", bones=" + this.getBones() + ", flying=" + this.isFlying() +")";
+    }
 }
