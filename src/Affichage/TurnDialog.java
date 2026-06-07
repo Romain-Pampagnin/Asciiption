@@ -53,31 +53,31 @@ public class TurnDialog {
         System.out.println("Vous sacrifiez : " + card.getName() + ", qui vous rapporte une goutte de sang.");
     }
 
-    public static int playCard(){
+    public static int chooseCard(){
         System.out.println(Display.globalDebug(m_round));
         System.out.println("Entrez le numéro de la carte que vous voulez jouer depuis votre main : ");
         return m_choix.nextInt();
     }
 
-    public static int playSlot(Card card){
+    public static int chooseSlot(Card card){
         System.out.println(Display.globalDebug(m_round));
         System.out.println("Entrez le numéro de l'emplacement dans lequel vous voulez jouer votre " + card.getName() + " : ");
         return m_choix.nextInt();
     }
 
-    public static void emptyHand(){
+    public static void handIsEmpty(){
         System.out.println(Display.globalDebug(m_round));
         System.out.println("Votre main est vide, vous ne pouvez pas jouer de carte.");
         sleep(3000);
     }
 
-    public static void occupiedSlot(){
+    public static void slotIsOccupied(){
         System.out.println(Display.globalDebug(m_round));
         System.out.println("L'emplacement sélectionné est déjà occupé.");
         sleep(3000);
     }
 
-    public static void nonPlayableCard(){
+    public static void cardUnplayable(){
         System.out.println(Display.globalDebug(m_round));
         System.out.println("Vous n'avez pas les ressources nécessaire (os, gouttes de sang ou emplacement libre) pour jouer cette carte. Essayez une autre action.");
         sleep(3000);

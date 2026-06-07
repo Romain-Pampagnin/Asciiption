@@ -1,12 +1,10 @@
 package Logique;
 
-import Affichage.Display;
 import Affichage.TurnDialog;
 
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
-import java.util.Scanner;
 
 import static java.util.Collections.shuffle;
 
@@ -114,30 +112,30 @@ public class Round {
 
     public void play(Player player) throws Exception {
         if(player.getHand().isEmpty()){
-            TurnDialog.emptyHand();
+            TurnDialog.handIsEmpty();
         }
         else{
             int choix = -1;
             while (choix < 0 || choix > player.getHand().size()){
-                choix = TurnDialog.playCard();
+                choix = TurnDialog.chooseCard();
             }
             choix --; //pour adapter le choix saisi aux indices des listes, tableaux
 
             if(player.isCardPlayable(m_player.getHand().get(choix))){
                 int slot = -1;
                 while ((slot < 1 || slot > 4 )){
-                    slot = TurnDialog.playSlot(m_player.getHand().get(choix));
+                    slot = TurnDialog.chooseSlot(m_player.getHand().get(choix));
                 }
                 slot --; //pour adapter le choix saisi aux indices des listes, tableaux
                 if(player.getBoard().getCards()[slot].isEmpty()){
                     player.playCard(choix, slot);
                 }
                 else{
-                    TurnDialog.occupiedSlot();
+                    TurnDialog.slotIsOccupied();
                 }
             }
             else {
-                TurnDialog.nonPlayableCard();
+                TurnDialog.cardUnplayable();
             }
         }
     }

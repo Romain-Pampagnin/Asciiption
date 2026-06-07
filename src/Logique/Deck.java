@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import static java.util.Collections.shuffle;
 
 public class Deck {
-    private ArrayList<Card> m_deck;
+    private ArrayList<Card> m_cards;
 
     public Deck (){
-        m_deck = new ArrayList<Card>();
+        m_cards = new ArrayList<Card>();
     }
     public Deck (int roundNumber){
-        m_deck = buildDeck(roundNumber);
+        m_cards = buildDeck(roundNumber);
     }
 
-    public ArrayList<Card> buildDeck(int roundNumber){
+    private ArrayList<Card> buildDeck(int roundNumber){
         ArrayList<Card> deck = new ArrayList<Card>();
         switch(roundNumber){
             case 1 :
@@ -40,16 +40,20 @@ public class Deck {
     }
 
     public void addCard(Card card){
-        this.m_deck.add(card);
+        this.m_cards.add(card);
     }
 
     public Card draw(){
-        Card buffer = this.m_deck.getFirst();
-        this.m_deck.removeFirst();
+        Card buffer = this.m_cards.getFirst();
+        this.m_cards.removeFirst();
         return buffer;
     }
 
     public int getDeckSize(){
-        return this.m_deck.size();
+        return this.m_cards.size();
+    }
+
+    public boolean isDeckEmpty(){
+        return this.m_cards.isEmpty();
     }
 }
