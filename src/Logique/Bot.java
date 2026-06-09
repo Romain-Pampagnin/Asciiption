@@ -13,6 +13,9 @@ public class Bot extends Joueur{
         m_nextBoard = new Board(4);
     }
 
+    /**
+     * Transfère les cartes depuis le nextBoard du Bot à son Board "de front", la méthode est appelée en début de tour du Bot
+     */
     public void pushCards(){
         for(int i = 0; i < this.m_nextBoard.getCards().length; i++){
             if(this.m_nextBoard.getCards()[i].isPresent() && this.getBoard().getCards()[i].isEmpty()){
@@ -22,6 +25,11 @@ public class Bot extends Joueur{
         }
     }
 
+    /**
+     * Sélectionne la meilleure carte parmi une liste de cartes
+     * @param cardList liste de carte à examiner
+     * @return indice de la meilleure carte de la liste passée en parametre
+     */
     public int getBestCard(ArrayList<Card> cardList){
         int bestCard = -1;
         int bestStats = -1;
@@ -37,6 +45,11 @@ public class Bot extends Joueur{
         return bestCard;
     }
 
+    /**
+     * Sélectionne la pire carte parmi une liste de cartes
+     * @param cardList liste de carte à examiner
+     * @return indice de la pire carte de la liste passée en parametre
+     */
     public int getWorstCard(ArrayList<Card> cardList){
         int worstCard = -1;
         int worstStats = 1000;
@@ -52,6 +65,11 @@ public class Bot extends Joueur{
         return worstCard;
     }
 
+    /**
+     * Méthode calcul arbitraire de la valeur d'une carte en fonction de ses statistiques et capacités
+     * @param card carte dont on calcule la valeur
+     * @return entier, valeur de la carte passée en parametre
+     */
     public int sumStats(Card card){
         int sum = card.getDamage() + card.getHealth();
         if(card.getAbilities().contains("vol")){
@@ -60,10 +78,19 @@ public class Bot extends Joueur{
         return sum;
     }
 
+    /**
+     * Obtient le nextBoard du Bot
+     * @return nextBoard du Bot
+     */
     public Board getNextBoard() {
         return m_nextBoard;
     }
 
+    /**
+     * Pioche des cartes dans la pioche du Bot
+     * @param nbCard entier, nombre de cartes à piocher
+     * @return entier, nombre de cartes effectivement piochées
+     */
     @Override
     public int draw(int nbCard) {
         int drawnCards=0;
@@ -76,6 +103,11 @@ public class Bot extends Joueur{
         return drawnCards;
     }
 
+    /**
+     * Sacrifie la carte présente sur le Board du Bot, à l'indice passé en parametre
+     * @param index entier, indice de la carte à sacrifier
+     * @throws Exception retourne une exception sur l'emplacement spécifié est vide
+     */
     @Override
     public void sacrifice(int index) throws Exception {
         if(this.m_board.getCards()[index].isPresent()){
@@ -87,6 +119,12 @@ public class Bot extends Joueur{
         }
     }
 
+    /**
+     * Joue une carte depuis la main du Bot vers son nextBoard
+     * @param handIndex entier, indice de la carte à jouer depuis la main du Bot
+     * @param slotIndex entier, indice de l'emplacement sur lequel jouer la carte
+     * @throws Exception retourne des exceptions si les indices sont hors des valeurs prévues
+     */
     @Override
     public void playCard(int handIndex, int slotIndex) throws Exception {
         if(slotIndex < m_board.getCards().length && handIndex < m_hand.size()){
@@ -105,11 +143,20 @@ public class Bot extends Joueur{
         }
     }
 
+    /**
+     * Indique si le Board du Bot contient au moins un emplacement libre
+     * @return vrai si le Board du Bot contient au moins un emplacement libre, faux sinon
+     */
     @Override
     public boolean boardHasEmptySlot() {
         return m_board.hasEmptySlot();
     }
 
+    /**
+     * Analyse si la carte passée en parametre est jouable en fonction de ses couts en os et en gouttes de sang
+     * @param card carte à analyser
+     * @return vrai si le Bot dispose de suffisamment de ressources pour jouer la carte passée en parametre
+     */
     @Override
     public boolean isCardPlayable(Card card) {
         return (card.getBlood() > 0 &&
@@ -117,6 +164,11 @@ public class Bot extends Joueur{
                 || (card.getBlood() == 0 && (boardHasEmptySlot() && card.getBones() <= this.getBonesFromGrave()));
     }
 
+    /**
+     * Attaque un joueur
+     * @param other joueur à attaquer
+     * @throws Exception retourne une exception si la méthode bury rencontre une erreur
+     */
     @Override
     public void attack(Joueur other) throws Exception {
         this.m_score += this.m_board.attack(other.getBoard());
