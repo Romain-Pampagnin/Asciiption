@@ -44,15 +44,37 @@ public class BoardTest {
     @Test
     public void test_updateCards2() throws Exception {
         board1.addToBoard(0, CardFactory.createElan());
-        board1.updateCards();
+        board1.attack(board2);
         assertTrue(board1.getCards()[0].isEmpty());
     }
 
     @Test
     public void test_updateCards3() throws Exception {
         board1.addToBoard(0, CardFactory.createElan());
-        board1.updateCards();
+        board1.attack(board2);
         assertTrue(board1.getCards()[1].isPresent());
+    }
+
+    @Test
+    public void test_updateCards4() throws Exception {
+        board1.addToBoard(1, CardFactory.createElan());
+        board1.attack(board2);
+        assertTrue(board1.getCards()[2].isPresent());
+    }
+
+    @Test
+    public void test_updateCards5() throws Exception {
+        board1.addToBoard(3, CardFactory.createElan());
+        board1.attack(board2);
+        assertTrue(board1.getCards()[2].isPresent());
+    }
+
+    @Test
+    public void test_updateCards6() throws Exception {
+        board1.addToBoard(1, CardFactory.createElan());
+        board1.addToBoard(2, CardFactory.createEcureuil());
+        board1.attack(board2);
+        assertTrue(board1.getCards()[0].isPresent());
     }
 
 }

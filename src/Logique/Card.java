@@ -67,7 +67,9 @@ public class Card {
     }
 
     public void takeDamage(int nbDamage){
-        this.m_health -= nbDamage;
+        if(nbDamage > 0) {
+            this.m_health -= nbDamage;
+        }
     }
 
     public void attack(Optional<Card> other) {
@@ -88,18 +90,29 @@ public class Card {
     public boolean getExpendable(){return m_sacrifiable;}
 
     public int attack(Card other){
+        int damage = 0;
+        int damageToAttacker = 0;
+        int damageToDefender = 0;
         if(this.isFlying()) {
-            return this.getDamage();
+            damage = this.getDamage();
         }
         else{
-            if(other.getAbilities().contains("puant")){
-                other.takeDamage(this.getDamage() -1);
+            if(this.getAbilities().contains("contact mortel") && other.getExpendable()) {
+                damageToDefender = other.getHealth();
             }
-            else{
-                other.takeDamage(this.getDamage());
+            if(other.getAbilities().contains("piques pointues")){
+                damageToAttacker = 1;
             }
-            return 0;
+            if(!this.getAbilities().contains("contact mortel") && other.getAbilities().contains("puant")){
+                damageToDefender = this.getDamage() -1;
+            }
+            if(!this.getAbilities().contains("contact mortel") && !other.getAbilities().contains("puant")){
+                damageToDefender = this.getDamage();
+            }
         }
+        this.takeDamage(damageToAttacker);
+        other.takeDamage(damageToDefender);
+        return damage;
     }
 
     public boolean isDead(){

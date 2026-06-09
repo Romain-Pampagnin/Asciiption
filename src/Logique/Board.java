@@ -34,6 +34,13 @@ public class Board {
     }
 
     public int attack(Board other){
+        //lister les slots ayant attaqué ou pas
+        boolean slotAttacked[] = new boolean[m_slots.length];
+        //tout mettre à false
+        for(int i = 0; i < m_slots.length; i ++){
+            slotAttacked[i] = false;
+        }
+
         int totalDamage = 0;
         for(int i = 0; i < this.m_slots.length; i ++){
             if(m_slots[i].isPresent() && other.getCards()[i].isPresent()){
@@ -42,6 +49,43 @@ public class Board {
             else if (m_slots[i].isPresent() && other.getCards()[i].isEmpty()){
                 totalDamage += m_slots[i].get().getDamage();
             }
+            //gestion des coureurs
+            if(m_slots[i].isPresent() && !slotAttacked[i] && m_slots[i].get().getAbilities().contains(("coureur"))) {
+                //pour les élans qui doivent courir
+                if(!slotAttacked[i] && m_slots[i].isPresent() && m_slots[i].get().getAbilities().contains(("coureur"))){
+                    if(i == m_slots.length -1 && m_slots[m_slots.length -2].isEmpty()){ //si on se trouve sur le slot tout à droite
+                        //faire une copie de la carte
+                        m_slots[m_slots.length -2] = Optional.of(new Card(m_slots[m_slots.length -1].get()));
+                        slotAttacked[m_slots.length -2] = true;
+                        //la supprimer de son slot d'origine
+                        m_slots[m_slots.length -1] = Optional.empty();
+                    }
+                    else if( i != 0 && i != m_slots.length -1) { //cas général si on est sur un slot au "milieu"
+                        if (m_slots[i + 1].isEmpty()) {
+                            //faire une copie de la carte
+                            m_slots[i + 1] = Optional.of(new Card(m_slots[i].get()));
+                            slotAttacked[i + 1] = true;
+                            //la supprimer de son slot d'origine
+                            m_slots[i] = Optional.empty();
+                        } else if (m_slots[i + 1].isPresent() && m_slots[i - 1].isEmpty()) {
+                            //faire une copie de la carte
+                            m_slots[i - 1] = Optional.of(new Card(m_slots[i].get()));
+                            slotAttacked[i - 1] = true;
+                            //la supprimer de son slot d'origine
+                            m_slots[i] = Optional.empty();
+                        }
+                    }
+                    else if(i == 0 && m_slots[1].isEmpty()){ //si on se trouve sur le slot tout à gauche
+                        //faire une copie de la carte
+                        m_slots[1] = Optional.of(new Card(m_slots[0].get()));
+                        slotAttacked[1] = true;
+                        //la supprimer de son slot d'origine
+                        m_slots[0] = Optional.empty();
+                    }
+                }
+            }
+            //mettre le slot à true
+            slotAttacked[i] = true;
         }
         return totalDamage;
     }
@@ -70,35 +114,6 @@ public class Board {
             if(m_slots[i].isPresent() && m_slots[i].get().getAbilities().contains(("croissance"))){
                 m_slots[i] = Optional.empty();
                 m_slots[i] = Optional.of(CardFactory.createLoup());
-            }
-            //pour les élans qui doivent courir
-            if(m_slots[i].isPresent() && m_slots[i].get().getAbilities().contains(("coureur"))){
-                if(i == m_slots.length -1 && m_slots[m_slots.length -2].isEmpty()){ //si on se trouve sur le slot tout à droite
-                    //faire une copie de la carte
-                    m_slots[m_slots.length -2] = Optional.of(new Card(m_slots[m_slots.length -1].get()));
-                    //la supprimer de son slot d'origine
-                    m_slots[m_slots.length -1] = Optional.empty();
-                }
-                else if(i == 0 && m_slots[1].isEmpty()){ //si on se trouve sur le slot tout à gauche
-                    //faire une copie de la carte
-                    m_slots[1] = Optional.of(new Card(m_slots[0].get()));
-                    //la supprimer de son slot d'origine
-                    m_slots[0] = Optional.empty();
-                }
-                else if( i != 0 && i != m_slots.length -1){ //cas général si on est sur un slot au "milieu"
-                    if(m_slots[i+1].isEmpty()){
-                        //faire une copie de la carte
-                        m_slots[i+1] = Optional.of(new Card(m_slots[i].get()));
-                        //la supprimer de son slot d'origine
-                        m_slots[i] = Optional.empty();
-                    }
-                    else if(m_slots[i+1].isPresent() && m_slots[i-1].isEmpty()){
-                        //faire une copie de la carte
-                        m_slots[i-1] = Optional.of(new Card(m_slots[i].get()));
-                        //la supprimer de son slot d'origine
-                        m_slots[i] = Optional.empty();
-                    }
-                }
             }
         }
     }

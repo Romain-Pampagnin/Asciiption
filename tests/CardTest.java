@@ -106,4 +106,52 @@ public class CardTest {
         assertEquals(2, carte1.getHealth());
     }
 
+    @Test
+    public void test_attack3() {
+        Card carte1 = CardFactory.createVipere();
+        Card carte2 = CardFactory.createHermine();
+        carte1.attack(carte2);
+        assertEquals(0, carte2.getHealth());
+    }
+
+    @Test
+    public void test_attack4() {
+        Card carte1 = CardFactory.createVipere();
+        Card carte2 = CardFactory.createPorcEpic();
+        carte1.attack(carte2);
+        assertEquals(0, carte1.getHealth());
+    }
+
+    @Test
+    public void test_attack5() {
+        Card carte1 = CardFactory.createVipere();
+        Card carte2 = CardFactory.createPorcEpic();
+        carte1.attack(carte2);
+        assertEquals(0, carte2.getHealth());
+    }
+
+    @Test
+    public void test_attack6() {
+        Card carte1 = CardFactory.createVipere();
+        Card carte2 = CardFactory.createPunaise();
+        carte1.attack(carte2);
+        assertEquals(0, carte2.getHealth());
+    }
+
+    @Test
+    public void test_attack7() {
+        Card carte1 = CardFactory.createEcureuil();
+        Card carte2 = CardFactory.createPunaise();
+        carte1.attack(carte2);
+        assertEquals(2, carte2.getHealth());
+    }
+
+    @Test
+    public void test_attack8() {
+        Card carte1 = CardFactory.createCoyote();
+        Card carte2 = CardFactory.createPunaise();
+        carte1.attack(carte2);
+        assertEquals(1, carte2.getHealth());
+    }
+
 }
