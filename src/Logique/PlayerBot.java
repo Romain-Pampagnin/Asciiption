@@ -81,7 +81,7 @@ public class PlayerBot extends Player {
 
     public int sumStats(Card card){
         int sum = card.getDamage() + card.getHealth();
-        if(card.isFlying()){
+        if(card.getAbilities().contains("vol")){
             sum += 5;
         }
         return sum;

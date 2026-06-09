@@ -9,48 +9,44 @@ public class Card {
     private int m_health;
     private final int m_blood;
     private final int m_bones;
-    private final boolean m_flying;
     private final boolean m_sacrifiable;
     private ArrayList<String> m_abilities;
 
-    public Card(String n, int d, int h, int bl, int bo, boolean fly, ArrayList<String> abilities){
+    public Card(String n, int d, int h, int bl, int bo, ArrayList<String> abilities){
         m_name = n;
         m_damage = d;
         m_health = h;
         m_blood = bl;
         m_bones = bo;
-        m_flying = fly;
         m_sacrifiable = true;
         m_abilities = abilities;
     }
 
-    public Card(String n, int d, int h, int bl, int bo, boolean fly){
+    public Card(String n, int d, int h, int bl, int bo){
         m_name = n;
         m_damage = d;
         m_health = h;
         m_blood = bl;
         m_bones = bo;
-        m_flying = fly;
         m_sacrifiable = true;
         m_abilities = new ArrayList<String>();
     }
-    public Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable, ArrayList<String> abilities){
+    public Card(String n, int d, int h, int bl, int bo, boolean sacrifiable, ArrayList<String> abilities){
         m_name = n;
         m_damage = d;
         m_health = h;
         m_blood = bl;
         m_bones = bo;
-        m_flying = fly;
         m_sacrifiable = sacrifiable;
+        m_abilities = abilities;
     }
 
-    public Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
+    public Card(String n, int d, int h, int bl, int bo, boolean sacrifiable){
         m_name = n;
         m_damage = d;
         m_health = h;
         m_blood = bl;
         m_bones = bo;
-        m_flying = fly;
         m_sacrifiable = sacrifiable;
         m_abilities = new ArrayList<String>();
     }
@@ -61,7 +57,6 @@ public class Card {
         m_health = card.m_health;
         m_blood = card.m_blood;
         m_bones = card.m_bones;
-        m_flying = card.isFlying();
         m_sacrifiable = card.getExpendable();
         m_abilities = card.getAbilities();
     }
@@ -82,7 +77,7 @@ public class Card {
         return m_damage;
     }
     public boolean isFlying(){
-        return m_flying;
+        return m_abilities.contains("vol");
     }
     public int getBones(){return m_bones; }
     public int getBlood(){return m_blood;}
@@ -93,20 +88,20 @@ public class Card {
         int damage = 0;
         int damageToAttacker = 0;
         int damageToDefender = 0;
-        if(this.isFlying()) {
+        if(this.getAbilities().contains("vol")) {
             damage = this.getDamage();
         }
         else{
-            if(this.getAbilities().contains("contact mortel") && other.getExpendable()) {
+            if(this.getAbilities().contains("venin") && other.getExpendable()) {
                 damageToDefender = other.getHealth();
             }
-            if(other.getAbilities().contains("piques pointues")){
+            if(other.getAbilities().contains("épines")){
                 damageToAttacker = 1;
             }
-            if(!this.getAbilities().contains("contact mortel") && other.getAbilities().contains("puant")){
+            if(!this.getAbilities().contains("venin") && other.getAbilities().contains("puant")){
                 damageToDefender = this.getDamage() -1;
             }
-            if(!this.getAbilities().contains("contact mortel") && !other.getAbilities().contains("puant")){
+            if(!this.getAbilities().contains("venin") && !other.getAbilities().contains("puant")){
                 damageToDefender = this.getDamage();
             }
         }
@@ -130,6 +125,6 @@ public class Card {
     @Override
     public String toString(){
         return this.m_name + "(dmg=" + this.m_damage + ", hp=" + this.getHealth() + ", blood="
-                + this.getBlood() + ", bones=" + this.getBones() + ", flying=" + this.isFlying() +")";
+                + this.getBlood() + ", bones=" + this.getBones() + ", abilities=" + this.getAbilities().toString() +")";
     }
 }

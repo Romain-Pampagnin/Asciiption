@@ -171,24 +171,24 @@ public class Display {
                     cardDamage = "| Dmg:" + padRight(valueOf(board.getCards()[i].get().getDamage()),6) + "|";
                 }
                 boardTab[4] += cardDamage + "   ";
-                //os
-                String cardBones;
-                if(board.getCards()[i].get().getBones() == 0){
-                    cardBones = ligneCarte;
+                //ability 1
+                String cardAbility1;
+                if(board.getCards()[i].get().getAbilities().isEmpty()){
+                    cardAbility1 = ligneCarte;
                 }
                 else{
-                    cardBones = "| Os:" + padRight(valueOf(board.getCards()[i].get().getBones()),7) + "|";
+                    cardAbility1 = "| " + padRight(valueOf(board.getCards()[i].get().getAbilities().get(0)),10) + "|";
                 }
-                boardTab[5] += cardBones + "   ";
-                //volant
-                String cardFlying;
-                if(board.getCards()[i].get().isFlying()){
-                    cardFlying = "| Volant    |";
+                boardTab[5] += cardAbility1 + "   ";
+                //ability 2
+                String cardAbility2;
+                if(board.getCards()[i].get().getAbilities().size() > 1){
+                    cardAbility2 = "| " + padRight(valueOf(board.getCards()[i].get().getAbilities().get(1)),10) + "|";
                 }
                 else{
-                    cardFlying = ligneCarte;
+                    cardAbility2 = ligneCarte;
                 }
-                boardTab[6] += cardFlying + "   ";
+                boardTab[6] += cardAbility2 + "   ";
                 boardTab[7] += bordDeCarte + "   ";
 
 
@@ -245,24 +245,24 @@ public class Display {
                     cardDamage = "| Dmg:" + padRight(valueOf(board.getCards()[i].get().getDamage()),6) + "|";
                 }
                 boardTab[4] += cardDamage + "   ";
-                //os
-                String cardBones;
-                if(board.getCards()[i].get().getBones() == 0){
-                    cardBones = ligneCarte;
+                //ability 1
+                String cardAbility1;
+                if(board.getCards()[i].get().getAbilities().isEmpty()){
+                    cardAbility1 = ligneCarte;
                 }
                 else{
-                    cardBones = "| Os:" + padRight(valueOf(board.getCards()[i].get().getBones()),7) + "|";
+                    cardAbility1 = "| " + padRight(valueOf(board.getCards()[i].get().getAbilities().get(0)),10) + "|";
                 }
-                boardTab[5] += cardBones + "   ";
-                //volant
-                String cardFlying;
-                if(board.getCards()[i].get().isFlying()){
-                    cardFlying = "| Volant    |";
+                boardTab[5] += cardAbility1 + "   ";
+                //ability 2
+                String cardAbility2;
+                if(board.getCards()[i].get().getAbilities().size() > 1){
+                    cardAbility2 = "| " + padRight(valueOf(board.getCards()[i].get().getAbilities().get(1)),10) + "|";
                 }
                 else{
-                    cardFlying = ligneCarte;
+                    cardAbility2 = ligneCarte;
                 }
-                boardTab[6] += cardFlying + "   ";
+                boardTab[6] += cardAbility2 + "   ";
                 boardTab[7] += bordDeCarte + "   ";;
 
 

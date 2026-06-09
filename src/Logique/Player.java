@@ -54,7 +54,7 @@ public class Player {
 
     public void sacrifice(int index) throws Exception {
         if(this.m_board.getCards()[index].isPresent()){
-            if(!this.m_board.getCards()[index].get().getAbilities().contains("nombreuses vies")){
+            if(!this.m_board.getCards()[index].get().getAbilities().contains("7 vies")){
                 m_cemetery.add(this.m_board.getCards()[index].get());
                 this.m_board.removeFromBoard(index);
             }

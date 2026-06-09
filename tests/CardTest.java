@@ -32,7 +32,7 @@ public class CardTest {
     @org.junit.jupiter.api.Test
     public void test_isFlying(){
         Card coyote = CardFactory.createCoyote();
-        assertFalse(coyote.isFlying());
+        assertFalse(coyote.getAbilities().contains("vol"));
     }
     @org.junit.jupiter.api.Test
     public void test_takeDamage(){
