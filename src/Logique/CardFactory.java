@@ -1,10 +1,15 @@
 package Logique;
 
+import java.util.ArrayList;
+
 public class CardFactory {
+    static private ArrayList<String> m_nombreusesVies;
     private CardFactory(){}
 
     static public Card createChat(){
-        return new Card("Chat",0,1,1,0,false);
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("nombreuses vies");
+        return new Card("Chat",0,1,1,0,false, abilities);
     }
 
     static public Card createGrizzly(){
@@ -32,7 +37,9 @@ public class CardFactory {
     }
 
     static public Card createLouveteau(){
-        return new Card("Louveteau",1,1,1,0,false);
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("croissance");
+        return new Card("Louveteau",1,1,1,0,false, abilities);
     }
 
     static public Card createLoup(){
@@ -40,7 +47,27 @@ public class CardFactory {
     }
 
     static public Card createPunaise(){
-        return new Card("Punaise",1,2,0,2,false);
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("puant");
+        return new Card("Punaise",1,2,0,2,false, abilities);
+    }
+
+    static public Card createElan(){
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("coureur");
+        return new Card("Elan",2,4,2,0,false, abilities);
+    }
+
+    static public Card createVipere(){
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("contact mortel");
+        return new Card("Vipère",1,1,2,0,false, abilities);
+    }
+
+    static public Card createPorcEpic(){
+        ArrayList<String> abilities = new ArrayList<>();
+        abilities.add("piques pointues");
+        return new Card("Porc-épic",1,2,1,0,false, abilities);
     }
 
     static public Card createRocher(){

@@ -1,5 +1,6 @@
 package Logique;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class Card {
@@ -10,6 +11,18 @@ public class Card {
     private final int m_bones;
     private final boolean m_flying;
     private final boolean m_sacrifiable;
+    private ArrayList<String> m_abilities;
+
+    public Card(String n, int d, int h, int bl, int bo, boolean fly, ArrayList<String> abilities){
+        m_name = n;
+        m_damage = d;
+        m_health = h;
+        m_blood = bl;
+        m_bones = bo;
+        m_flying = fly;
+        m_sacrifiable = true;
+        m_abilities = abilities;
+    }
 
     public Card(String n, int d, int h, int bl, int bo, boolean fly){
         m_name = n;
@@ -19,7 +32,18 @@ public class Card {
         m_bones = bo;
         m_flying = fly;
         m_sacrifiable = true;
+        m_abilities = new ArrayList<String>();
     }
+    public Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable, ArrayList<String> abilities){
+        m_name = n;
+        m_damage = d;
+        m_health = h;
+        m_blood = bl;
+        m_bones = bo;
+        m_flying = fly;
+        m_sacrifiable = sacrifiable;
+    }
+
     public Card(String n, int d, int h, int bl, int bo, boolean fly, boolean sacrifiable){
         m_name = n;
         m_damage = d;
@@ -28,6 +52,7 @@ public class Card {
         m_bones = bo;
         m_flying = fly;
         m_sacrifiable = sacrifiable;
+        m_abilities = new ArrayList<String>();
     }
 
     public void takeDamage(int nbDamage){
@@ -63,6 +88,10 @@ public class Card {
 
     public boolean isDead(){
         return this.getHealth() <= 0;
+    }
+
+    public void addAbility(String ability){
+        this.m_abilities.add(ability);
     }
 
     @Override
