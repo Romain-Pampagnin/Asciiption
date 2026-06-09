@@ -10,31 +10,41 @@ public class Deck {
     public Deck (){
         m_cards = new ArrayList<Card>();
     }
-    public Deck (int roundNumber){
-        m_cards = buildDeck(roundNumber);
+    public Deck (int roundNumber, boolean isBot){
+        if(isBot) {
+            m_cards = buildDeck(roundNumber, true);
+        }
+        else{
+            m_cards = buildDeck(roundNumber, false);
+        }
     }
 
-    private ArrayList<Card> buildDeck(int roundNumber){
+
+    private ArrayList<Card> buildDeck(int roundNumber, boolean isBot){
         ArrayList<Card> deck = new ArrayList<Card>();
         switch(roundNumber){
             case 1 :
-                for(int i = 0; i < 8; i++)
-                {
-                    deck.add(CardFactory.createEcureuil());
-                }
-                for(int i = 0; i < 2; i++)
-                {
-                    deck.add(CardFactory.createCorbeau());
-                }
-                for(int i = 0; i < 3; i++)
-                {
-                    deck.add(CardFactory.createPunaise());
-                }
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createPunaise());
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createCorbeau());
                 deck.add(CardFactory.createHermine());
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createPunaise());
+                deck.add(CardFactory.createCorbeau());
+                deck.add(CardFactory.createEcureuil());
+                deck.add(CardFactory.createEcureuil());
                 deck.add(CardFactory.createGrizzly());
-                shuffle(deck);
+                deck.add(CardFactory.createPunaise());
+                deck.add(CardFactory.createEcureuil());
             case 2:
 
+        }
+
+        if(!isBot) {
+            shuffle(deck);
         }
         return deck;
     }

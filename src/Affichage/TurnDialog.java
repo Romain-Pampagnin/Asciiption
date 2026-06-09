@@ -82,4 +82,10 @@ public class TurnDialog {
         System.out.println("Vous n'avez pas les ressources nécessaire (os, gouttes de sang ou emplacement libre) pour jouer cette carte. Essayez une autre action.");
         sleep(3000);
     }
+
+    public static void botHasPlayedCards(){
+        System.out.println(Display.globalDebug(m_round));
+        System.out.println("Votre adversaire a joué ses cartes, elles avanceront au tour prochain pour vous attaquer.");
+        sleep(3000);
+    }
 }

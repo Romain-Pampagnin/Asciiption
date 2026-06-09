@@ -9,29 +9,23 @@ import java.util.Random;
 import static java.util.Collections.shuffle;
 
 public class Round {
-    private Player m_player;
-    private PlayerBot m_bot;
+    private Human m_player;
+    private Bot m_bot;
     private int m_roundNumber;
     private int m_tourNumber;
 
     public Round(String playerName,int number){
         m_roundNumber = number;
+        m_tourNumber = 1;
         //a changer
-        Deck deckPlayer = new Deck(number);
-        Deck deckEnemy = new Deck(number);
+        Deck deckPlayer = new Deck(m_roundNumber, false);
+        Deck deckEnemy = new Deck(m_roundNumber, true);
         //fin à changer
-        m_player = new Player(playerName,deckPlayer);
-        m_bot= new PlayerBot(deckEnemy);
+        m_player = new Human(playerName,deckPlayer);
+        m_bot= new Bot(deckEnemy);
         Affichage.TurnDialog.setRound(this);
     }
 
-    private ArrayList<Card> buildDeck(int roundNumber){
-        ArrayList<Card> deck = new ArrayList<Card>();
-        switch (roundNumber){
-
-        }
-        return deck;
-    }
 
     public void run() throws Exception {
         initialize(this.m_roundNumber);
@@ -45,27 +39,34 @@ public class Round {
             //actions du bot
             m_bot.draw(1);
             //bot pose des cartes sur son board prévisionnel
-
+            botPlayCard(this.m_tourNumber);
+            TurnDialog.botHasPlayedCards();
             //bot attaque le joueur
             m_bot.attack(m_player);
             //actions du joueur
             m_player.draw(1);
             actions(m_player,m_bot);
 
+            //incrémenter le numéro du round
+            incrementTourNumber(1);
 
 
         }
         System.out.println("debug fin du premier round");
     }
 
-    public Player getPlayer(){
+    public Human getPlayer(){
         return m_player;
     }
-    public PlayerBot getBot(){
+    public Bot getBot(){
         return m_bot;
     }
 
-    public void actions(Player player,Player other) throws Exception {
+    public void incrementTourNumber(int i){
+        m_tourNumber += i;
+    }
+
+    public void actions(Joueur player,Joueur other) throws Exception {
         //TurnDialog.actionChoices();
         String choix = "";
         while(!choix.equals("attack")) {
@@ -87,7 +88,46 @@ public class Round {
         }
     }
 
-    public int sacrifice(Player player) throws Exception {
+    public void botPlayCard(int tourNumber) throws Exception {
+        switch (tourNumber){
+            case 1:
+                m_bot.playCard(0,1);
+                m_bot.playCard(0,3);
+                break;
+            case 2:
+                m_bot.playCard(0,2);
+                break;
+            case 3:
+                if(m_bot.getBoard().getCards()[2].isPresent() && m_bot.getBoard().getCards()[2].isPresent()){
+                    m_bot.sacrifice(2);
+                    m_bot.sacrifice(3);
+                    m_bot.playCard(2,2);
+                }
+                else if (m_bot.getBoard().getCards()[2].isEmpty()){
+                    m_bot.playCard(1,2);
+                }
+                else if (m_bot.getBoard().getCards()[3].isEmpty()){
+                    m_bot.playCard(1,3);
+                }
+                break;
+            case 4:
+                if(m_bot.getBoard().getCards()[1].isPresent()) {
+                    m_bot.sacrifice(1);
+                    m_bot.playCard(3,1);
+                }
+                else if (m_bot.getBoard().getCards()[2].isPresent()) {
+                    m_bot.sacrifice(2);
+                    m_bot.playCard(3,2);
+                }
+                else{
+                    m_bot.playCard(0,1);
+                }
+                break;
+
+        }
+    }
+
+    public int sacrifice(Joueur player) throws Exception {
         int choix = -1;
         while (choix < 1 || choix > 4){
             choix = TurnDialog.sacrifice();
@@ -110,7 +150,7 @@ public class Round {
         }
     }
 
-    public void play(Player player) throws Exception {
+    public void play(Joueur player) throws Exception {
         if(player.getHand().isEmpty()){
             TurnDialog.handIsEmpty();
         }
@@ -142,8 +182,8 @@ public class Round {
 
     public void initialize(int roundNumber){
         //faire piocher + affichage message de début
-        this.m_player.draw(4);
-        this.m_bot.draw(4);
+        this.m_player.draw(3);
+        this.m_bot.draw(3);
         TurnDialog.setRound(this);
 
         //ajouter les terrains
@@ -154,7 +194,7 @@ public class Round {
         //sélectionner l'obstacle
         Random randomNumbers = new Random();
         int indexP1 = randomNumbers.nextInt(4);
-        int indexP2 = randomNumbers.nextInt(4);
+        int indexP2 = 0;
         int typeP1 = randomNumbers.nextInt(2);
         int typeP2 = randomNumbers.nextInt(2);
 

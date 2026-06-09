@@ -99,7 +99,7 @@ class Card {
 
 class Board {
 +<<create>> Board(size: Integer) : Board
-+getCards() : Optional<Card>[4]
++getCards() : Card[*]
 +addToBoard (index: Integer, card : Card)
 +removeFromBoard(index: Integer)
 +attack(other: Board) : Integer

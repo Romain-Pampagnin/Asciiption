@@ -12,6 +12,8 @@ public class Main
         round1.run();
 
 
+        //Human joueurTest = new Human("joueur de test", new Deck(1));
+
 
     }
 }

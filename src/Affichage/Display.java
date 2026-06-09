@@ -8,7 +8,7 @@ import static java.lang.String.valueOf;
 
 public class Display {
 
-    public static String hand(Player player){
+    public static String hand(Joueur player){
         String sortie ="";
         sortie += "Votre main:";
         int cardNumber = 1;
@@ -19,10 +19,10 @@ public class Display {
         return sortie;
     }
 
-    public static String handLine(Player player, int cardIndex){
+    public static String handLine(Joueur player, int cardIndex){
         return (padLeft(valueOf(cardIndex + 1),2)) + ". " + padRight(player.getHand().get(cardIndex).getName(),9) + " PV: " + padRight(String.valueOf(player.getHand().get(cardIndex).getHealth()),2) + " Att: " + padRight(String.valueOf(player.getHand().get(cardIndex).getDamage()),2) + " Gouttes de sang: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBlood()),2) + " Os: " + padRight(String.valueOf(player.getHand().get(cardIndex).getBones()),2);
     }
-    public static String player(Player player, Player player2){
+    public static String player(Joueur player, Joueur player2){
         String sortie = "";
         String vide = "\n";
         String ligneCarteG = "|           |";
@@ -263,7 +263,7 @@ public class Display {
                     cardFlying = ligneCarte;
                 }
                 boardTab[6] += cardFlying + "   ";
-                boardTab[7] += bordDeCarte;
+                boardTab[7] += bordDeCarte + "   ";;
 
 
             }

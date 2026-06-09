@@ -46,6 +46,15 @@ public class Board {
         return totalDamage;
     }
 
+    public int getFirstEmptySlot(){
+        for(int i = 0; i < m_slots.length; i++){
+            if(m_slots[i].isEmpty()){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public boolean hasEmptySlot(){
         for (int i = 0; i < m_slots .length; i++){
             if(m_slots[i].isEmpty()){
