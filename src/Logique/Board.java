@@ -64,6 +64,45 @@ public class Board {
         return false;
     }
 
+    public void updateCards(){
+        for(int i = 0; i < m_slots.length; i++){
+            //pour les louveteaux qui doivent grandir
+            if(m_slots[i].isPresent() && m_slots[i].get().getAbilities().contains(("croissance"))){
+                m_slots[i] = Optional.empty();
+                m_slots[i] = Optional.of(CardFactory.createLoup());
+            }
+            //pour les élans qui doivent courir
+            if(m_slots[i].isPresent() && m_slots[i].get().getAbilities().contains(("coureur"))){
+                if(i == m_slots.length -1 && m_slots[m_slots.length -2].isEmpty()){ //si on se trouve sur le slot tout à droite
+                    //faire une copie de la carte
+                    m_slots[m_slots.length -2] = Optional.of(new Card(m_slots[m_slots.length -1].get()));
+                    //la supprimer de son slot d'origine
+                    m_slots[m_slots.length -1] = Optional.empty();
+                }
+                else if(i == 0 && m_slots[1].isEmpty()){ //si on se trouve sur le slot tout à gauche
+                    //faire une copie de la carte
+                    m_slots[1] = Optional.of(new Card(m_slots[0].get()));
+                    //la supprimer de son slot d'origine
+                    m_slots[0] = Optional.empty();
+                }
+                else if( i != 0 && i != m_slots.length -1){ //cas général si on est sur un slot au "milieu"
+                    if(m_slots[i+1].isEmpty()){
+                        //faire une copie de la carte
+                        m_slots[i+1] = Optional.of(new Card(m_slots[i].get()));
+                        //la supprimer de son slot d'origine
+                        m_slots[i] = Optional.empty();
+                    }
+                    else if(m_slots[i+1].isPresent() && m_slots[i-1].isEmpty()){
+                        //faire une copie de la carte
+                        m_slots[i-1] = Optional.of(new Card(m_slots[i].get()));
+                        //la supprimer de son slot d'origine
+                        m_slots[i] = Optional.empty();
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String board = "";

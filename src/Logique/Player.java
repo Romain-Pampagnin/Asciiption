@@ -54,8 +54,10 @@ public class Player {
 
     public void sacrifice(int index) throws Exception {
         if(this.m_board.getCards()[index].isPresent()){
-            m_cemetery.add(this.m_board.getCards()[index].get());
-            this.m_board.removeFromBoard(index);
+            if(!this.m_board.getCards()[index].get().getAbilities().contains("nombreuses vies")){
+                m_cemetery.add(this.m_board.getCards()[index].get());
+                this.m_board.removeFromBoard(index);
+            }
         }
         else {
             throw new Exception("Il n'y a pas de carte à cet emplacement, impossible de sacrifier la carte.");

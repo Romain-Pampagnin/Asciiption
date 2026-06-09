@@ -32,6 +32,8 @@ public class PlayerTest {
     public void test_getHand(){
         assertEquals(new ArrayList<Card>(),joueur.getHand());
     }
+
+
     //ici aussi il va falloir recoder la méthode equals
 //    @Test
 //    public void test_getDeck(){
@@ -91,6 +93,7 @@ public class PlayerTest {
     public void test_sacrifice() {
         assertThrows(Exception.class,()->{joueur.sacrifice(1);});
     }
+
     @org.junit.jupiter.api.Test
     public void test_sacrifice1() {
         joueur.getDeck().addCard(CardFactory.createEcureuil());
@@ -102,6 +105,15 @@ public class PlayerTest {
         }
         assertDoesNotThrow(()->{joueur.sacrifice(0);});
     }
+
+    @Test
+    public void test_sacrifice2() throws Exception {
+        joueur.getBoard().addToBoard(0, CardFactory.createChat());
+        joueur.sacrifice(0);
+        assertEquals("Chat", joueur.getBoard().getCards()[0].get().getName());
+    }
+
+
     @Test
     public void test_attack() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createPunaise());
@@ -115,6 +127,7 @@ public class PlayerTest {
         joueur.attack(bot);
         assertEquals(0,joueur.getScore());
     }
+
     @Test
     public void test_attack2() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createPunaise());
@@ -122,6 +135,7 @@ public class PlayerTest {
         joueur.attack(bot);
         assertEquals(Optional.empty(),bot.getBoard().getCards()[0]);
     }
+
     @Test
     public void test_attack3() throws Exception {
         joueur.getBoard().getCards()[0] = Optional.of(CardFactory.createMoineau());
@@ -129,6 +143,7 @@ public class PlayerTest {
         joueur.attack(bot);
         assertEquals(1,joueur.getScore());
     }
+
     @Test
     public void test_attack4() throws Exception {
         Optional<Card> ecureuil = Optional.of(CardFactory.createEcureuil());

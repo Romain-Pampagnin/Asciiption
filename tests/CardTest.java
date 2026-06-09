@@ -89,4 +89,21 @@ public class CardTest {
         Card carte = CardFactory.createSapin();
         assertEquals(0, carte.getBlood());
     }
+
+    @Test
+    public void test_attack() {
+        Card carte1 = CardFactory.createPunaise();
+        Card carte2 = CardFactory.createHermine();
+        carte2.attack(carte1);
+        assertEquals(2, carte1.getHealth());
+    }
+
+    @Test
+    public void test_attack2() {
+        Card carte1 = CardFactory.createSapin();
+        Card carte2 = CardFactory.createHermine();
+        carte2.attack(carte1);
+        assertEquals(2, carte1.getHealth());
+    }
+
 }

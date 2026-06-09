@@ -34,6 +34,8 @@ public class Round {
             //début du tour
             m_player.resetTotalBlood();
             m_bot.resetTotalBlood();
+            m_player.updateCards();
+            m_bot.updateCards();
             //avancer les cartes prévisionnelles du bot
             m_bot.pushCards();
             //actions du bot

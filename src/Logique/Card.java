@@ -55,6 +55,17 @@ public class Card {
         m_abilities = new ArrayList<String>();
     }
 
+    public Card(Card card){
+        m_name = card.getName();
+        m_damage = card.getDamage();
+        m_health = card.m_health;
+        m_blood = card.m_blood;
+        m_bones = card.m_bones;
+        m_flying = card.isFlying();
+        m_sacrifiable = card.getExpendable();
+        m_abilities = card.getAbilities();
+    }
+
     public void takeDamage(int nbDamage){
         this.m_health -= nbDamage;
     }
@@ -81,13 +92,22 @@ public class Card {
             return this.getDamage();
         }
         else{
-            other.takeDamage(this.getDamage());
+            if(other.getAbilities().contains("puant")){
+                other.takeDamage(this.getDamage() -1);
+            }
+            else{
+                other.takeDamage(this.getDamage());
+            }
             return 0;
         }
     }
 
     public boolean isDead(){
         return this.getHealth() <= 0;
+    }
+
+    public ArrayList<String> getAbilities(){
+        return m_abilities;
     }
 
     public void addAbility(String ability){

@@ -47,6 +47,10 @@ public abstract class Joueur {
         }
     }
 
+    public void updateCards(){
+        m_board.updateCards();
+    }
+
     public int getScore(){
         return m_score;
     }

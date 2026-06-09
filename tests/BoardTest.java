@@ -34,4 +34,25 @@ public class BoardTest {
         assertNotEquals(board1, board2);
     }
 
+    @Test
+    public void test_UpdateCards() throws Exception {
+        board1.addToBoard(0, CardFactory.createLouveteau());
+        board1.updateCards();
+        assertEquals("Loup",board1.getCards()[0].get().getName());
+    }
+
+    @Test
+    public void test_updateCards2() throws Exception {
+        board1.addToBoard(0, CardFactory.createElan());
+        board1.updateCards();
+        assertTrue(board1.getCards()[0].isEmpty());
+    }
+
+    @Test
+    public void test_updateCards3() throws Exception {
+        board1.addToBoard(0, CardFactory.createElan());
+        board1.updateCards();
+        assertTrue(board1.getCards()[1].isPresent());
+    }
+
 }
