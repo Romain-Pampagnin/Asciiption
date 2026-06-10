@@ -72,14 +72,6 @@ public class Card {
     }
 
     /**
-     * La carte courante attaque une carte adverse passée en parametre
-     * @param other carte que la carte courante attaque
-     */
-    public void attack(Optional<Card> other) {
-        other.get().takeDamage(this.m_damage);
-    }
-
-    /**
      * Récupère les points de vie de la carte courante
      * @return entier, points de vie de la carte courante
      */

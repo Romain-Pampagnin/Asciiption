@@ -13,47 +13,124 @@ package Logique{
 
 Main ..> Game : "   Instanciate"
 
-Board "1  "*-->"4 \n m_slots" Card : "   contient"
+Board "1  "*-->"* \n m_slots" Card : "   contient"
 
 Game ..> Round : "   Instanciate"
-Round "1  " *--> "2  " Player : "   se joue entre"
+Round "1  " *--> "1  " Human : "   se joue entre"
+Round "1  " *--> "1  " Bot : "   se joue entre"
+Bot --|> Joueur
+Human --|> Joueur
 
 
 class Round{
--m_players : Player[2]
 -m_roundNumber : Integer
+-m_tourNumber : Integer
 +<<create>> Round(playerName : String, number : Integer)
++run()
++getPlayer(): Human
++getBot() : Bot
++incrementTourNumber(i: Integer)
++getTournNumber() : Integer
++actions(player: Joueur, other: Joueur)
++botPlayCard(tourNumber: Integer)
++sacrifice(player: Joueur) : Integer
++play(player: Joueur)
++initialize()
++addObstacles()
 }
 
-class Player{
+class Joueur{
+#m_name : String
+#m_score : Integer
+#m_totalBlood : Integer
+#m_cemetery : ArrayList<Card>
+#m_hand : ArrayList<Card>
++<<create>> Joueur(name: String, deck: Deck) : Joueur
++<<create>> Joueur(deck: Deck) : Joueur
++{abstract} draw(nbCard : Integer) : Integer
++{abstract} sacrifice(index: Integer)
++{abstract} playCard(handIndex: Integer, slotIndex: Integer)
++{abstract} boardHasEmptySlot() : Boolean
++{abstract} isCardPlayable(card: Card) : Boolean
++{abstract} attack(other: Joueur)
++bury()
++updateCards()
++getScore() : Integer
++getBonesFromGrave() : Integer
++getHand() : ArrayList<Card>
++getDeck() : Deck
++getBoard() : Board
++getTotalBlood() : Integer
++incrementTotalBlood(i: Integer)
++resetTotalBlood()
++decreaseTotalBlood(i: Integer)
++getName() : String
+}
+
+class Bot{
 -m_name : String
 -m_score : Integer
 -m_totalBlood : Integer
 -m_cemetery : ArrayList<Card>
 -m_hand : ArrayList<Card>
-+<<create>> Player(name: String, deck: ArrayList<Card>) : Player
-+ draw(nbCard : Integer) : Integer
-+getScore() : Integer
-+getBonesFromGrave() : Integer
-+getHand(): ArrayList<Card>
-+getDeck() : ArrayList<Card>
-+getBoard() : Board
++<<create>>Bot(deck: Deck) : Bot
++pushCards()
++getBestCard(cardList: ArrayList<Card>) : Integer
++getWorstCard(cardList: ArrayList<Card>) : Integer
++sumStats(card: Card) : Integer
++getNextBoard() : Board
++draw(nbCard : Integer) : Integer
 +sacrifice(index: Integer)
 +playCard(handIndex: Integer, slotIndex: Integer)
++boardHasEmptySlot() : Boolean
++isCardPlayable(card: Card) : Boolean
++attack(other: Joueur)
++bury()
++updateCards()
++getScore() : Integer
++getBonesFromGrave() : Integer
++getHand() : ArrayList<Card>
++getDeck() : Deck
++getBoard() : Board
 +getTotalBlood() : Integer
 +incrementTotalBlood(i: Integer)
 +resetTotalBlood()
 +decreaseTotalBlood(i: Integer)
-+boardHasEmptySlot() : Boolean
-+isCardPlayable(card: Card) : Boolean
-+attack(other: Player)
-+bury()
++getName() : String
 }
 
-Player "1  " *--> "  m_cemetery   \n0..15" Card :"possède"
-Player "1  " *--> "    m_deck   \n1" Deck : "  possède"
-Player "1  " *--> "1,2\nm_board, m_nextBoard" Board : "   possède"
-Player "1  " *--> "      m_hand   \n0..15" Card : "  possède"
+class Human{
+-m_name : String
+-m_score : Integer
+-m_totalBlood : Integer
+-m_cemetery : ArrayList<Card>
+-m_hand : ArrayList<Card>
++<<create>>Human(name: String, deck: Deck) : Human
++draw(nbCard : Integer) : Integer
++sacrifice(index: Integer)
++playCard(handIndex: Integer, slotIndex: Integer)
++boardHasEmptySlot() : Boolean
++isCardPlayable(card: Card) : Boolean
++attack(other: Joueur)
++bury()
++updateCards()
++getScore() : Integer
++getBonesFromGrave() : Integer
++getHand() : ArrayList<Card>
++getDeck() : Deck
++getBoard() : Board
++getTotalBlood() : Integer
++incrementTotalBlood(i: Integer)
++resetTotalBlood()
++decreaseTotalBlood(i: Integer)
++getName() : String
+}
+
+Joueur "1  " *--> "  m_cemetery   \n0..*" Card :"possède"
+Joueur "1  " *--> "    m_deck   \n1" Deck : "  possède"
+Human "1  " *--> "1\nm_board" Board : "   possède"
+Bot "1  " *--> "1,2\nm_board, m_nextBoard" Board : "   possède"
+Joueur "1  " *--> "      m_hand   \n0..*" Card : "  possède"
 
 class CardFactory{
 -<<create>> CardFactory() : CardFactory
@@ -67,6 +144,9 @@ class CardFactory{
 +createLouveteau() : Card
 +createLoup() : Card
 +createPunaise() : Card
++createElan() : Card
++createVipere() : Card
++createPorcEpic() : Card
 +createRocher() : Card
 +createSapin() : Card
 }
@@ -82,38 +162,45 @@ class Card {
 -m_bones : Integer
 -m_flying : Boolean
 - m_sacrifiable : Boolean
-+ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean) : Card
-+ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, fly: Boolean, sacrifiable: Boolean) : Card
-+ getName() : String
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, abilities: ArrayList<String>) : Card
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer) : Card
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, sacrifiable: Boolean, abilities: ArrayList<String>) : Card
++ <<create>> Card(n: String, d: Integer, h: Integer,  bl: Integer, bo: Integer, sacrifiable: Boolean) : Card
++ <<create>> Card(card: Card) : Card
++ takeDamage(nbDamage: Integer)
 + getHealth(): Integer
-+ getAttack(): Integer
++ getDamage(): Integer
++ isFlying() : Boolean
 + getBones(): Integer
 + getBlood() : Integer
-+ isFlying() : Boolean
++ getName() : String
 + getExpandable() : Boolean
-+ takeDamage(nbDamage: Integer)
-+ attack(other: Card) : Integer
++ attack(other: Card)
 + isDead() : Boolean
++ getAbilities() : ArrayList<String>
++ addAbility(ability: String)
 + toString() : String
 }
 
 class Board {
 +<<create>> Board(size: Integer) : Board
-+getCards() : Card[*]
-+addToBoard (index: Integer, card : Card)
-+removeFromBoard(index: Integer)
-+attack(other: Board) : Integer
-+hasEmptySlot() : Boolean
-+toString() : String
++ getCards() : Card[*]
++ addToBoard (index: Integer, card : Card)
++ removeFromBoard(index: Integer)
++ attack(other: Board) : Integer
++ getFirstEmptySlot() : Integer
++ hasEmptySlot() : Boolean
++ updateCards()
++ toString() : String
 }
 
-Deck "1"*--> "          m_cards     \n0..*" Card : "contient"
+Deck "1"*--> "m_cards  0..*" Card : "contient"
 Deck ..> CardFactory : <<call>>
 
 class Deck{
 +<<create>>Deck() : Deck
-+<<create>>Deck(roundNumber: Integer) : Deck
--buildDeck(roundNumber: Integer) : Deck
++<<create>>Deck(roundNumber: Integer, isBot: Boolean) : Deck
+-buildDeck(roundNumber: Integer, isBot: Boolean) : ArrayList<Card>
 +addCard(card: Card)
 +draw(): Card
 +getDeckSize(): Integer
@@ -126,14 +213,14 @@ class Game{
 }
 
 Package Affichage{
-Display ..> Player : <<uses>>
+Display ..> Joueur : <<uses>>
 Display ..> Board : <<uses>>
 Display ..> Round : <<uses>>
 
 class Display{
-+{static}hand(player: Player) : String
-+{static}handline(player: Player, cardIndex: Integer) : String
-+{static}player(player: Player, player2: Player) : String
++{static}hand(player: Joueur) : String
++{static}handline(player: Joueur, cardIndex: Integer) : String
++{static}player(player: Joueur, player2: Joueur) : String
 +{static}board(board: Board) : String
 +{static}nextBoard(board: Board) : String
 +{static}intro() : String
@@ -143,12 +230,12 @@ class Display{
 +{static}globalDebug(round: Round) : String
 }
 
-TurnDialog "* " o--> "1" Round : "est utilisé dans"
+TurnDialog o-->"1 m_round" Round : "contient"
+TurnDialog ..> Display : "   <<call>>"
 
 class TurnDialog{
--{static}m_choix : Scanner
--{static}m_round : Round
-+setRound(round: Round)
+
++{static} setRound(round: Round)
 -{static} sleep(millisec: Integer)
 +{static} actionChoices() : String
 +{static} sacrifice() : Integer
@@ -160,7 +247,11 @@ class TurnDialog{
 +{static} handIsEmpty()
 +{static} slotIsOccupied()
 +{static} cardUnplayable()
++{static} botHasPlayedCards()
++{static} humanHasWon()
++{static} botHasWon()
 }
+
 }
 
 @enduml

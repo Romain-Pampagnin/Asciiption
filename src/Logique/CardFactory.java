@@ -3,7 +3,6 @@ package Logique;
 import java.util.ArrayList;
 
 public class CardFactory {
-    static private ArrayList<String> m_nombreusesVies;
     private CardFactory(){}
 
     /**

@@ -1,5 +1,6 @@
 package Logique;
 
+import Affichage.Display;
 import Affichage.TurnDialog;
 
 import java.util.ArrayList;
@@ -29,8 +30,7 @@ public class Round {
 
     public void run() throws Exception {
         initialize(this.m_roundNumber);
-        while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5)
-        {
+        do {
             //début du tour
             m_player.resetTotalBlood();
             m_bot.resetTotalBlood();
@@ -57,7 +57,14 @@ public class Round {
 
 
         }
-        System.out.println("debug fin du premier round");
+        while(this.m_player.getScore() - this.m_bot.getScore() < 5 && this.m_player.getScore() - this.m_bot.getScore() > -5);
+
+        if(this.m_player.getScore() - this.m_bot.getScore() < -5) {
+            TurnDialog.botHasWon();
+        }
+        else{
+            TurnDialog.humanHasWon();
+        }
     }
 
     public Human getPlayer(){

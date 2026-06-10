@@ -88,4 +88,14 @@ public class TurnDialog {
         System.out.println("Votre adversaire a joué ses cartes, elles avanceront au tour prochain pour vous attaquer.");
         sleep(3000);
     }
+
+    public static void humanHasWon(){
+        System.out.println(Display.globalDebug(m_round));
+        System.out.println("Vous avez remporté ce round !.");
+    }
+
+    public static void botHasWon(){
+        System.out.println(Display.globalDebug(m_round));
+        System.out.println("Vous avez remporté ce round !.");
+    }
 }
