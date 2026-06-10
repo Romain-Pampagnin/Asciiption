@@ -6,4 +6,4 @@
 - [ ] regarder les tests assertEquals pour les classes Board et Cards, voir aussi les méthodes toString (pour le moment mis en commentaire car ne passent pas: boardTest l.24 et playerTest l.43)
 - [x] affichage de la balance
 - [ ] mettre l'UML à jour
-- [ ] tests à rédiger pour la classe Deck, + méthode equals et toString à coder pour deck (PlayerTest l.36)
+- [ ] tests à rédiger pour la classe Deck, + méthode equals et toString à coder pour deck (JoueurTest l.36)

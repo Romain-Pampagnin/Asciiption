@@ -104,15 +104,16 @@ public class Bot extends Joueur{
     }
 
     /**
-     * Sacrifie la carte présente sur le Board du Bot, à l'indice passé en parametre
+     * Sacrifie la carte présente sur le Board du Bot, à l'indice passé en parametre, tient compte de la capacité "7 vies"
      * @param index entier, indice de la carte à sacrifier
-     * @throws Exception retourne une exception sur l'emplacement spécifié est vide
+     * @throws Exception retourne une exception si l'emplacement spécifié est vide
      */
-    @Override
     public void sacrifice(int index) throws Exception {
         if(this.m_board.getCards()[index].isPresent()){
-            m_cemetery.add(this.m_board.getCards()[index].get());
-            this.m_board.removeFromBoard(index);
+            if(!this.m_board.getCards()[index].get().getAbilities().contains("7 vies")) {
+                m_cemetery.add(this.m_board.getCards()[index].get());
+                this.m_board.removeFromBoard(index);
+            }
         }
         else {
             throw new Exception("Il n'y a pas de carte à cet emplacement, impossible de sacrifier la carte.");
@@ -155,7 +156,7 @@ public class Bot extends Joueur{
     /**
      * Analyse si la carte passée en parametre est jouable en fonction de ses couts en os et en gouttes de sang
      * @param card carte à analyser
-     * @return vrai si le Bot dispose de suffisamment de ressources pour jouer la carte passée en parametre
+     * @return vrai si le Bot dispose de suffisamment de ressources pour jouer la carte passée en parametre, faux sinon
      */
     @Override
     public boolean isCardPlayable(Card card) {

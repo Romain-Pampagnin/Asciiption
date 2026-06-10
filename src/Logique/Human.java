@@ -9,6 +9,11 @@ public class Human extends Joueur{
       super(name, deck);
     }
 
+    /**
+     * Pioche des cartes dans la pioche du joueur humain
+     * @param nbCard entier, nombre de cartes à piocher
+     * @return entier, nombre de cartes effectivement piochées
+     */
     @Override
     public int draw(int nbCard) {
         int drawnCards=0;
@@ -21,17 +26,30 @@ public class Human extends Joueur{
         return drawnCards;
     }
 
+    /**
+     * Sacrifie la carte présente sur le Board du joueur humain, à l'indice passé en parametre, tient compte de la capacité "7 vies"
+     * @param index entier, indice de la carte à sacrifier
+     * @throws Exception retourne une exception si l'emplacement spécifié est vide
+     */
     @Override
     public void sacrifice(int index) throws Exception {
         if(this.m_board.getCards()[index].isPresent()){
-            m_cemetery.add(this.m_board.getCards()[index].get());
-            this.m_board.removeFromBoard(index);
+            if(!this.m_board.getCards()[index].get().getAbilities().contains("7 vies")) {
+                m_cemetery.add(this.m_board.getCards()[index].get());
+                this.m_board.removeFromBoard(index);
+            }
         }
         else {
             throw new Exception("Il n'y a pas de carte à cet emplacement, impossible de sacrifier la carte.");
         }
     }
 
+    /**
+     * Joue une carte depuis la main du joueur humain vers son Board
+     * @param handIndex entier, indice de la carte à jouer depuis la main du joueur humain
+     * @param slotIndex entier, indice de l'emplacement du Board sur lequel jouer la carte
+     * @throws Exception retourne des exceptions si les indices sont hors des valeurs prévues
+     */
     @Override
     public void playCard(int handIndex, int slotIndex) throws Exception {
         if(slotIndex < m_board.getCards().length && handIndex < m_hand.size()){
@@ -50,11 +68,20 @@ public class Human extends Joueur{
         }
     }
 
+    /**
+     * Indique si le Board du joueur humain contient au moins un emplacement libre
+     * @return vrai si le Board du joueur humain contient au moins un emplacement libre, faux sinon
+     */
     @Override
     public boolean boardHasEmptySlot() {
         return m_board.hasEmptySlot();
     }
 
+    /**
+     * Analyse si la carte passée en parametre est jouable en fonction de ses couts en os et en gouttes de sang
+     * @param card carte à analyser
+     * @return vrai si le joueur humain dispose de suffisamment de ressources pour jouer la carte passée en parametre, faux sinon
+     */
     @Override
     public boolean isCardPlayable(Card card) {
         return (card.getBlood() > 0 &&
@@ -62,6 +89,11 @@ public class Human extends Joueur{
                 || (card.getBlood() == 0 && (boardHasEmptySlot() && card.getBones() <= this.getBonesFromGrave()));
     }
 
+    /**
+     * Attaque un joueur
+     * @param other joueur à attaquer
+     * @throws Exception retourne une exception si la méthode bury rencontre une erreur
+     */
     @Override
     public void attack(Joueur other) throws Exception {
         this.m_score += this.m_board.attack(other.getBoard());

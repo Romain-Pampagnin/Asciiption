@@ -154,4 +154,17 @@ public class CardTest {
         assertEquals(1, carte2.getHealth());
     }
 
+    @Test
+    public void test_toString(){
+        Card carte1 = CardFactory.createVipere();
+        assertEquals("Vipère(dmg=1, hp=1, blood=2, bones=0, abilities=[venin])",carte1.toString());
+    }
+
+    @Test
+    public void test_toString2(){
+        Card carte1 = CardFactory.createVipere();
+        carte1.addAbility("vol");
+        assertEquals("Vipère(dmg=1, hp=1, blood=2, bones=0, abilities=[venin, vol])",carte1.toString());
+    }
+
 }

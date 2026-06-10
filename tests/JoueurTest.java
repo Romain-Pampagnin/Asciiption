@@ -7,10 +7,10 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-public class PlayerTest {
+public class JoueurTest {
     private Deck deck = new Deck();
-    private Player joueur = new Player("",deck);
-    private Player bot = new Player("adversaire",deck);
+    private Human joueur = new Human("humain",deck);
+    private Bot bot = new Bot(deck);
     @Test
     public void test_draw(){
         joueur.getDeck().addCard(CardFactory.createCoyote());

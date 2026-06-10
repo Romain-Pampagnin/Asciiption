@@ -27,7 +27,7 @@ public class Display {
         String vide = "\n";
         String ligneCarteG = "|           |";
         String ligneCarteD = "|           |";
-        String labels =    "\n  Cimetière                           Votre main                               Pioche               Score";
+        String labels =    "\n  Cimetière              Votre main " + padRight("("+player.getName()+")",11) + "                               Pioche               Score";
         String hautBoxes = "\n*-----------*   *-------------------------------------------------------*   *-----------*        *-----------*";
 
         if(player.getTotalBlood() > 0){
@@ -52,7 +52,7 @@ public class Display {
 
         for(int i = 0; i <= taillePlayer; i ++){
             if(i == 0){
-                ligneCarteD = "|           |        ";
+                ligneCarteD = "|           |      D ";
                 if(player.getScore() - player2.getScore() <= -5)
                 {
                     ligneCarteD += "|O---------x| Perdu !";
@@ -60,31 +60,31 @@ public class Display {
                 else if (player.getScore() - player2.getScore() > -5 && player.getScore() - player2.getScore() < 5) {
                     switch (player.getScore() - player2.getScore()) {
                         case -4:
-                            ligneCarteD += "|xO--------x|";
+                            ligneCarteD += "|xO--------x| V";
                             break;
                         case -3:
-                            ligneCarteD += "|x-O-------x|";
+                            ligneCarteD += "|x-O-------x| V";
                             break;
                         case -2:
-                            ligneCarteD += "|x--O------x|";
+                            ligneCarteD += "|x--O------x| V";
                             break;
                         case -1:
-                            ligneCarteD += "|x---O-----x|";
+                            ligneCarteD += "|x---O-----x| V";
                             break;
                         case 0:
-                            ligneCarteD += "|x----O----x|";
+                            ligneCarteD += "|x----O----x| V";
                             break;
                         case 1:
-                            ligneCarteD += "|x-----O---x|";
+                            ligneCarteD += "|x-----O---x| V";
                             break;
                         case 2:
-                            ligneCarteD += "|x------O--x|";
+                            ligneCarteD += "|x------O--x| V";
                             break;
                         case 3:
-                            ligneCarteD += "|x-------O-x|";
+                            ligneCarteD += "|x-------O-x| V";
                             break;
                         case 4:
-                            ligneCarteD += "|x--------Ox|";
+                            ligneCarteD += "|x--------Ox| V";
                             break;
                     }
                 }
@@ -309,6 +309,7 @@ public class Display {
 
     public static String globalDebug(Round round){
         String result ="";
+        result += "Tour " + round.getTourNumber();
         result += Display.player(round.getBot(), round.getPlayer());
         result += "\n";
         result += Display.nextBoard(round.getBot().getNextBoard());

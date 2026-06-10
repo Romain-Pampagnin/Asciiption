@@ -166,17 +166,25 @@ public class Card {
     }
 
     /**
-     *
-     * @return
+     * Obtient la liste des capacités de la carte courante
+     * @return liste de chaines de caractères
      */
     public ArrayList<String> getAbilities(){
         return m_abilities;
     }
 
+    /**
+     * Ajoute une capacité à la carte courante
+     * @param ability chaine de caractère, ajoutée à la liste des capacités de la carte courante
+     */
     public void addAbility(String ability){
         this.m_abilities.add(ability);
     }
 
+    /**
+     * Résume la carte courante sous forme d'une chaine de caractères
+     * @return chaine de caractère : nom, statistiques et capacités de la carte
+     */
     @Override
     public String toString(){
         return this.m_name + "(dmg=" + this.m_damage + ", hp=" + this.getHealth() + ", blood="

@@ -71,6 +71,10 @@ public class Round {
         m_tourNumber += i;
     }
 
+    public int getTourNumber(){
+        return m_tourNumber;
+    }
+
     public void actions(Joueur player,Joueur other) throws Exception {
         //TurnDialog.actionChoices();
         String choix = "";
