@@ -6,7 +6,9 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
-class Main{}
+class Main{
+
+}
 
 
 package Logique{
@@ -208,6 +210,14 @@ class Deck{
 }
 
 class Game{
++m_playerName : String
++m_gamesWon : Integer
++m_gamesLost : Integer
++<<create>> Game() : Game
++Initialize()
++StartRound(i: Integer)
++getGamesWon() : Integer
++getGamesLost() : Integer
 }
 
 }
@@ -250,6 +260,9 @@ class TurnDialog{
 +{static} botHasPlayedCards()
 +{static} humanHasWon()
 +{static} botHasWon()
++{static} intro()
++{static} finalWon()
++{static} finalLost()
 }
 
 }

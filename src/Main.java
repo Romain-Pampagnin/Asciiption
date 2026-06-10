@@ -6,13 +6,23 @@ import java.util.ArrayList;
 public class Main
 {
     public static void main(String[] args) throws Exception {
-        System.out.println("Another challenger... It has been ages.");
+        Game partie = new Game();
+        partie.Initialize();
 
-        Round round1 = new Round("Joueur1", 1);
-        round1.run();
+        for(int i = 1; i <= 3; i++) {
+            partie.StartRound(i);
+        }
 
+        //compter les games perdues et gagnées
+        if(partie.getGamesWon() > partie.getGamesLost()){
+            TurnDialog.finalWon();
+        }
+        else {
+            TurnDialog.finalLost();
+        }
 
-        //Human joueurTest = new Human("joueur de test", new Deck(1));
+        //Round round1 = new Round("Joueur1", 1);
+        //round1.run();
 
 
     }

@@ -98,4 +98,27 @@ public class TurnDialog {
         System.out.println(Display.globalDebug(m_round));
         System.out.println("Vous avez remporté ce round !.");
     }
+
+    public static void intro(){
+        System.out.println("Bienvenue dans le Projet Inscription.");
+        System.out.println("Vous affronterez un adversaire redoutable au cours de 3 manches, qui suivront les préceptes et guidelines Java transmises par le terrible Leuquintrek.");
+        System.out.println("Prenez garde, car terrible est sa colère et immenses sont ses pouvoirs.");
+    }
+
+    public static void askName(){
+        System.out.println();
+        System.out.println("Quel est votre nom joueur ?");
+    }
+
+    public static void finalWon(){
+        System.out.println();
+        System.out.println("Vous avez survécu aux milles et une tortures infligées par le perfide Leuquintrek.");
+        System.out.println("Vous avez prouvé votre valeur. Bonne chance pour la suite, que Z vous garde.");
+    }
+
+    public static void finalLost(){
+        System.out.println();
+        System.out.println("Je vous avais prévenu, le grand Leuquintrek ne connait pas de limites.");
+        System.out.println("Ramassez vos os et votre sang, des heures sombres vous attendent.");
+    }
 }

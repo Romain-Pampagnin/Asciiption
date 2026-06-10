@@ -14,10 +14,12 @@ public class Round {
     private Bot m_bot;
     private int m_roundNumber;
     private int m_tourNumber;
+    private boolean m_playerHasWon;
 
     public Round(String playerName,int number){
         m_roundNumber = number;
         m_tourNumber = 1;
+        m_playerHasWon = false;
         //a changer
         Deck deckPlayer = new Deck(m_roundNumber, false);
         Deck deckEnemy = new Deck(m_roundNumber, true);
@@ -64,6 +66,7 @@ public class Round {
         }
         else{
             TurnDialog.humanHasWon();
+            m_playerHasWon = true;
         }
     }
 
@@ -226,6 +229,10 @@ public class Round {
         else{
             m_bot.getBoard().getCards()[indexP2] = Optional.of(CardFactory.createRocher());
         }
+    }
+
+    public boolean hasHumanWon (){
+        return m_playerHasWon;
     }
 
 
