@@ -139,7 +139,7 @@ Mécanique supplémentaire qui se déclenche à la fin de la deuxième partie. A
 
 <details>
 <summary>Diagramme des classes en UML</summary>
-<p align="center"><img alt="diagramme uml de la SAE" src="assets/uml.png"></p>
+<p align="center"><img alt="diagramme uml de la SAE" src="assets/uml.jpg" width="900"></p>
 </details>
 <br>
 
