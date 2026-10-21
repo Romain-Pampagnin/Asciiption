@@ -249,4 +249,6 @@ A distance de la SAE, je constate que ma compréhension et mon implémentation d
 - IUT Robert Schuman, département informatique : encadrement, sujet, conseils
 - Jeu original : Inscryption (Daniel Mullins Games)
 <br>
-Licence MIT, voir le fichier LICENSE
+Distribué sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.
+
+© 2026 Romain Pampagnin, Tom Schwartz
