@@ -237,10 +237,11 @@ En l'état, notre ébauche ne permet pas de jouer plusieurs parties d'affilée. 
 Cette SAE a été pour moi une source de beaucoup de frustration, pour plusieurs raisons :
 - le sujet était pensé pour ne pas pouvoir être complété à 100 %
 - nous avions 2 autres SAE à mener en parallèle, en plus de nos révisions et partiels
-- au sein du binôme, la gestion du temps, l'investissement et la méthode de travail étaient divergents
+- la gestion du temps et de la charge de travail n'a pas été satisfaisante au sein du binôme
 
 Elle m'a cependant permis de mettre en pratique les bases de la programmation orientée objet, et de mieux comprendre ses concepts. <br>
-A distance de la SAE, je constate que ma compréhension et mon implémentation de la POO ont bien évolué. Je suis beaucoup plus à l'aise et rigoureux dans ma structuration du code et l'attribution des responsabilités. Des concepts qui me paraissaient très théoriques et verbeux sont plus clairs à présent.
+A distance de la SAE, je constate que ma compréhension et mon implémentation de la POO ont bien évolué. Je suis beaucoup plus à l'aise et rigoureux dans ma structuration du code et l'attribution des responsabilités. Des concepts qui me paraissaient très théoriques et verbeux sont plus clairs à présent.<br>
+Je dois encore porter une attention particulière à la gestion d'exceptions et au fait de prévoir suffisemment de tests unitaires.
 
 
 ---
@@ -248,7 +249,7 @@ A distance de la SAE, je constate que ma compréhension et mon implémentation d
 
 - IUT Robert Schuman, département informatique : encadrement, sujet, conseils
 - Jeu original : Inscryption (Daniel Mullins Games)
-<br>
-Distribué sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.
+
+Distribué sous licence MIT. Voir le fichier [LICENSE](https://github.com/Romain-Pampagnin/Asciiption/blob/HEAD/LICENSE) pour plus d'informations.
 
 © 2026 Romain Pampagnin, Tom Schwartz
